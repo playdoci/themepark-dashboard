@@ -1,7 +1,3 @@
-// ============================================================
-// server.js - 테마파크 인사이트 대시보드 백엔드 서버
-// 네이버 뉴스 API + Claude AI 웹검색 연동
-// ============================================================
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -14,15 +10,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const newsCache = new NodeCache({ stdTTL: parseInt(process.env.NEWS_CACHE_TTL) || 1800 });
-const priceCache = new NodeCache({ stdTTL: parseInt(process.env.PRICE_CACHE_TTL) || 3600 });
 
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN || '*' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ── 파크 목록 (뉴스 검색용 키워드 포함) ──────────────────────
+// ── 16개 파크 목록 (검색 키워드 포함) ────────────────────────
 const PARK_LIST = [
-  { key: 'all',          name: '전체',            keyword: '테마파크 워터파크 스파' },
   { key: 'woojin',       name: '웅진플레이도시',   keyword: '웅진플레이도시' },
   { key: 'caribbean',    name: '캐리비안베이',      keyword: '캐리비안베이' },
   { key: 'oceanworld',   name: '오션월드',          keyword: '비발디파크 오션월드' },
@@ -41,12 +35,69 @@ const PARK_LIST = [
   { key: 'gyeongju',     name: '경주월드',          keyword: '경주월드' },
 ];
 
+// 파크 이름 목록 (뉴스 필터링용)
+const PARK_NAMES = PARK_LIST.map(p => p.name);
+const PARK_KEYWORDS = PARK_LIST.map(p => p.keyword.split(' ')[0]); // 첫 키워드만
+
 // ── 파크 목록 API ─────────────────────────────────────────────
 app.get('/api/parks', (req, res) => {
   res.json(PARK_LIST);
 });
 
-// ── 뉴스 API (네이버 우선 → Claude AI 대체) ──────────────────
+// ── 네이버 뉴스 단일 검색 함수 ────────────────────────────────
+async function searchNaverNews(keyword, display = 5) {
+  const res = await axios.get('https://openapi.naver.com/v1/search/news.json', {
+    params: { query: keyword, display, sort: 'date' },
+    headers: {
+      'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
+      'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET
+    }
+  });
+  return res.data.items || [];
+}
+
+// 네이버 날짜 포맷 변환
+function formatDate(pubDate) {
+  const d = new Date(pubDate);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// 태그 자동 분류
+function guessTag(text) {
+  if (/개장|오픈|재개|폐장/.test(text)) return '개장';
+  if (/할인|특가|쿠폰|프로모션/.test(text)) return '가격';
+  if (/입장료|요금|가격|인상|인하/.test(text)) return '가격';
+  if (/이벤트|행사|축제|공연|페스티벌/.test(text)) return '이벤트';
+  if (/신규|새로|리뉴얼|신설|증설/.test(text)) return '신규시설';
+  if (/워터파크|물놀이|슬라이드|파도풀/.test(text)) return '워터파크';
+  if (/스파|온천|사우나|찜질|온욕/.test(text)) return '스파';
+  return '뉴스';
+}
+
+// 어떤 파크 뉴스인지 찾기
+function detectParkName(text) {
+  for (const park of PARK_LIST) {
+    const keywords = park.keyword.split(' ');
+    for (const kw of keywords) {
+      if (text.includes(kw)) return park.name;
+    }
+  }
+  return null;
+}
+
+// 이 뉴스가 16개 파크 중 하나와 관련있는지 확인
+function isRelevantNews(title, description) {
+  const text = title + ' ' + description;
+  for (const park of PARK_LIST) {
+    const keywords = park.keyword.split(' ');
+    for (const kw of keywords) {
+      if (text.includes(kw)) return true;
+    }
+  }
+  return false;
+}
+
+// ── 뉴스 API ─────────────────────────────────────────────────
 app.get('/api/news', async (req, res) => {
   const parkKey = req.query.park || 'all';
   const cacheKey = `news_${parkKey}`;
@@ -54,118 +105,118 @@ app.get('/api/news', async (req, res) => {
   const cached = newsCache.get(cacheKey);
   if (cached) return res.json({ ...cached, cached: true });
 
-  const park = PARK_LIST.find(p => p.key === parkKey) || PARK_LIST[0];
-  const keyword = park.keyword;
-
-  // 네이버 API 키가 있으면 네이버 뉴스 사용
-  if (process.env.NAVER_CLIENT_ID && process.env.NAVER_CLIENT_SECRET) {
-    try {
-      const naverRes = await axios.get('https://openapi.naver.com/v1/search/news.json', {
-        params: { query: keyword, display: 10, sort: 'date' },
-        headers: {
-          'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
-          'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET
-        }
-      });
-
-      const articles = naverRes.data.items.map(item => ({
-        title: item.title.replace(/<[^>]*>/g, ''),
-        summary: item.description.replace(/<[^>]*>/g, ''),
-        source: item.originallink
-          ? new URL(item.originallink).hostname.replace('www.', '')
-          : '네이버뉴스',
-        date: formatNaverDate(item.pubDate),
-        url: item.originallink || item.link,
-        tag: guessTag(item.title + item.description),
-        parkName: parkKey === 'all'
-          ? guessParkName(item.title + item.description)
-          : park.name
-      }));
-
-      const result = {
-        articles,
-        fetchedAt: new Date().toISOString(),
-        park: park.name,
-        source: 'naver'
-      };
-      newsCache.set(cacheKey, result);
-      return res.json(result);
-
-    } catch (err) {
-      console.error('네이버 뉴스 API 오류:', err.message);
-    }
+  // 네이버 API 없으면 Claude로 대체
+  if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET) {
+    return res.json({
+      articles: getFallbackNews(),
+      fetchedAt: new Date().toISOString(),
+      source: 'fallback',
+      fallback: true
+    });
   }
 
-  // Claude AI 웹검색으로 대체
-  if (process.env.ANTHROPIC_API_KEY) {
-    try {
-      const today = new Date();
-      const dateStr = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일`;
+  try {
+    let articles = [];
 
-      const response = await axios.post(
-        'https://api.anthropic.com/v1/messages',
-        {
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 2000,
-          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-          messages: [{
-            role: 'user',
-            content: `오늘(${dateStr}) 기준으로 "${keyword}" 관련 최신 뉴스를 검색해서 JSON으로만 반환해줘. 다른 텍스트 없이 JSON만.
-{
-  "articles": [
-    {
-      "title": "기사 제목",
-      "summary": "1~2줄 요약",
-      "source": "출처",
-      "date": "2026.04.06",
-      "url": "실제 기사 URL",
-      "tag": "이벤트/가격/개장/신규시설/워터파크/스파 중 하나",
-      "parkName": "${park.name}"
-    }
-  ]
-}
-최대 8개, URL은 실제 링크로.`
-          }]
-        },
-        {
-          headers: {
-            'x-api-key': process.env.ANTHROPIC_API_KEY,
-            'anthropic-version': '2023-06-01',
-            'content-type': 'application/json',
-            'anthropic-beta': 'web-search-2025-03-05'
-          }
-        }
+    if (parkKey === 'all') {
+      // 전체: 16개 파크를 각각 검색 → 합치기 → 날짜순 정렬
+      // 한 번에 너무 많은 요청 방지: 파크당 3개씩, 병렬 처리
+      const results = await Promise.allSettled(
+        PARK_LIST.map(park => searchNaverNews(park.keyword, 3))
       );
 
-      const content = response.data.content;
-      let jsonText = '';
-      for (const block of content) {
-        if (block.type === 'text') jsonText += block.text;
+      const seen = new Set(); // 중복 제거용
+
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].status !== 'fulfilled') continue;
+        const items = results[i].value;
+        const park = PARK_LIST[i];
+
+        for (const item of items) {
+          const title = item.title.replace(/<[^>]*>/g, '');
+          const desc = item.description.replace(/<[^>]*>/g, '');
+          const url = item.originallink || item.link;
+
+          // 중복 제거 (제목 기준)
+          if (seen.has(title)) continue;
+          seen.add(title);
+
+          // 관련 없는 뉴스 필터링
+          if (!isRelevantNews(title, desc)) continue;
+
+          articles.push({
+            title,
+            summary: desc,
+            source: item.originallink
+              ? new URL(item.originallink).hostname.replace('www.', '')
+              : '네이버뉴스',
+            date: formatDate(item.pubDate),
+            pubDate: new Date(item.pubDate).getTime(), // 정렬용
+            url,
+            tag: guessTag(title + desc),
+            parkName: park.name
+          });
+        }
       }
-      const clean = jsonText.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
-      const result = {
-        articles: parsed.articles || [],
-        fetchedAt: new Date().toISOString(),
-        park: park.name,
-        source: 'claude'
-      };
-      newsCache.set(cacheKey, result);
-      return res.json(result);
 
-    } catch (err) {
-      console.error('Claude 뉴스 오류:', err.message);
+      // 날짜 최신순 정렬
+      articles.sort((a, b) => b.pubDate - a.pubDate);
+
+      // pubDate 필드 제거 (클라이언트에 불필요)
+      articles = articles.map(({ pubDate, ...rest }) => rest);
+
+      // 최대 30개
+      articles = articles.slice(0, 30);
+
+    } else {
+      // 특정 파크: 해당 파크만 검색
+      const park = PARK_LIST.find(p => p.key === parkKey);
+      if (!park) return res.status(404).json({ error: '파크를 찾을 수 없습니다' });
+
+      const items = await searchNaverNews(park.keyword, 10);
+
+      articles = items
+        .filter(item => {
+          const text = item.title + item.description;
+          return isRelevantNews(text, '');
+        })
+        .map(item => {
+          const title = item.title.replace(/<[^>]*>/g, '');
+          const desc = item.description.replace(/<[^>]*>/g, '');
+          return {
+            title,
+            summary: desc,
+            source: item.originallink
+              ? new URL(item.originallink).hostname.replace('www.', '')
+              : '네이버뉴스',
+            date: formatDate(item.pubDate),
+            url: item.originallink || item.link,
+            tag: guessTag(title + desc),
+            parkName: park.name
+          };
+        });
     }
-  }
 
-  // 둘 다 실패 시 fallback
-  res.json({
-    articles: getFallbackNews(park.name),
-    fetchedAt: new Date().toISOString(),
-    park: park.name,
-    source: 'fallback',
-    fallback: true
-  });
+    const result = {
+      articles,
+      fetchedAt: new Date().toISOString(),
+      source: 'naver',
+      total: articles.length
+    };
+
+    newsCache.set(cacheKey, result);
+    return res.json(result);
+
+  } catch (err) {
+    console.error('네이버 뉴스 오류:', err.message);
+    return res.json({
+      articles: getFallbackNews(),
+      fetchedAt: new Date().toISOString(),
+      source: 'fallback',
+      fallback: true,
+      error: err.message
+    });
+  }
 });
 
 // ── 가격 API ─────────────────────────────────────────────────
@@ -177,10 +228,7 @@ app.get('/api/prices', (req, res) => {
     return res.json(park);
   }
   const summary = Object.entries(PARK_PRICES).map(([key, p]) => ({
-    id: key,
-    name: p.name,
-    currentSeason: p.currentSeason,
-    updatedAt: p.updatedAt,
+    id: key, name: p.name, currentSeason: p.currentSeason, updatedAt: p.updatedAt,
     lowestPrice: Math.min(...p.tickets.map(t => t.prices.adult).filter(Boolean))
   }));
   res.json({ parks: summary, updatedAt: new Date().toISOString() });
@@ -213,50 +261,21 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// ── 유틸 함수 ─────────────────────────────────────────────────
-function formatNaverDate(pubDate) {
-  const d = new Date(pubDate);
-  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
-}
-
-function guessTag(text) {
-  if (/개장|오픈|재개|폐장/.test(text)) return '개장';
-  if (/할인|특가|이벤트|프로모션|쿠폰/.test(text)) return '이벤트';
-  if (/입장료|가격|요금|인상|인하/.test(text)) return '가격';
-  if (/신규|새로|리뉴얼|신설/.test(text)) return '신규시설';
-  if (/워터파크|물놀이|슬라이드|파도풀/.test(text)) return '워터파크';
-  if (/스파|온천|사우나|찜질/.test(text)) return '스파';
-  return '뉴스';
-}
-
-function guessParkName(text) {
-  const parks = [
-    '웅진플레이도시','캐리비안베이','오션월드','원마운트','테르메덴',
-    '아일랜드캐슬','아쿠아필드','아산스파비스','스플라스','오션어드벤처',
-    '파라다이스도고','에버랜드','롯데월드','레고랜드','서울랜드','경주월드'
-  ];
-  for (const p of parks) {
-    if (text.includes(p)) return p;
-  }
-  return null;
-}
-
-function getFallbackNews(parkName) {
-  return [{
-    title: `${parkName} 뉴스를 불러오려면 API 키 설정이 필요합니다`,
-    summary: 'Railway Variables에 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET 또는 ANTHROPIC_API_KEY를 설정해주세요.',
+// ── Fallback 뉴스 ─────────────────────────────────────────────
+function getFallbackNews() {
+  return PARK_LIST.slice(0, 5).map(park => ({
+    title: `${park.name} 관련 최신 뉴스`,
+    summary: 'NAVER_CLIENT_ID / NAVER_CLIENT_SECRET을 Railway Variables에 설정하면 실시간 뉴스가 표시됩니다.',
     source: '안내',
-    date: formatNaverDate(new Date()),
-    url: `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(parkName)}`,
+    date: new Date().toISOString().slice(0, 10).replace(/-/g, '.'),
+    url: `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(park.keyword)}`,
     tag: '안내',
-    parkName
-  }];
+    parkName: park.name
+  }));
 }
 
 app.listen(PORT, () => {
-  console.log(`✅ 테마파크 인사이트 서버 실행 중`);
-  console.log(`📍 로컬 접속: http://localhost:${PORT}`);
-  console.log(`📰 뉴스 API: http://localhost:${PORT}/api/news`);
-  console.log(`💰 가격 API: http://localhost:${PORT}/api/prices`);
-  console.log(`⚙️  NAVER 또는 ANTHROPIC API 키 설정 필요`);
+  console.log(`✅ 테마파크 인사이트 서버 실행 중 - 포트 ${PORT}`);
+  console.log(`📰 뉴스: http://localhost:${PORT}/api/news`);
+  console.log(`💰 가격: http://localhost:${PORT}/api/prices`);
 });
