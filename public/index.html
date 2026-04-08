@@ -43,74 +43,73 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .dot-live{width:6px;height:6px;border-radius:50%;background:#3B6D11;flex-shrink:0;}
 .status-t{font-size:11px;color:var(--txt2);}
 .ncard{display:block;background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px;text-decoration:none;}
+.ncard:active{border-color:var(--border2);}
 .ntag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-bottom:6px;font-weight:500;}
-.tag-워터파크{background:var(--teal-bg);color:var(--teal);}
-.tag-이벤트{background:var(--blue-bg);color:var(--blue);}
-.tag-가격{background:var(--amber-bg);color:var(--amber);}
-.tag-신규시설{background:var(--red-bg);color:var(--red);}
-.tag-개장{background:var(--green-bg);color:var(--green);}
-.tag-스파{background:var(--purple-bg);color:var(--purple);}
-.tag-뉴스,.tag-안내{background:var(--bg2);color:var(--txt2);}
+.tag-워터파크,.tag-water{background:var(--teal-bg);color:var(--teal);}
+.tag-이벤트,.tag-event{background:var(--blue-bg);color:var(--blue);}
+.tag-가격,.tag-price{background:var(--amber-bg);color:var(--amber);}
+.tag-신규시설,.tag-new{background:var(--red-bg);color:var(--red);}
+.tag-개장,.tag-open{background:var(--green-bg);color:var(--green);}
+.tag-스파,.tag-spa{background:var(--purple-bg);color:var(--purple);}
+.tag-뉴스,.tag-news,.tag-안내{background:var(--bg2);color:var(--txt2);}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
-.nmeta{font-size:11px;color:var(--txt2);}
+.nmeta{font-size:11px;color:var(--txt2);display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
 .nsrc{font-weight:500;}
-.npark-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:10px;background:var(--bg2);color:var(--txt2);margin-left:4px;}
+.npark-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:10px;background:var(--bg2);color:var(--txt2);}
+.news-loading{text-align:center;padding:30px;color:var(--txt2);font-size:14px;}
 .spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-box{text-align:center;padding:30px;color:var(--txt2);font-size:14px;}
 .load-more{width:100%;padding:11px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--txt2);cursor:pointer;margin-top:4px;}
 .naver-more{display:block;text-align:center;padding:12px;font-size:12px;color:var(--blue);text-decoration:none;margin-top:4px;background:var(--blue-bg);border-radius:var(--radius);font-weight:500;}
 
-/* 가격비교 - 파크 선택 */
-.park-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px;}
-.pcard{border:0.5px solid var(--border);border-radius:var(--radius);padding:9px 5px;cursor:pointer;text-align:center;transition:all .15s;}
-.pcard.active{border-color:var(--txt);background:var(--bg2);}
-.picon{font-size:18px;margin-bottom:2px;}
-.pname{font-size:10px;font-weight:500;color:var(--txt);line-height:1.3;}
-.ploc{font-size:9px;color:var(--txt2);margin-top:1px;}
+/* 가격비교 */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.stat-card{background:var(--bg2);border-radius:var(--radius-sm);padding:10px 12px;}
+.stat-label{font-size:10px;color:var(--txt2);margin-bottom:3px;}
+.stat-val{font-size:16px;font-weight:600;color:var(--txt);}
+.stat-sub{font-size:10px;color:var(--txt2);}
 .srch{width:100%;padding:8px 12px;margin-bottom:8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);}
 .cat-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:8px;margin-bottom:10px;scrollbar-width:none;}
 .cat-row::-webkit-scrollbar{display:none;}
 .cat-btn{padding:4px 12px;border-radius:20px;flex-shrink:0;border:0.5px solid var(--border2);background:var(--bg);font-size:11px;font-weight:500;color:var(--txt2);cursor:pointer;}
 .cat-btn.active{background:var(--txt);color:var(--bg);}
-
-/* 가격 섹션 */
-.price-section-wrap{margin-bottom:12px;}
-.price-block{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
-.price-block-hd{background:var(--bg2);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
-.price-block-title{font-size:13px;font-weight:600;color:var(--txt);}
-.price-block-sub{font-size:10px;color:var(--txt2);margin-top:2px;}
-.price-block-badge{font-size:10px;padding:3px 8px;border-radius:20px;background:var(--green-bg);color:var(--green);font-weight:500;}
-.price-block-badge.live{background:var(--blue-bg);color:var(--blue);}
-
-/* 네이버 쇼핑 실시간 가격 카드 */
-.shop-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-top:0.5px solid var(--border);text-decoration:none;}
-.shop-item:active{background:var(--bg2);}
-.shop-left{flex:1;min-width:0;}
-.shop-rank{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:600;margin-right:6px;flex-shrink:0;}
-.sr1{background:#FAEEDA;color:#854F0B;}.sr2{background:#F1EFE8;color:#5F5E5A;}.sr3{background:#FAECE7;color:#993C1D;}.srn{background:var(--bg2);color:var(--txt2);}
-.shop-title{font-size:13px;font-weight:500;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
-.shop-mall{font-size:11px;color:var(--txt2);margin-top:2px;}
-.shop-right{text-align:right;flex-shrink:0;margin-left:8px;}
-.shop-price{font-size:15px;font-weight:600;color:var(--txt);}
-.shop-go{font-size:10px;color:var(--blue);margin-top:2px;}
-
-/* 채널 직접 링크 버튼 */
-.channel-links{padding:10px 14px;border-top:0.5px solid var(--border);}
-.channel-links-label{font-size:10px;color:var(--txt2);margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
-.channel-btns{display:flex;flex-wrap:wrap;gap:6px;}
-.ch-btn{display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);text-decoration:none;font-size:11px;color:var(--txt);font-weight:500;}
-.ch-btn:active{background:var(--bg3);}
-.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.dot-home{background:#888;}.dot-nori{background:#7C3AED;}.dot-yanolja{background:#FF4E96;}.dot-yeogi{background:#00BCD4;}
-
-/* 공식 정가 참고 */
-.ref-price-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-top:0.5px solid var(--border);}
-.ref-label{font-size:12px;color:var(--txt2);}
-.ref-val{font-size:13px;font-weight:600;color:var(--txt);}
-.ref-note{font-size:10px;color:var(--txt3);}
-
-.data-notice{font-size:10px;color:var(--txt3);text-align:center;padding:6px 0 4px;}
+.park-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px;}
+.pcard{border:0.5px solid var(--border);border-radius:var(--radius);padding:9px 5px;cursor:pointer;text-align:center;}
+.pcard.active{border-color:var(--txt);background:var(--bg2);}
+.picon{font-size:18px;margin-bottom:2px;}
+.pname{font-size:10px;font-weight:500;color:var(--txt);line-height:1.3;}
+.ploc{font-size:9px;color:var(--txt2);margin-top:1px;}
+.ticket-tabs{display:flex;gap:5px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;}
+.ticket-tabs::-webkit-scrollbar{display:none;}
+.tt-btn{padding:4px 10px;border-radius:20px;flex-shrink:0;border:0.5px solid var(--border2);background:var(--bg);font-size:11px;font-weight:500;color:var(--txt2);cursor:pointer;}
+.tt-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.sort-row{display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+.sort-lbl{font-size:11px;color:var(--txt2);white-space:nowrap;}
+.sort-btn{padding:3px 9px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);font-size:10px;font-weight:500;color:var(--txt2);cursor:pointer;}
+.sort-btn.active{background:var(--txt);color:var(--bg);}
+.price-tbl{border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+.tbl-hd{background:var(--bg2);padding:9px 14px;display:flex;justify-content:space-between;align-items:flex-start;}
+.tbl-title{font-size:13px;font-weight:600;color:var(--txt);}
+.tbl-season{font-size:10px;color:var(--txt2);margin-top:2px;}
+.tbl-link{font-size:10px;color:var(--blue);text-decoration:none;font-weight:500;white-space:nowrap;margin-left:8px;}
+.sec-hd{padding:6px 14px;background:var(--bg3);border-top:0.5px solid var(--border);}
+.sec-hd-lbl{font-size:10px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;}
+.prow{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:0.5px solid var(--border);}
+.ch-info{display:flex;align-items:center;gap:8px;}
+.ch-logo{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;}
+.l-home{background:#F1EFE8;color:#444;}.l-nori{background:#EDE9FE;color:#7C3AED;}.l-naver{background:#E8F5E3;color:#03C75A;}.l-coupang{background:#FFF0DB;color:#E67E00;}.l-kakao{background:#FEF3C7;color:#92400E;}.l-mrt{background:#E0F2FE;color:#0369A1;}.l-yanolja{background:#FBEAF0;color:#993556;}.l-yeogi{background:#E6F1FB;color:#185FA5;}.l-gmarket{background:#FAEEDA;color:#854F0B;}.l-11st{background:#FAECE7;color:#993C1D;}.l-auction{background:#EAF3DE;color:#3B6D11;}.l-kidsnote{background:#EEEDFE;color:#534AB7;}
+.ch-name{font-size:12px;font-weight:500;color:var(--txt);}
+.ch-type{font-size:10px;color:var(--txt2);}
+.pi{text-align:right;flex-shrink:0;}
+.pi-amt{font-size:14px;font-weight:600;color:var(--txt);}
+.pi-sub{font-size:10px;color:var(--txt2);margin-top:1px;}
+.pi-disc{font-size:10px;padding:2px 5px;border-radius:3px;background:var(--red-bg);color:var(--red);font-weight:500;}
+.pi-best{font-size:10px;padding:2px 5px;border-radius:3px;background:var(--green-bg);color:var(--green);font-weight:500;}
+.pi-orig{font-size:10px;color:var(--txt3);text-decoration:line-through;margin-right:3px;}
+.rank-b{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;}
+.r1{background:#FAEEDA;color:#854F0B;}.r2{background:#F1EFE8;color:#5F5E5A;}.r3{background:#FAECE7;color:#993C1D;}.rn{background:var(--bg2);color:var(--txt2);}
+.notice-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:8px 12px;margin-bottom:8px;font-size:11px;color:var(--amber);}
+.data-notice{font-size:10px;color:var(--txt3);text-align:center;padding:6px 0;}
 
 /* 트렌드 */
 .sec-lbl{font-size:10px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
@@ -161,7 +160,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <!-- 뉴스 -->
 <div id="tab-news" class="section active">
   <div class="breaking"><div class="blink"></div><div class="breaking-t" id="breaking-text">뉴스 로딩 중...</div></div>
-  <div class="chips">
+  <div class="chips" id="news-chips">
     <div class="chip active" onclick="filterNews('전체',this)">전체</div>
     <div class="chip" onclick="filterNews('워터파크',this)">워터파크</div>
     <div class="chip" onclick="filterNews('스파',this)">스파/온천</div>
@@ -172,14 +171,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
   <div class="news-status">
     <div class="dot-live"></div>
-    <div class="status-t" id="news-status-text">네이버 뉴스 연동 중...</div>
+    <div class="status-t" id="news-status-text">네이버 뉴스 연동</div>
   </div>
-  <div id="news-list"><div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div></div>
-  <a class="naver-more" id="naver-more-link" href="https://search.naver.com/search.naver?where=news&query=테마파크+워터파크" target="_blank">네이버에서 더 보기 →</a>
+  <div id="news-list">
+    <div class="news-loading"><div class="spinner"></div>뉴스 검색 중...</div>
+  </div>
+  <a class="naver-more" id="naver-more-link" href="https://search.naver.com/search.naver?where=news&query=테마파크+워터파크" target="_blank">
+    네이버에서 더 보기 →
+  </a>
 </div>
 
 <!-- 가격비교 -->
 <div id="tab-price" class="section">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">추적 파크</div>
+      <div class="stat-val">16곳</div>
+      <div class="stat-sub">실제 공식가 기준</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">현재 시즌</div>
+      <div class="stat-val" style="font-size:12px;">2026 봄</div>
+      <div class="stat-sub" style="color:var(--green);font-weight:500;">공식홈 확인 기준</div>
+    </div>
+  </div>
   <input class="srch" id="parkSearch" placeholder="파크 검색..." oninput="filterParks(this.value)">
   <div class="cat-row">
     <button class="cat-btn active" onclick="selCat('전체',this)">전체</button>
@@ -187,8 +202,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <button class="cat-btn" onclick="selCat('테마파크',this)">테마파크</button>
   </div>
   <div class="park-grid" id="parkGrid"></div>
-  <div id="price-section"><div class="loading-box"><div class="spinner"></div>가격 조회 중...</div></div>
-  <div class="data-notice">※ 네이버 쇼핑 실시간 가격 기준 · 1시간 캐시 · 실제 구매 전 각 채널에서 최종 확인</div>
+  <div class="ticket-tabs" id="ticketTabs"></div>
+  <div class="sort-row">
+    <span class="sort-lbl">정렬:</span>
+    <button class="sort-btn active" id="s-price" onclick="setSort('price',this)">낮은 가격순</button>
+    <button class="sort-btn" id="s-disc" onclick="setSort('disc',this)">할인율순</button>
+    <button class="sort-btn" id="s-name" onclick="setSort('name',this)">채널명순</button>
+  </div>
+  <div id="price-section"><div class="news-loading"><div class="spinner"></div>가격 정보 로딩 중...</div></div>
+  <div class="data-notice">※ 공식 홈페이지 정가 기준 · 외부 채널은 실제 채널에서 최종 확인 필수</div>
 </div>
 
 <!-- 트렌드 -->
@@ -259,7 +281,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 </div>
 
 <script>
-const API = '/api';
+const API_BASE = '/api';
+const NAVER_KEYWORDS = '테마파크 워터파크 스파 온천 에버랜드 롯데월드 캐리비안베이 웅진플레이도시';
+
+const CATEGORY_KEYWORDS = {
+  '전체':   '테마파크 워터파크 스파 온천',
+  '워터파크': '워터파크 물놀이 슬라이드',
+  '스파':    '스파 온천 사우나 테르메덴 아산스파',
+  '이벤트':  '테마파크 이벤트 행사 축제',
+  '가격':    '테마파크 입장료 할인 특가',
+  '신규시설': '테마파크 신규 리뉴얼 오픈',
+  '개장':    '워터파크 개장 폐장 2026'
+};
 
 const PARKS = [
   {key:'woojin',      name:'웅진플레이도시', icon:'🌊', cat:'워터파크', loc:'경기 부천'},
@@ -280,21 +313,28 @@ const PARKS = [
   {key:'gyeongju',    name:'경주월드',        icon:'🏯', cat:'테마파크', loc:'경북 경주'},
 ];
 
-const CATEGORY_KEYWORDS = {
-  '전체':'테마파크 워터파크 스파 온천',
-  '워터파크':'워터파크 물놀이',
-  '스파':'스파 온천 사우나',
-  '이벤트':'테마파크 이벤트 행사 축제',
-  '가격':'테마파크 입장료 할인 특가',
-  '신규시설':'테마파크 신규 리뉴얼 오픈',
-  '개장':'워터파크 개장 폐장 2026'
-};
+const CHANNELS = [
+  {key:'home',    name:'공식 홈페이지', cls:'l-home',    s:'홈',  type:'공식가/문화비소득공제'},
+  {key:'nori',    name:'놀이의발견',    cls:'l-nori',    s:'놀발', type:'전문 레저 앱'},
+  {key:'naver',   name:'네이버',        cls:'l-naver',   s:'N',   type:'포인트 적립'},
+  {key:'coupang', name:'쿠팡',          cls:'l-coupang', s:'C',   type:'로켓배송'},
+  {key:'kakao',   name:'카카오',        cls:'l-kakao',   s:'K',   type:'모바일 바로사용'},
+  {key:'yanolja', name:'야놀자',        cls:'l-yanolja', s:'야',   type:'숙박 연계'},
+  {key:'yeogi',   name:'여기어때',      cls:'l-yeogi',   s:'여',   type:'숙박 연계'},
+  {key:'gmarket', name:'지마켓',        cls:'l-gmarket', s:'G',   type:'스마일페이'},
+  {key:'11st',    name:'11번가',        cls:'l-11st',    s:'11',  type:'SK페이'},
+  {key:'auction', name:'옥션',          cls:'l-auction', s:'A',   type:'G마켓 통합'},
+  {key:'kidsnote',name:'키즈노트',      cls:'l-kidsnote',s:'키',   type:'영유아 전용'},
+  {key:'mrt',     name:'마이리얼트립',  cls:'l-mrt',     s:'M',   type:'외국인 패키지'},
+];
 
 let currentCat = '전체';
-let currentPark = 'woojin';
+let currentPricePark = 'woojin';
+let currentTicket = 0;
+let currentSort = 'price';
+let parkPriceData = {};
 let allArticles = [];
 let currentFilter = '전체';
-let priceCache = {};
 
 // 날짜
 const now = new Date();
@@ -304,131 +344,167 @@ document.getElementById('today-date').textContent =
 
 // ── 뉴스 ──────────────────────────────────────────────────────
 async function loadNews() {
-  document.getElementById('news-list').innerHTML = '<div class="loading-box"><div class="spinner"></div>네이버 뉴스 검색 중...</div>';
+  document.getElementById('news-list').innerHTML =
+    '<div class="news-loading"><div class="spinner"></div>네이버 뉴스 검색 중...</div>';
   document.getElementById('news-status-text').textContent = '검색 중...';
+
   try {
-    const res = await fetch(`${API}/news?park=all`);
+    const res = await fetch(`${API_BASE}/news?park=all`);
     const data = await res.json();
     allArticles = data.articles || [];
-    const time = data.fetchedAt ? new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '';
-    const src = data.source==='naver'?'네이버 뉴스':data.source==='claude'?'AI 검색':'기본';
-    document.getElementById('news-status-text').textContent = `${src} · ${time} 기준${data.cached?' (캐시)':''}`;
-    if (allArticles.length > 0) document.getElementById('breaking-text').textContent = allArticles[0].title;
+
+    const time = data.fetchedAt
+      ? new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})
+      : '';
+    const src = data.source === 'naver' ? '네이버 뉴스' :
+                data.source === 'claude' ? 'AI 웹검색' : '기본';
+    document.getElementById('news-status-text').textContent =
+      `${src} · ${time} 기준${data.cached?' (캐시)':''}`;
+
+    if (allArticles.length > 0) {
+      document.getElementById('breaking-text').textContent = allArticles[0].title;
+    }
+
     applyFilter(currentFilter);
+
   } catch(e) {
-    document.getElementById('news-list').innerHTML = '<div class="loading-box">뉴스를 불러올 수 없습니다.</div>';
+    document.getElementById('news-list').innerHTML =
+      '<div class="news-loading">뉴스를 불러올 수 없습니다.</div>';
     document.getElementById('news-status-text').textContent = '연결 오류';
   }
 }
 
 function applyFilter(filter) {
   currentFilter = filter;
-  let arts = allArticles;
+  let articles = allArticles;
+
+  // 카테고리 필터링 (tag 기준)
   if (filter !== '전체') {
-    arts = arts.filter(a => {
-      const t = (a.title+' '+(a.summary||'')).toLowerCase();
-      if (filter==='워터파크') return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
-      if (filter==='스파') return a.tag==='스파'||t.includes('스파')||t.includes('온천')||t.includes('사우나');
-      if (filter==='이벤트') return a.tag==='이벤트'||t.includes('이벤트')||t.includes('행사')||t.includes('축제');
-      if (filter==='가격') return a.tag==='가격'||t.includes('할인')||t.includes('입장료')||t.includes('특가');
-      if (filter==='신규시설') return a.tag==='신규시설'||t.includes('신규')||t.includes('리뉴얼');
-      if (filter==='개장') return a.tag==='개장'||t.includes('개장')||t.includes('폐장');
+    articles = articles.filter(a => {
+      const tag = (a.tag || '').toLowerCase();
+      const title = (a.title || '').toLowerCase();
+      if (filter === '워터파크') return tag.includes('워터파크') || title.includes('워터파크') || title.includes('물놀이');
+      if (filter === '스파')    return tag.includes('스파') || title.includes('스파') || title.includes('온천') || title.includes('사우나');
+      if (filter === '이벤트')  return tag.includes('이벤트') || title.includes('이벤트') || title.includes('행사') || title.includes('축제');
+      if (filter === '가격')    return tag.includes('가격') || title.includes('할인') || title.includes('입장료') || title.includes('특가');
+      if (filter === '신규시설') return tag.includes('신규') || title.includes('신규') || title.includes('리뉴얼') || title.includes('오픈');
+      if (filter === '개장')    return tag.includes('개장') || title.includes('개장') || title.includes('폐장');
       return true;
     });
   }
-  const kw = CATEGORY_KEYWORDS[filter]||CATEGORY_KEYWORDS['전체'];
-  document.getElementById('naver-more-link').href = `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(kw)}`;
-  document.getElementById('news-list').innerHTML = arts.length
-    ? arts.map(a=>`<a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
-        <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
-        ${a.parkName?`<span class="npark-badge">${a.parkName}</span>`:''}
-        <div class="ntitle">${a.title}</div>
-        <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
-      </a>`).join('')
-    : '<div class="loading-box">해당 카테고리 뉴스가 없습니다.</div>';
+
+  // 네이버 더 보기 링크 업데이트
+  const keyword = CATEGORY_KEYWORDS[filter] || CATEGORY_KEYWORDS['전체'];
+  document.getElementById('naver-more-link').href =
+    `https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(keyword)}`;
+
+  renderNews(articles);
+}
+
+function renderNews(articles) {
+  const list = document.getElementById('news-list');
+  if (!articles.length) {
+    list.innerHTML = '<div class="news-loading">해당 카테고리 뉴스가 없습니다.</div>';
+    return;
+  }
+  list.innerHTML = articles.map(a => {
+    const tagKey = a.tag || '뉴스';
+    return `<a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
+      <span class="ntag tag-${tagKey}">${tagKey}</span>
+      ${a.parkName ? `<span class="npark-badge">${a.parkName}</span>` : ''}
+      <div class="ntitle">${a.title}</div>
+      <div class="nmeta">
+        <span class="nsrc">${a.source||''}</span>
+        ${a.date?' · '+a.date:''}
+      </div>
+    </a>`;
+  }).join('');
 }
 
 function filterNews(cat, el) {
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   applyFilter(cat);
 }
+
 function refreshNews() { loadNews(); }
 
 // ── 가격비교 ─────────────────────────────────────────────────
-async function loadPrices(parkKey) {
-  if (priceCache[parkKey]) { renderPrices(parkKey, priceCache[parkKey]); return; }
-  document.getElementById('price-section').innerHTML = '<div class="loading-box"><div class="spinner"></div>네이버 쇼핑에서 현재 가격 조회 중...</div>';
+async function loadPriceData(parkKey) {
+  if (parkPriceData[parkKey]) { renderPrices(parkKey); return; }
   try {
-    const res = await fetch(`${API}/shopping-prices?park=${parkKey}`);
-    const data = await res.json();
-    priceCache[parkKey] = data;
-    renderPrices(parkKey, data);
+    const res = await fetch(`${API_BASE}/prices?park=${parkKey}`);
+    parkPriceData[parkKey] = await res.json();
+    renderPrices(parkKey);
   } catch(e) {
-    document.getElementById('price-section').innerHTML = '<div class="loading-box">가격 정보를 불러올 수 없습니다.</div>';
+    document.getElementById('price-section').innerHTML =
+      '<div class="news-loading">가격 정보를 불러올 수 없습니다.</div>';
   }
 }
 
-function renderPrices(parkKey, data) {
-  const park = PARKS.find(p=>p.key===parkKey);
-  if (!park) return;
+function renderPrices(parkKey) {
+  const data = parkPriceData[parkKey];
+  const park = PARKS.find(p => p.key === parkKey);
+  if (!data || !park) return;
+  const ticket = data.tickets[currentTicket];
+  if (!ticket) return;
 
-  const items = data.items || [];
-  const links = data.links || {};
-  const time = data.fetchedAt ? new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '';
+  const discounts = data.channelDiscounts || {};
+  const baseAdult = ticket.prices.adult;
+  const baseChild = ticket.prices.child;
+  const baseYouth = ticket.prices.youth;
 
-  // 네이버 쇼핑 결과
-  let shopHTML = '';
-  if (items.length > 0) {
-    const rankCls = ['sr1','sr2','sr3'];
-    shopHTML = items.map((item, i) => {
-      const rc = rankCls[i] || 'srn';
-      return `<a class="shop-item" href="${item.link}" target="_blank" rel="noopener">
-        <div class="shop-left" style="display:flex;align-items:center;">
-          <div class="shop-rank ${rc}">${i+1}</div>
-          <div>
-            <div class="shop-title">${item.title}</div>
-            <div class="shop-mall">${item.mallName}</div>
-          </div>
-        </div>
-        <div class="shop-right">
-          <div class="shop-price">${item.price.toLocaleString()}원</div>
-          <div class="shop-go">바로가기 →</div>
-        </div>
-      </a>`;
-    }).join('');
-  } else {
-    shopHTML = `<div style="padding:14px;font-size:12px;color:var(--txt2);text-align:center;">
-      네이버 쇼핑에서 판매 중인 상품을 찾지 못했어요.<br>아래 채널에서 직접 확인해주세요.
+  let channels = CHANNELS.map(ch => {
+    const disc = ch.key==='home' ? 0 : (discounts[ch.key]?.rate||0);
+    if (ch.key!=='home' && !discounts[ch.key]) return null;
+    return {
+      ...ch,
+      priceAdult: Math.round(baseAdult*(1-disc)/100)*100,
+      priceChild: baseChild!=null ? Math.round(baseChild*(1-disc)/100)*100 : null,
+      priceYouth: baseYouth!=null ? Math.round(baseYouth*(1-disc)/100)*100 : null,
+      disc: Math.round(disc*100),
+      note: discounts[ch.key]?.note||''
+    };
+  }).filter(Boolean);
+
+  if (currentSort==='price') channels.sort((a,b)=>a.priceAdult-b.priceAdult);
+  else if (currentSort==='disc') channels.sort((a,b)=>b.disc-a.disc);
+  else channels.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+
+  const rows = channels.map((ch,i)=>{
+    const rCls=i===0?'r1':i===1?'r2':i===2?'r3':'rn';
+    const isHome=ch.key==='home';
+    const badge=i===0?`<span class="pi-best">최저가</span>`:ch.disc>0?`<span class="pi-disc">-${ch.disc}%</span>`:`<span style="font-size:10px;color:var(--txt3)">정가</span>`;
+    const orig=(!isHome&&ch.disc>0)?`<span class="pi-orig">${baseAdult.toLocaleString()}원</span>`:'';
+    const childLine=ch.priceChild!=null?`<div class="pi-sub">소인 ${ch.priceChild.toLocaleString()}원${ch.priceYouth!=null?' / 청소년 '+ch.priceYouth.toLocaleString()+'원':''}</div>`:'';
+    const clickAttr=isHome?`onclick="window.open('${data.homepageUrl}','_blank')" style="cursor:pointer;"` :'';
+    return `<div class="prow" ${clickAttr}>
+      <div class="ch-info">
+        <div class="rank-b ${rCls}">${i+1}</div>
+        <div class="ch-logo ${ch.cls}">${ch.s}</div>
+        <div><div class="ch-name">${ch.name}</div><div class="ch-type">${ch.note||ch.type}</div></div>
+      </div>
+      <div class="pi">
+        <div>${orig}${badge}</div>
+        <div class="pi-amt">${ch.priceAdult.toLocaleString()}원</div>
+        ${childLine}
+      </div>
     </div>`;
-  }
+  }).join('');
 
-  // 채널 직접 링크 버튼
-  const channelBtns = [
-    { label:'공식 홈페이지', dot:'dot-home', url: links.home },
-    { label:'놀이의발견',    dot:'dot-nori',    url: links.nori },
-    { label:'야놀자',        dot:'dot-yanolja', url: links.yanolja },
-    { label:'여기어때',      dot:'dot-yeogi',   url: links.yeogi },
-  ].filter(c => c.url).map(c =>
-    `<a class="ch-btn" href="${c.url}" target="_blank" rel="noopener">
-      <div class="ch-dot ${c.dot}"></div>${c.label}
-    </a>`
-  ).join('');
-
-  document.getElementById('price-section').innerHTML = `
-    <div class="price-block">
-      <div class="price-block-hd">
+  document.getElementById('price-section').innerHTML=`
+    ${data.notice?`<div class="notice-box">ℹ️ ${data.notice}</div>`:''}
+    <div class="price-tbl">
+      <div class="tbl-hd">
         <div>
-          <div class="price-block-title">${park.name} 현재 판매가</div>
-          <div class="price-block-sub">네이버 쇼핑 · ${time} 기준 · 낮은 가격순${data.cached?' (캐시)':''}</div>
+          <div class="tbl-title">${park.name}</div>
+          <div class="tbl-season">${data.currentSeason} · ${ticket.label} (${ticket.time})</div>
         </div>
-        <span class="price-block-badge live">실시간</span>
+        <a class="tbl-link" href="${data.pricePageUrl}" target="_blank">공홈 ↗</a>
       </div>
-      ${shopHTML}
-      <div class="channel-links">
-        <div class="channel-links-label">채널에서 직접 확인</div>
-        <div class="channel-btns">${channelBtns}</div>
-      </div>
+      <div class="sec-hd"><span class="sec-hd-lbl">채널별 가격 비교 (대인 기준)</span></div>
+      ${rows}
+      ${ticket.note?`<div style="padding:7px 14px;font-size:10px;color:var(--txt2);border-top:0.5px solid var(--border);">※ ${ticket.note}</div>`:''}
     </div>`;
 }
 
@@ -437,29 +513,52 @@ function renderParkGrid(filter) {
   let parks = PARKS;
   if (currentCat!=='전체') parks=parks.filter(p=>p.cat===currentCat);
   if (filter) parks=parks.filter(p=>p.name.includes(filter));
-  grid.innerHTML = parks.map(p=>`
-    <div class="pcard${p.key===currentPark?' active':''}" onclick="selPark('${p.key}',this)">
+  grid.innerHTML=parks.map(p=>`
+    <div class="pcard${p.key===currentPricePark?' active':''}" onclick="selPark('${p.key}',this)">
       <div class="picon">${p.icon}</div>
       <div class="pname">${p.name}</div>
       <div class="ploc">${p.loc}</div>
     </div>`).join('');
+  renderTicketTabs();
 }
 
-function selPark(key, el) {
-  currentPark = key;
+function renderTicketTabs() {
+  const data = parkPriceData[currentPricePark];
+  const tabs = document.getElementById('ticketTabs');
+  if (!data){tabs.innerHTML='';return;}
+  tabs.innerHTML=data.tickets.map((t,i)=>
+    `<button class="tt-btn${i===currentTicket?' active':''}" onclick="selTicket(${i},this)">${t.label}</button>`
+  ).join('');
+}
+
+function selPark(key,el){
+  currentPricePark=key; currentTicket=0;
   document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('active'));
   if(el) el.classList.add('active');
-  loadPrices(key);
+  document.getElementById('price-section').innerHTML='<div class="news-loading"><div class="spinner"></div>로딩 중...</div>';
+  loadPriceData(key);
 }
-function selCat(cat, el) {
+function selTicket(idx,el){
+  currentTicket=idx;
+  document.querySelectorAll('.tt-btn').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderPrices(currentPricePark);
+}
+function selCat(cat,el){
   currentCat=cat;
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   renderParkGrid(document.getElementById('parkSearch').value);
 }
-function filterParks(v) { renderParkGrid(v); }
+function filterParks(v){renderParkGrid(v);}
+function setSort(type,el){
+  currentSort=type;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderPrices(currentPricePark);
+}
 
-function switchTab(name, tabBtn, navBtn) {
+function switchTab(name,tabBtn,navBtn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
@@ -468,7 +567,7 @@ function switchTab(name, tabBtn, navBtn) {
   document.querySelectorAll('.tab-btn')[map[name]].classList.add('active');
   const navEl=document.getElementById('nav-'+name);
   if(navEl) navEl.classList.add('active');
-  if(name==='price'){renderParkGrid('');loadPrices(currentPark);}
+  if(name==='price'){renderParkGrid('');loadPriceData(currentPricePark);}
 }
 
 // 초기 로드
