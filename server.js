@@ -4,17 +4,22 @@ const cors = require('cors');
 const NodeCache = require('node-cache');
 const axios = require('axios');
 const path = require('path');
-const { PARK_PRICES } = require('./prices');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const newsCache  = new NodeCache({ stdTTL: 1800 });  // 30분
-const priceCache = new NodeCache({ stdTTL: 3600 });  // 1시간
+const newsCache  = new NodeCache({ stdTTL: 1800 });
+const priceCache = new NodeCache({ stdTTL: 3600 });
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// ── prices.js 동적 로드 (수정 후 재로드 가능하도록) ──────────
+function loadPrices() {
+  delete require.cache[require.resolve('./prices')];
+  return require('./prices').PARK_PRICES;
+}
 
 // ── 파크 목록 ─────────────────────────────────────────────────
 const PARK_LIST = [
@@ -36,121 +41,32 @@ const PARK_LIST = [
   { key:'gyeongju',     name:'경주월드',          keyword:'경주월드' },
 ];
 
-// 채널별 직접 구매 링크 (네이버 쇼핑에 없는 채널용)
-const CHANNEL_LINKS = {
-  woojin:       { home:'https://www.playdoci.com/Water/info_charge.aspx', nori:'https://www.nolda.co.kr/search?keyword=웅진플레이도시', yanolja:'https://www.yanolja.com/search?keyword=웅진플레이도시', yeogi:'https://www.goodchoice.kr/product/search?keyword=웅진플레이도시' },
-  caribbean:    { home:'https://reservation.everland.com/web/cb.do', nori:'https://www.nolda.co.kr/search?keyword=캐리비안베이', yanolja:'https://www.yanolja.com/search?keyword=캐리비안베이', yeogi:'https://www.goodchoice.kr/product/search?keyword=캐리비안베이' },
-  oceanworld:   { home:'https://www.sonohotelsresorts.com/reserve/ticket', nori:'https://www.nolda.co.kr/search?keyword=오션월드', yanolja:'https://www.yanolja.com/search?keyword=오션월드', yeogi:'https://www.goodchoice.kr/product/search?keyword=오션월드' },
-  onmount:      { home:'https://www.onmount.co.kr', nori:'https://www.nolda.co.kr/search?keyword=원마운트', yanolja:'https://www.yanolja.com/search?keyword=원마운트', yeogi:'https://www.goodchoice.kr/product/search?keyword=원마운트' },
-  termeden:     { home:'https://www.termeden.com', nori:'https://www.nolda.co.kr/search?keyword=테르메덴', yanolja:'https://www.yanolja.com/search?keyword=테르메덴', yeogi:'https://www.goodchoice.kr/product/search?keyword=테르메덴' },
-  islandcastle: { home:'https://www.islandcastle.co.kr', nori:'https://www.nolda.co.kr/search?keyword=아일랜드캐슬', yanolja:'https://www.yanolja.com/search?keyword=아일랜드캐슬', yeogi:'https://www.goodchoice.kr/product/search?keyword=아일랜드캐슬' },
-  aquafield:    { home:'https://www.starfield.co.kr/hanam/store/aquafield', nori:'https://www.nolda.co.kr/search?keyword=아쿠아필드', yanolja:'https://www.yanolja.com/search?keyword=아쿠아필드', yeogi:'https://www.goodchoice.kr/product/search?keyword=아쿠아필드' },
-  asanspa:      { home:'https://www.spabis.co.kr', nori:'https://www.nolda.co.kr/search?keyword=아산스파비스', yanolja:'https://www.yanolja.com/search?keyword=아산스파비스', yeogi:'https://www.goodchoice.kr/product/search?keyword=아산스파비스' },
-  splash:       { home:'https://www.resort.co.kr/splashresort', nori:'https://www.nolda.co.kr/search?keyword=스플라스리솜', yanolja:'https://www.yanolja.com/search?keyword=스플라스리솜', yeogi:'https://www.goodchoice.kr/product/search?keyword=스플라스리솜' },
-  ocean_ca:     { home:'https://www.oceanadventure.co.kr', nori:'https://www.nolda.co.kr/search?keyword=오션어드벤처', yanolja:'https://www.yanolja.com/search?keyword=오션어드벤처', yeogi:'https://www.goodchoice.kr/product/search?keyword=오션어드벤처' },
-  paradise:     { home:'https://www.paradisedogo.com', nori:'https://www.nolda.co.kr/search?keyword=파라다이스도고', yanolja:'https://www.yanolja.com/search?keyword=파라다이스도고', yeogi:'https://www.goodchoice.kr/product/search?keyword=파라다이스도고' },
-  everland:     { home:'https://reservation.everland.com', nori:'https://www.nolda.co.kr/search?keyword=에버랜드', yanolja:'https://www.yanolja.com/search?keyword=에버랜드', yeogi:'https://www.goodchoice.kr/product/search?keyword=에버랜드' },
-  lotte:        { home:'https://www.lotteworld.com/app/adv_ticket/list.asp', nori:'https://www.nolda.co.kr/search?keyword=롯데월드', yanolja:'https://www.yanolja.com/search?keyword=롯데월드', yeogi:'https://www.goodchoice.kr/product/search?keyword=롯데월드' },
-  lego:         { home:'https://www.legoland.kr/plan-your-visit/tickets', nori:'https://www.nolda.co.kr/search?keyword=레고랜드', yanolja:'https://www.yanolja.com/search?keyword=레고랜드', yeogi:'https://www.goodchoice.kr/product/search?keyword=레고랜드' },
-  seoul:        { home:'https://www.seoulland.co.kr', nori:'https://www.nolda.co.kr/search?keyword=서울랜드', yanolja:'https://www.yanolja.com/search?keyword=서울랜드', yeogi:'https://www.goodchoice.kr/product/search?keyword=서울랜드' },
-  gyeongju:     { home:'https://www.gjworld.co.kr', nori:'https://www.nolda.co.kr/search?keyword=경주월드', yanolja:'https://www.yanolja.com/search?keyword=경주월드', yeogi:'https://www.goodchoice.kr/product/search?keyword=경주월드' },
-};
+const CHANNELS = [
+  { key:'home',     name:'공식 홈페이지', cls:'l-home',    s:'홈',  type:'공식가/문화비소득공제' },
+  { key:'nori',     name:'놀이의발견',    cls:'l-nori',    s:'놀발', type:'전문 레저 앱' },
+  { key:'naver',    name:'네이버',        cls:'l-naver',   s:'N',   type:'포인트 적립' },
+  { key:'coupang',  name:'쿠팡',          cls:'l-coupang', s:'C',   type:'로켓배송' },
+  { key:'kakao',    name:'카카오',        cls:'l-kakao',   s:'K',   type:'모바일 바로사용' },
+  { key:'yanolja',  name:'야놀자',        cls:'l-yanolja', s:'야',   type:'숙박 연계' },
+  { key:'yeogi',    name:'여기어때',      cls:'l-yeogi',   s:'여',   type:'숙박 연계' },
+  { key:'gmarket',  name:'지마켓',        cls:'l-gmarket', s:'G',   type:'스마일페이' },
+  { key:'11st',     name:'11번가',        cls:'l-11st',    s:'11',  type:'SK페이' },
+  { key:'auction',  name:'옥션',          cls:'l-auction', s:'A',   type:'G마켓 통합' },
+  { key:'kidsnote', name:'키즈노트',      cls:'l-kidsnote',s:'키',   type:'영유아 전용' },
+  { key:'mrt',      name:'마이리얼트립',  cls:'l-mrt',     s:'M',   type:'외국인 패키지' },
+];
 
 app.get('/api/parks', (req, res) => res.json(PARK_LIST));
+app.get('/api/channels', (req, res) => res.json(CHANNELS));
 
-// ── 네이버 쇼핑 API로 실시간 가격 조회 ───────────────────────
-app.get('/api/shopping-prices', async (req, res) => {
-  const parkKey = req.query.park;
-  if (!parkKey) return res.status(400).json({ error: 'park 파라미터 필요' });
-
-  const cacheKey = `shop_${parkKey}`;
-  const cached = priceCache.get(cacheKey);
-  if (cached) return res.json({ ...cached, cached: true });
-
-  const park = PARK_LIST.find(p => p.key === parkKey);
-  if (!park) return res.status(404).json({ error: '파크를 찾을 수 없습니다' });
-
-  if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET) {
-    return res.json({ items: [], source: 'no_api_key' });
-  }
-
-  try {
-    // 입장권/이용권으로 검색
-    const queries = [
-      `${park.name} 입장권`,
-      `${park.name} 이용권`,
-    ];
-
-    let allItems = [];
-    for (const query of queries) {
-      const response = await axios.get('https://openapi.naver.com/v1/search/shop.json', {
-        params: { query, display: 10, sort: 'asc' }, // asc = 낮은 가격순
-        headers: {
-          'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
-          'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET
-        }
-      });
-      allItems = allItems.concat(response.data.items || []);
-    }
-
-    // 파크 이름이 포함된 상품만 필터링
-    const keywords = park.keyword.split(' ');
-    const filtered = allItems.filter(item => {
-      const title = item.title.replace(/<[^>]*>/g, '');
-      return keywords.some(kw => title.includes(kw)) &&
-             (title.includes('입장') || title.includes('이용권') || title.includes('티켓'));
-    });
-
-    // 중복 제거 (상품명 기준) + 가격순 정렬
-    const seen = new Set();
-    const items = filtered
-      .filter(item => {
-        const key = item.title.replace(/<[^>]*>/g, '').slice(0, 20);
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      })
-      .sort((a, b) => parseInt(a.lprice) - parseInt(b.lprice))
-      .slice(0, 8)
-      .map(item => ({
-        title: item.title.replace(/<[^>]*>/g, ''),
-        price: parseInt(item.lprice),
-        mallName: item.mallName,
-        link: item.link,
-        image: item.image,
-        productId: item.productId
-      }));
-
-    const result = {
-      items,
-      fetchedAt: new Date().toISOString(),
-      source: 'naver_shopping',
-      parkName: park.name,
-      links: CHANNEL_LINKS[parkKey] || {}
-    };
-
-    priceCache.set(cacheKey, result);
-    res.json(result);
-
-  } catch (err) {
-    console.error('네이버 쇼핑 오류:', err.message);
-    res.json({
-      items: [],
-      source: 'error',
-      error: err.message,
-      links: CHANNEL_LINKS[parkKey] || {}
-    });
-  }
-});
-
-// ── 기존 가격 API (공식 홈페이지 기준 가격) ──────────────────
+// ── 가격 API ─────────────────────────────────────────────────
 app.get('/api/prices', (req, res) => {
+  const PARK_PRICES = loadPrices();
   const parkId = req.query.park;
   if (parkId) {
     const park = PARK_PRICES[parkId];
     if (!park) return res.status(404).json({ error: '파크를 찾을 수 없습니다' });
-    // 채널 링크도 함께 반환
-    return res.json({ ...park, links: CHANNEL_LINKS[parkId] || {} });
+    return res.json(park);
   }
   const summary = Object.entries(PARK_PRICES).map(([key, p]) => ({
     id: key, name: p.name, currentSeason: p.currentSeason, updatedAt: p.updatedAt,
@@ -158,6 +74,85 @@ app.get('/api/prices', (req, res) => {
   }));
   res.json({ parks: summary, updatedAt: new Date().toISOString() });
 });
+
+// ── 관리자 로그인 API ─────────────────────────────────────────
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body;
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  if (!ADMIN_PASSWORD) return res.status(500).json({ error: 'ADMIN_PASSWORD 환경변수가 설정되지 않았습니다' });
+  if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: '비밀번호가 틀렸습니다' });
+  res.json({ success: true, token: Buffer.from(`admin:${ADMIN_PASSWORD}`).toString('base64') });
+});
+
+// ── 관리자 인증 미들웨어 ──────────────────────────────────────
+function adminAuth(req, res, next) {
+  const auth = req.headers['x-admin-token'];
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  const expected = Buffer.from(`admin:${ADMIN_PASSWORD}`).toString('base64');
+  if (!auth || auth !== expected) return res.status(401).json({ error: '인증이 필요합니다' });
+  next();
+}
+
+// ── 가격 수정 API (GitHub prices.js 자동 업데이트) ───────────
+app.post('/api/admin/update-price', adminAuth, async (req, res) => {
+  const { parkKey, updatedData } = req.body;
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  const GITHUB_REPO  = process.env.GITHUB_REPO;
+
+  if (!GITHUB_TOKEN || !GITHUB_REPO) {
+    return res.status(500).json({ error: 'GITHUB_TOKEN 또는 GITHUB_REPO 환경변수가 없습니다' });
+  }
+  if (!parkKey || !updatedData) {
+    return res.status(400).json({ error: 'parkKey와 updatedData가 필요합니다' });
+  }
+
+  try {
+    // 1. 현재 prices.js 가져오기
+    const fileRes = await axios.get(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/prices.js`,
+      { headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    const sha = fileRes.data.sha;
+
+    // 2. 현재 전체 데이터 로드 후 해당 파크만 교체
+    const PARK_PRICES = loadPrices();
+    PARK_PRICES[parkKey] = updatedData;
+
+    // 3. 새 prices.js 생성
+    const newContent = generatePricesJs(PARK_PRICES);
+
+    // 4. GitHub 업데이트
+    await axios.put(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/prices.js`,
+      {
+        message: `가격 업데이트: ${updatedData.name} - ${new Date().toLocaleString('ko-KR')}`,
+        content: Buffer.from(newContent).toString('base64'),
+        sha
+      },
+      { headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+
+    priceCache.flushAll();
+    res.json({ success: true, message: 'GitHub 업데이트 완료! 2~3분 후 앱에 반영됩니다.' });
+
+  } catch (err) {
+    console.error('GitHub 업데이트 오류:', err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data?.message || err.message });
+  }
+});
+
+// ── prices.js 파일 내용 생성 함수 ────────────────────────────
+function generatePricesJs(PARK_PRICES) {
+  const today = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric'});
+  let js = `// ============================================================\n`;
+  js += `// prices.js - 파크별 공식 홈페이지 확인 가격 데이터\n`;
+  js += `// 마지막 업데이트: ${today}\n`;
+  js += `// ============================================================\n\n`;
+  js += `const PARK_PRICES = `;
+  js += JSON.stringify(PARK_PRICES, null, 2);
+  js += `;\n\nmodule.exports = { PARK_PRICES };\n`;
+  return js;
+}
 
 // ── 뉴스 API ─────────────────────────────────────────────────
 app.get('/api/news', async (req, res) => {
@@ -177,7 +172,10 @@ app.get('/api/news', async (req, res) => {
         PARK_LIST.map(park =>
           axios.get('https://openapi.naver.com/v1/search/news.json', {
             params: { query: park.keyword, display: 3, sort: 'date' },
-            headers: { 'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET }
+            headers: {
+              'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
+              'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET
+            }
           }).then(r => ({ items: r.data.items || [], park }))
         )
       );
@@ -208,7 +206,10 @@ app.get('/api/news', async (req, res) => {
       if (!park) return res.status(404).json({ error: '파크 없음' });
       const r = await axios.get('https://openapi.naver.com/v1/search/news.json', {
         params: { query: park.keyword, display: 10, sort: 'date' },
-        headers: { 'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET }
+        headers: {
+          'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
+          'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET
+        }
       });
       articles = (r.data.items||[]).map(item => ({
         title: item.title.replace(/<[^>]*>/g,''),
