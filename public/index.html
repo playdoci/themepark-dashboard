@@ -385,70 +385,91 @@ function renderPrices(parkKey) {
 
   const discounts=data.channelDiscounts||{};
   const tickets=data.tickets||[];
-
-  // 첫 번째 티켓 = 메인(종일권), 두 번째 티켓 = 서브(반일권)
   const mainTicket=tickets[0];
   const subTicket=tickets[1]||null;
   if(!mainTicket) return;
 
-  const baseMain=mainTicket.prices.adult;
-  const baseSub=subTicket?subTicket.prices.adult:null;
+  // 공식 정가 (대인 첫 번째 가격키)
+  const mainPriceKeys=Object.keys(mainTicket.prices);
+  const baseMain=mainTicket.prices[mainPriceKeys[0]];
+  const baseSub=subTicket?subTicket.prices[Object.keys(subTicket.prices)[0]]:null;
 
-  // 채널별 가격 계산
-  let channels=CHANNELS.map(ch=>{
-    const disc=ch.key==='home'?0:(discounts[ch.key]?.rate||0);
-    if(ch.key!=='home'&&!discounts[ch.key]) return null;
-    const mainPrice=Math.round(baseMain*(1-disc)/1000)*1000;
-    const subPrice=baseSub!=null?Math.round(baseSub*(1-disc)/1000)*1000:null;
-    return{
-      ...ch,
-      mainPrice,
-      subPrice,
-      disc:Math.round(disc*100),
-      note:discounts[ch.key]?.note||''
+  // 채널 목록
+  const CH_META = {
+    home:    {name:'공식 홈페이지', cls:'l-home',    s:'홈'},
+    nori:    {name:'놀이의발견',    cls:'l-nori',    s:'놀발'},
+    naver:   {name:'네이버',        cls:'l-naver',   s:'N'},
+    coupang: {name:'쿠팡',          cls:'l-coupang', s:'C'},
+    kakao:   {name:'카카오',        cls:'l-kakao',   s:'K'},
+    yanolja: {name:'야놀자',        cls:'l-yanolja', s:'야'},
+    yeogi:   {name:'여기어때',      cls:'l-yeogi',   s:'여'},
+    gmarket: {name:'지마켓',        cls:'l-gmarket', s:'G'},
+    '11st':  {name:'11번가',        cls:'l-11st',    s:'11'},
+    auction: {name:'옥션',          cls:'l-auction', s:'A'},
+    kidsnote:{name:'키즈노트',      cls:'l-kidsnote',s:'키'},
+    mrt:     {name:'마이리얼트립',  cls:'l-mrt',     s:'M'},
+  };
+
+  let channels = Object.entries(discounts).map(([key, disc]) => {
+    const meta = CH_META[key];
+    if(!meta) return null;
+    return {
+      key, ...meta,
+      weekday: disc.weekday || baseMain,
+      weekend: disc.weekend || baseMain,
+      note: disc.note || meta.name
     };
   }).filter(Boolean);
 
-  // 정렬
-  if(currentSort==='price') channels.sort((a,b)=>a.mainPrice-b.mainPrice);
-  else if(currentSort==='disc') channels.sort((a,b)=>b.disc-a.disc);
+  // 정렬 — 주중 기준
+  if(currentSort==='price') channels.sort((a,b)=>a.weekday-b.weekday);
+  else if(currentSort==='disc') channels.sort((a,b)=>(baseMain-a.weekday)-(baseMain-b.weekday));
   else channels.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
 
   const rows=channels.map((ch,i)=>{
     const rCls=i===0?'r1':i===1?'r2':i===2?'r3':'rn';
     const isHome=ch.key==='home';
     const badge=i===0?`<span class="pi-best">최저가</span>`:
-                 ch.disc>0?`<span class="pi-disc">-${ch.disc}%</span>`:
+                 ch.weekday<baseMain?`<span class="pi-disc">${Math.round((1-ch.weekday/baseMain)*100)}%↓</span>`:
                  `<span style="font-size:10px;color:var(--txt3)">정가</span>`;
-    const origHtml=(!isHome&&ch.disc>0)?`<span class="pi-orig">${baseMain.toLocaleString()}</span>`:'';
+    const origHtml=(ch.weekday<baseMain)?`<span class="pi-orig">${baseMain.toLocaleString()}</span>`:'';
 
-    // 서브 가격 (반일권 등) — 작게 표시
-    const subHtml=ch.subPrice!=null?`
-      <div class="pi-sub-row">
-        <span class="pi-sub-label">${subTicket.label}</span>
-        <span class="pi-sub-price">${ch.subPrice.toLocaleString()}원</span>
-      </div>`:'';
+    // 주중/주말이 다르면 둘 다 표시, 같으면 하나만
+    const samePrice = ch.weekday === ch.weekend;
+    const subPriceLine = !samePrice
+      ? `<div class="pi-sub-row"><span class="pi-sub-label">주말</span><span class="pi-sub-price">${ch.weekend.toLocaleString()}원</span></div>`
+      : '';
+
+    // 두 번째 티켓(반일권 등) 서브 표시
+    const subTicketLine = subTicket ? (() => {
+      const subKeys = Object.keys(subTicket.prices);
+      const subBase = subTicket.prices[subKeys[0]];
+      const subDisc = discounts[ch.key];
+      let subPrice = subBase;
+      if(subDisc && subDisc.weekday && baseMain > 0) {
+        subPrice = Math.round(subBase * (subDisc.weekday/baseMain));
+      }
+      return `<div class="pi-sub-row"><span class="pi-sub-label">${subTicket.label}</span><span class="pi-sub-price">${subPrice.toLocaleString()}원</span></div>`;
+    })() : '';
 
     const clickAttr=isHome?`onclick="window.open('${data.homepageUrl}','_blank')" style="cursor:pointer;"` :'';
-
     return `<div class="prow" ${clickAttr}>
       <div class="ch-info">
         <div class="rank-b ${rCls}">${i+1}</div>
         <div class="ch-logo ${ch.cls}">${ch.s}</div>
         <div>
           <div class="ch-name">${ch.name}</div>
-          <div class="ch-type">${ch.note||ch.type}</div>
+          <div class="ch-type">${ch.note}</div>
         </div>
       </div>
       <div class="pi">
-        <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;">
-          ${origHtml}${badge}
-        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;">${origHtml}${badge}</div>
         <div style="display:flex;align-items:baseline;justify-content:flex-end;gap:3px;margin-top:2px;">
-          <span class="pi-main-label">${mainTicket.label}</span>
-          <span class="pi-main">${ch.mainPrice.toLocaleString()}원</span>
+          ${samePrice?'':'<span class="pi-main-label">주중</span>'}
+          <span class="pi-main">${ch.weekday.toLocaleString()}원</span>
         </div>
-        ${subHtml}
+        ${subPriceLine}
+        ${subTicketLine}
       </div>
     </div>`;
   }).join('');
@@ -459,11 +480,11 @@ function renderPrices(parkKey) {
       <div class="tbl-hd">
         <div>
           <div class="tbl-park">${park.name}</div>
-          <div class="tbl-season">${data.currentSeason} · 대인 기준</div>
+          <div class="tbl-season">${data.currentSeason}${data.ticketNote?' · '+data.ticketNote:''}</div>
         </div>
         <a class="tbl-link" href="${data.pricePageUrl}" target="_blank">공홈 ↗</a>
       </div>
-      <div class="tbl-sec"><span class="tbl-sec-lbl">채널별 가격 비교</span></div>
+      <div class="tbl-sec"><span class="tbl-sec-lbl">채널별 판매금액 · ${mainTicket.label} 대인 기준</span></div>
       ${rows}
     </div>`;
 }
