@@ -25,69 +25,68 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .login-sub{font-size:13px;color:var(--txt2);margin-bottom:24px;}
 .login-input{width:100%;padding:10px 14px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;color:var(--txt);background:var(--bg);margin-bottom:12px;}
 .login-btn{width:100%;padding:12px;background:var(--txt);color:var(--bg);border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;}
-.login-btn:active{opacity:.8;}
 .login-error{font-size:12px;color:var(--red);margin-top:8px;display:none;}
 
-/* 관리자 화면 */
+/* 관리자 */
 .admin-wrap{display:none;}
 .topbar{background:var(--bg);border-bottom:0.5px solid var(--border);padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;}
 .topbar-title{font-size:17px;font-weight:600;color:var(--txt);}
 .logout-btn{font-size:12px;padding:5px 10px;border-radius:20px;border:0.5px solid var(--border2);background:none;color:var(--txt2);cursor:pointer;}
-
 .content{padding:14px;}
+.sec-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
+.park-select{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:var(--bg);margin-bottom:16px;}
+.info-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--amber);line-height:1.6;}
 
-/* 파크 선택 */
-.section-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
-.park-select{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:var(--bg);margin-bottom:16px;appearance:none;-webkit-appearance:none;}
+/* 카드 */
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
+.card-hd{background:var(--bg2);padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);display:flex;justify-content:space-between;align-items:center;}
+.card-hd-note{font-size:10px;font-weight:400;color:var(--txt2);}
 
-/* 편집 카드 */
-.edit-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
-.edit-card-hd{background:var(--bg2);padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);display:flex;justify-content:space-between;align-items:center;}
-.edit-card-hd span{font-size:10px;font-weight:400;color:var(--txt2);}
-.edit-row{padding:11px 14px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:10px;}
-.edit-row-label{font-size:12px;color:var(--txt2);min-width:80px;flex-shrink:0;}
-.edit-input{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
-.edit-unit{font-size:12px;color:var(--txt2);flex-shrink:0;}
-.edit-pct{font-size:11px;color:var(--txt3);flex-shrink:0;min-width:40px;text-align:right;}
+/* 시즌 행 */
+.field-row{padding:11px 14px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:10px;}
+.field-label{font-size:12px;color:var(--txt2);min-width:70px;flex-shrink:0;}
+.field-input{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);}
 
-/* 시즌/공지 */
-.edit-text{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);}
+/* 티켓 섹션 */
+.ticket-block{border-top:0.5px solid var(--border);}
+.ticket-block-hd{padding:8px 14px;background:var(--bg3);display:flex;align-items:center;gap:6px;}
+.ticket-name{font-size:12px;font-weight:600;color:var(--txt);}
+.ticket-time{font-size:10px;color:var(--txt2);}
+.price-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-top:0.5px solid var(--border);}
+.price-lbl{font-size:12px;color:var(--txt2);}
+.price-input-wrap{display:flex;align-items:center;gap:5px;}
+.price-input{width:100px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
+.price-unit{font-size:12px;color:var(--txt2);}
 
-/* 저장 버튼 */
+/* 채널 할인 */
+.ch-block{border-top:0.5px solid var(--border);}
+.ch-hd{display:flex;align-items:center;padding:9px 14px;gap:8px;background:var(--bg);}
+.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ch-name-txt{font-size:12px;font-weight:500;color:var(--txt);flex:1;}
+.ch-inputs{display:flex;align-items:center;gap:6px;border-top:0.5px solid var(--border);padding:7px 14px 7px 30px;}
+.ch-input-lbl{font-size:10px;color:var(--txt2);min-width:55px;}
+.ch-price-input{width:90px;padding:5px 8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
+
+/* 저장 */
 .save-btn{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:4px;}
 .save-btn:active{opacity:.85;}
 .save-btn:disabled{background:var(--txt3);cursor:not-allowed;}
-
-/* 결과 메시지 */
-.result-box{padding:12px 14px;border-radius:var(--radius-sm);margin-top:10px;font-size:13px;display:none;}
+.result-box{padding:12px 14px;border-radius:var(--radius-sm);margin-top:10px;font-size:13px;display:none;line-height:1.5;}
 .result-success{background:var(--green-bg);color:var(--green);}
 .result-error{background:var(--red-bg);color:var(--red);}
-
-/* 로딩 */
 .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* 채널 할인율 */
-.channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
-.ch-row{padding:10px 14px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:8px;}
-.ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.ch-name{font-size:12px;color:var(--txt2);flex:1;}
-.ch-input{width:56px;padding:5px 7px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
-.ch-pct{font-size:11px;color:var(--txt3);width:20px;}
-
-.ch-colors{home:'#888',nori:'#7C3AED',naver:'#03C75A',coupang:'#E67E00',kakao:'#92400E',yanolja:'#FF4E96',yeogi:'#00BCD4',gmarket:'#854F0B','11st':'#993C1D',auction:'#3B6D11',kidsnote:'#534AB7',mrt:'#0369A1'}
-
-.info-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--amber);line-height:1.5;}
 </style>
 </head>
 <body>
 
-<!-- 로그인 화면 -->
+<!-- 로그인 -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-card">
     <div class="login-title">관리자 로그인</div>
     <div class="login-sub">테마파크 인사이트 가격 관리</div>
-    <input class="login-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()">
+    <input class="login-input" type="password" id="pwInput" placeholder="비밀번호 입력"
+      onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">로그인</button>
     <div class="login-error" id="loginError">비밀번호가 틀렸습니다.</div>
   </div>
@@ -99,14 +98,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <div class="topbar-title">가격 관리</div>
     <button class="logout-btn" onclick="doLogout()">로그아웃</button>
   </div>
-
   <div class="content">
     <div class="info-box">
-      💡 저장 버튼을 누르면 GitHub가 자동으로 업데이트되고 <b>2~3분 후</b> 앱에 반영돼요.<br>
-      공식 홈페이지에서 현재 시즌 가격을 확인 후 수정해주세요.
+      💡 공식 홈페이지에서 현재 시즌 가격 확인 후 수정해주세요.<br>
+      저장 시 GitHub가 자동 업데이트되고 <b>2~3분 후</b> 앱에 반영돼요.<br>
+      채널 할인금액 = 해당 채널에서 실제 판매되는 <b>대인 기준 금액</b>을 입력하세요.
     </div>
 
-    <div class="section-label">파크 선택</div>
+    <div class="sec-label">파크 선택</div>
     <select class="park-select" id="parkSelect" onchange="loadParkData()">
       <option value="">파크를 선택하세요</option>
     </select>
@@ -114,34 +113,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <div id="editArea" style="display:none;">
 
       <!-- 시즌 정보 -->
-      <div class="edit-card">
-        <div class="edit-card-hd">시즌 정보 <span>현재 시즌명과 공지사항</span></div>
-        <div class="edit-row">
-          <div class="edit-row-label">시즌명</div>
-          <input class="edit-text" id="seasonName" placeholder="예: 로우 시즌 (2026.03~05)">
+      <div class="card">
+        <div class="card-hd">시즌 정보</div>
+        <div class="field-row">
+          <div class="field-label">시즌명</div>
+          <input class="field-input" id="seasonName" placeholder="예: 로우 시즌 (2026.03~05)">
         </div>
-        <div class="edit-row">
-          <div class="edit-row-label">공지사항</div>
-          <input class="edit-text" id="noticeText" placeholder="예: 매주 월·화 휴장">
+        <div class="field-row">
+          <div class="field-label">공지사항</div>
+          <input class="field-input" id="noticeText" placeholder="예: 매주 월·화 휴장">
         </div>
       </div>
 
       <!-- 티켓 가격 -->
-      <div class="edit-card" id="ticketsCard">
-        <div class="edit-card-hd">티켓 가격 <span>공식 홈페이지 기준 정가</span></div>
+      <div class="card">
+        <div class="card-hd">
+          티켓 가격
+          <span class="card-hd-note" id="ticketNoteLabel"></span>
+        </div>
         <div id="ticketRows"></div>
       </div>
 
-      <!-- 채널 할인율 -->
-      <div class="edit-card">
-        <div class="edit-card-hd">채널별 할인율 <span>% 숫자만 입력 (예: 38)</span></div>
+      <!-- 채널별 할인금액 -->
+      <div class="card">
+        <div class="card-hd">
+          채널별 판매금액
+          <span class="card-hd-note">대인 종일권 기준</span>
+        </div>
         <div id="channelRows"></div>
       </div>
 
-      <!-- 저장 버튼 -->
-      <button class="save-btn" id="saveBtn" onclick="saveAll()">저장하고 GitHub 업데이트</button>
+      <button class="save-btn" id="saveBtn" onclick="saveAll()">
+        저장하고 GitHub 업데이트
+      </button>
       <div class="result-box" id="resultBox"></div>
-
     </div>
   </div>
 </div>
@@ -153,18 +158,19 @@ let parkList = [];
 let currentParkData = null;
 let currentParkKey = '';
 
-const CH_COLORS = {
-  home:'#888', nori:'#7C3AED', naver:'#03C75A', coupang:'#E67E00',
-  kakao:'#92400E', yanolja:'#FF4E96', yeogi:'#00BCD4',
-  gmarket:'#854F0B', '11st':'#993C1D', auction:'#3B6D11',
-  kidsnote:'#534AB7', mrt:'#0369A1'
-};
-
-const CH_NAMES = {
-  home:'공식 홈페이지', nori:'놀이의발견', naver:'네이버', coupang:'쿠팡',
-  kakao:'카카오', yanolja:'야놀자', yeogi:'여기어때',
-  gmarket:'지마켓', '11st':'11번가', auction:'옥션',
-  kidsnote:'키즈노트', mrt:'마이리얼트립'
+const CH_INFO = {
+  home:     { name:'공식 홈페이지', color:'#888' },
+  nori:     { name:'놀이의발견',    color:'#7C3AED' },
+  naver:    { name:'네이버',        color:'#03C75A' },
+  coupang:  { name:'쿠팡',          color:'#E67E00' },
+  kakao:    { name:'카카오',        color:'#92400E' },
+  yanolja:  { name:'야놀자',        color:'#FF4E96' },
+  yeogi:    { name:'여기어때',      color:'#00BCD4' },
+  gmarket:  { name:'지마켓',        color:'#854F0B' },
+  '11st':   { name:'11번가',        color:'#993C1D' },
+  auction:  { name:'옥션',          color:'#3B6D11' },
+  kidsnote: { name:'키즈노트',      color:'#534AB7' },
+  mrt:      { name:'마이리얼트립',  color:'#0369A1' },
 };
 
 // ── 로그인 ────────────────────────────────────────────────────
@@ -173,8 +179,8 @@ async function doLogin() {
   if (!pw) return;
   try {
     const res = await fetch(`${API}/admin/login`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ password: pw })
     });
     const data = await res.json();
@@ -184,11 +190,11 @@ async function doLogin() {
     document.getElementById('adminWrap').style.display = 'block';
     initAdmin();
   } catch(e) {
-    document.getElementById('loginError').style.display = 'block';
-    document.getElementById('loginError').textContent = e.message || '비밀번호가 틀렸습니다.';
+    const el = document.getElementById('loginError');
+    el.style.display = 'block';
+    el.textContent = e.message || '비밀번호가 틀렸습니다.';
   }
 }
-
 function doLogout() {
   adminToken = '';
   document.getElementById('loginWrap').style.display = 'flex';
@@ -215,8 +221,8 @@ async function loadParkData() {
   const res = await fetch(`${API}/prices?park=${currentParkKey}`);
   currentParkData = await res.json();
   document.getElementById('editArea').style.display = 'block';
-  renderEditor();
   document.getElementById('resultBox').style.display = 'none';
+  renderEditor();
 }
 
 // ── 편집 UI 렌더링 ────────────────────────────────────────────
@@ -227,40 +233,63 @@ function renderEditor() {
   document.getElementById('seasonName').value = d.currentSeason || '';
   document.getElementById('noticeText').value = d.notice || '';
 
-  // 티켓 가격
-  const ticketRows = document.getElementById('ticketRows');
-  ticketRows.innerHTML = d.tickets.map((t, ti) => `
-    <div style="border-top:0.5px solid var(--border);padding:10px 14px;">
-      <div style="font-size:12px;font-weight:500;color:var(--txt);margin-bottom:8px;">
-        ${t.label} <span style="font-size:10px;color:var(--txt2);">${t.time||''}</span>
-      </div>
-      ${['adult','child','youth'].map(pt => {
-        const labels = {adult:'대인',child:'소인',youth:'청소년'};
-        const val = t.prices[pt];
-        if (val == null) return '';
-        return `<div class="edit-row" style="padding:6px 0;border:none;">
-          <div class="edit-row-label" style="font-size:11px;">${labels[pt]}</div>
-          <input class="edit-input" type="number" step="1000"
-            id="ticket_${ti}_${pt}" value="${val}"
-            style="width:120px;">
-          <div class="edit-unit">원</div>
-        </div>`;
-      }).join('')}
-    </div>`).join('');
+  // ticketNote (아쿠아필드, 아산스파비스, 스플라스)
+  const noteEl = document.getElementById('ticketNoteLabel');
+  noteEl.textContent = d.ticketNote || '';
 
-  // 채널 할인율
-  const channelRows = document.getElementById('channelRows');
+  // ── 티켓 가격 렌더링 ──────────────────────────────────────
+  const ticketRows = document.getElementById('ticketRows');
+  ticketRows.innerHTML = d.tickets.map((t, ti) => {
+    const priceKeys = Object.keys(t.prices);
+    const priceRowsHTML = priceKeys.map(pk => {
+      const lbl = t.priceLabels?.[pk] || pk;
+      const val = t.prices[pk];
+      return `<div class="price-row">
+        <div class="price-lbl">${lbl}</div>
+        <div class="price-input-wrap">
+          <input class="price-input" type="number" step="1000"
+            id="ticket_${ti}_${pk}" value="${val}">
+          <span class="price-unit">원</span>
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="ticket-block">
+      <div class="ticket-block-hd">
+        <span class="ticket-name">${t.label}</span>
+        <span class="ticket-time">${t.time || ''}</span>
+      </div>
+      ${priceRowsHTML}
+    </div>`;
+  }).join('');
+
+  // ── 채널별 할인금액 렌더링 ────────────────────────────────
   const discounts = d.channelDiscounts || {};
-  const chKeys = Object.keys(CH_NAMES).filter(k => k !== 'home');
+  const channelRows = document.getElementById('channelRows');
+
+  // 공홈 포함 전체 채널 순서
+  const chKeys = ['home','nori','naver','coupang','kakao','yanolja','yeogi','gmarket','11st','auction','kidsnote','mrt'];
+
   channelRows.innerHTML = chKeys.map(key => {
-    const rate = discounts[key]?.rate || 0;
-    const pct = Math.round(rate * 100);
-    return `<div class="ch-row">
-      <div class="ch-dot" style="background:${CH_COLORS[key]||'#888'}"></div>
-      <div class="ch-name">${CH_NAMES[key]}</div>
-      <input class="ch-input" type="number" min="0" max="70" step="1"
-        id="ch_${key}" value="${pct}">
-      <div class="ch-pct">%</div>
+    if (!discounts[key]) return ''; // 이 파크에 없는 채널은 숨김
+    const info = CH_INFO[key] || { name: key, color: '#888' };
+    const wd = discounts[key].weekday || 0;
+    const we = discounts[key].weekend || 0;
+    return `<div class="ch-block">
+      <div class="ch-hd">
+        <div class="ch-dot" style="background:${info.color}"></div>
+        <div class="ch-name-txt">${info.name}</div>
+      </div>
+      <div class="ch-inputs">
+        <span class="ch-input-lbl">주중 대인</span>
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_weekday" value="${wd}">
+        <span class="price-unit">원</span>
+        <span class="ch-input-lbl" style="margin-left:8px;">주말·공휴일</span>
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_weekend" value="${we}">
+        <span class="price-unit">원</span>
+      </div>
     </div>`;
   }).join('');
 }
@@ -278,61 +307,50 @@ async function saveAll() {
 
     // 티켓 가격 수집
     const updatedTickets = d.tickets.map((t, ti) => {
-      const newPrices = {...t.prices};
-      ['adult','child','youth'].forEach(pt => {
-        const el = document.getElementById(`ticket_${ti}_${pt}`);
-        if (el && t.prices[pt] != null) newPrices[pt] = parseInt(el.value) || t.prices[pt];
+      const newPrices = {};
+      Object.keys(t.prices).forEach(pk => {
+        const el = document.getElementById(`ticket_${ti}_${pk}`);
+        newPrices[pk] = el ? (parseInt(el.value) || t.prices[pk]) : t.prices[pk];
       });
-      return {...t, prices: newPrices};
+      return { ...t, prices: newPrices };
     });
 
-    // 채널 할인율 수집
-    const updatedDiscounts = {...(d.channelDiscounts||{})};
-    Object.keys(CH_NAMES).filter(k=>k!=='home').forEach(key => {
-      const el = document.getElementById(`ch_${key}`);
-      if (el) {
-        const pct = parseFloat(el.value) || 0;
-        if (!updatedDiscounts[key]) updatedDiscounts[key] = {};
-        updatedDiscounts[key].rate = pct / 100;
-        if (!updatedDiscounts[key].note) updatedDiscounts[key].note = CH_NAMES[key];
-      }
+    // 채널 할인금액 수집
+    const updatedDiscounts = { ...(d.channelDiscounts || {}) };
+    Object.keys(updatedDiscounts).forEach(key => {
+      const wdEl = document.getElementById(`ch_${key}_weekday`);
+      const weEl = document.getElementById(`ch_${key}_weekend`);
+      if (wdEl) updatedDiscounts[key] = {
+        ...updatedDiscounts[key],
+        weekday: parseInt(wdEl.value) || updatedDiscounts[key].weekday,
+        weekend: parseInt(weEl.value) || updatedDiscounts[key].weekend
+      };
     });
 
-    // 시즌/공지
-    const seasonName = document.getElementById('seasonName').value;
-    const notice = document.getElementById('noticeText').value;
-
-    // 서버에 전송
-    const payload = {
-      parkKey: currentParkKey,
-      updatedData: {
-        ...d,
-        tickets: updatedTickets,
-        channelDiscounts: updatedDiscounts,
-        currentSeason: seasonName,
-        notice: notice,
-        updatedAt: new Date().toISOString().slice(0,10)
-      }
+    const updatedData = {
+      ...d,
+      tickets: updatedTickets,
+      channelDiscounts: updatedDiscounts,
+      currentSeason: document.getElementById('seasonName').value,
+      notice: document.getElementById('noticeText').value,
+      updatedAt: new Date().toISOString().slice(0,10)
     };
 
     const res = await fetch(`${API}/admin/update-price`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
         'x-admin-token': adminToken
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ parkKey: currentParkKey, updatedData })
     });
     const result = await res.json();
-
     if (!res.ok) throw new Error(result.error);
 
     resultBox.className = 'result-box result-success';
     resultBox.innerHTML = `✅ ${result.message}`;
     resultBox.style.display = 'block';
-
-    // 현재 데이터 업데이트
-    currentParkData = payload.updatedData;
+    currentParkData = updatedData;
 
   } catch(e) {
     resultBox.className = 'result-box result-error';
