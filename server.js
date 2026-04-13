@@ -231,6 +231,7 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => res.json({ status:'ok', time:new Date().toISOString() }));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public/admin.html')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
 function formatDate(pubDate) {
