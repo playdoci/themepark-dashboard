@@ -21,33 +21,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 /* 로그인 */
 .login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
 .login-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:32px 24px;width:100%;}
-.login-title{font-size:20px;font-weight:600;color:var(--txt);margin-bottom:6px;}
+.login-title{font-size:20px;font-weight:600;margin-bottom:6px;}
 .login-sub{font-size:13px;color:var(--txt2);margin-bottom:24px;}
 .login-input{width:100%;padding:10px 14px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;color:var(--txt);background:var(--bg);margin-bottom:12px;}
 .login-btn{width:100%;padding:12px;background:var(--txt);color:var(--bg);border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;}
 .login-error{font-size:12px;color:var(--red);margin-top:8px;display:none;}
 
-/* 관리자 */
+/* 레이아웃 */
 .admin-wrap{display:none;}
 .topbar{background:var(--bg);border-bottom:0.5px solid var(--border);padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;}
-.topbar-title{font-size:17px;font-weight:600;color:var(--txt);}
+.topbar-title{font-size:17px;font-weight:600;}
 .logout-btn{font-size:12px;padding:5px 10px;border-radius:20px;border:0.5px solid var(--border2);background:none;color:var(--txt2);cursor:pointer;}
-.content{padding:14px;}
-.sec-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
-.park-select{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:var(--bg);margin-bottom:16px;}
-.info-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--amber);line-height:1.6;}
 
-/* 카드 */
+/* 메뉴 탭 */
+.menu-tabs{display:flex;background:var(--bg);border-bottom:0.5px solid var(--border);position:sticky;top:46px;z-index:99;}
+.menu-tab{flex:1;padding:10px 4px;font-size:12px;border:none;background:none;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;font-weight:500;}
+.menu-tab.active{color:var(--txt);border-bottom-color:var(--txt);}
+
+.content{padding:14px;}
+.menu-section{display:none;}
+.menu-section.active{display:block;}
+
+/* 공통 */
+.sec-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
+.info-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--amber);line-height:1.6;}
+.park-select{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:var(--bg);margin-bottom:16px;}
 .card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
 .card-hd{background:var(--bg2);padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);display:flex;justify-content:space-between;align-items:center;}
 .card-hd-note{font-size:10px;font-weight:400;color:var(--txt2);}
-
-/* 시즌 행 */
 .field-row{padding:11px 14px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:10px;}
 .field-label{font-size:12px;color:var(--txt2);min-width:70px;flex-shrink:0;}
 .field-input{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);}
-
-/* 티켓 섹션 */
 .ticket-block{border-top:0.5px solid var(--border);}
 .ticket-block-hd{padding:8px 14px;background:var(--bg3);display:flex;align-items:center;gap:6px;}
 .ticket-name{font-size:12px;font-weight:600;color:var(--txt);}
@@ -58,16 +62,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .price-input{width:100px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
 .price-unit{font-size:12px;color:var(--txt2);}
 
-/* 채널 할인 */
+/* 채널 블록 */
 .ch-block{border-top:0.5px solid var(--border);}
-.ch-hd{display:flex;align-items:center;padding:9px 14px;gap:8px;background:var(--bg);}
+.ch-main-row{display:flex;align-items:center;padding:10px 14px;gap:8px;}
 .ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .ch-name-txt{font-size:12px;font-weight:500;color:var(--txt);flex:1;}
-.ch-inputs{display:flex;align-items:center;gap:6px;border-top:0.5px solid var(--border);padding:7px 14px 7px 30px;}
+.ch-inactive-label{font-size:10px;color:var(--txt3);margin-right:4px;}
+.ch-toggle{display:flex;align-items:center;gap:4px;cursor:pointer;}
+.ch-toggle input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--red);}
+.ch-toggle-lbl{font-size:10px;color:var(--txt2);}
+.ch-inputs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 14px 10px 30px;border-top:0.5px solid var(--border);}
 .ch-input-lbl{font-size:10px;color:var(--txt2);min-width:55px;}
 .ch-price-input{width:90px;padding:5px 8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
+.ch-date-wrap{display:flex;align-items:center;gap:4px;width:100%;margin-top:4px;}
+.ch-date-input{flex:1;padding:4px 8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;color:var(--txt);background:var(--bg);}
+.ch-inactive .ch-inputs{opacity:.4;pointer-events:none;}
 
-/* 저장 */
+/* 채널 추가 */
+.add-ch-form{padding:12px 14px;border-top:0.5px solid var(--border);background:var(--blue-bg);}
+.add-ch-title{font-size:11px;font-weight:500;color:var(--blue);margin-bottom:8px;}
+.add-ch-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+.add-ch-input{flex:1;min-width:80px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;color:var(--txt);background:var(--bg);}
+.add-ch-btn{padding:6px 12px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
+
+/* 저장 버튼 */
 .save-btn{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:4px;}
 .save-btn:active{opacity:.85;}
 .save-btn:disabled{background:var(--txt3);cursor:not-allowed;}
@@ -76,6 +94,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .result-error{background:var(--red-bg);color:var(--red);}
 .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* 뉴스 등록 */
+.news-form{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;}
+.news-form-title{font-size:13px;font-weight:600;margin-bottom:12px;}
+.news-input{width:100%;padding:9px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);margin-bottom:8px;}
+.news-input::placeholder{color:var(--txt3);}
+.news-row{display:flex;gap:8px;margin-bottom:8px;}
+.news-row .news-input{margin-bottom:0;}
+.news-submit{width:100%;padding:11px;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;}
+.news-submit:active{opacity:.85;}
+.news-list-item{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.news-item-info{flex:1;min-width:0;}
+.news-item-title{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.news-item-meta{font-size:11px;color:var(--txt2);}
+.news-del-btn{padding:4px 10px;background:var(--red-bg);color:var(--red);border:0.5px solid #F0997B;border-radius:var(--radius-sm);font-size:11px;cursor:pointer;flex-shrink:0;white-space:nowrap;}
+.empty-news{text-align:center;padding:24px;color:var(--txt2);font-size:13px;}
+.tag-select{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;color:var(--txt);background:var(--bg);}
 </style>
 </head>
 <body>
@@ -84,7 +119,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <div class="login-wrap" id="loginWrap">
   <div class="login-card">
     <div class="login-title">관리자 로그인</div>
-    <div class="login-sub">테마파크 인사이트 가격 관리</div>
+    <div class="login-sub">테마파크 인사이트 관리</div>
     <input class="login-input" type="password" id="pwInput" placeholder="비밀번호 입력"
       onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">로그인</button>
@@ -92,62 +127,119 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 
-<!-- 관리자 화면 -->
+<!-- 관리자 -->
 <div class="admin-wrap" id="adminWrap">
   <div class="topbar">
-    <div class="topbar-title">가격 관리</div>
+    <div class="topbar-title">관리자</div>
     <button class="logout-btn" onclick="doLogout()">로그아웃</button>
   </div>
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="switchMenu('price',this)">가격 관리</button>
+    <button class="menu-tab" onclick="switchMenu('news',this)">뉴스 등록</button>
+  </div>
+
   <div class="content">
-    <div class="info-box">
-      💡 공식 홈페이지에서 현재 시즌 가격 확인 후 수정해주세요.<br>
-      저장 시 GitHub가 자동 업데이트되고 <b>2~3분 후</b> 앱에 반영돼요.<br>
-      채널 할인금액 = 해당 채널에서 실제 판매되는 <b>대인 기준 금액</b>을 입력하세요.
+
+    <!-- ── 가격 관리 ──────────────────────────────────── -->
+    <div class="menu-section active" id="menu-price">
+      <div class="info-box">
+        💡 공식 홈페이지에서 현재 시즌 가격 확인 후 수정해주세요.<br>
+        저장 시 GitHub 자동 업데이트 → <b>2~3분 후</b> 앱에 반영<br>
+        <b>판매없음</b> 체크 시 앱에서 해당 채널이 숨겨집니다.
+      </div>
+
+      <div class="sec-label">파크 선택</div>
+      <select class="park-select" id="parkSelect" onchange="loadParkData()">
+        <option value="">파크를 선택하세요</option>
+      </select>
+
+      <div id="editArea" style="display:none;">
+
+        <!-- 시즌 정보 -->
+        <div class="card">
+          <div class="card-hd">시즌 정보</div>
+          <div class="field-row">
+            <div class="field-label">시즌명</div>
+            <input class="field-input" id="seasonName" placeholder="예: 로우 시즌 (2026.03~05)">
+          </div>
+          <div class="field-row">
+            <div class="field-label">공지사항</div>
+            <input class="field-input" id="noticeText" placeholder="예: 매주 월·화 휴장">
+          </div>
+        </div>
+
+        <!-- 티켓 가격 -->
+        <div class="card">
+          <div class="card-hd">
+            티켓 가격
+            <span class="card-hd-note" id="ticketNoteLabel"></span>
+          </div>
+          <div id="ticketRows"></div>
+        </div>
+
+        <!-- 채널별 판매금액 -->
+        <div class="card">
+          <div class="card-hd">
+            채널별 판매금액
+            <span class="card-hd-note">대인 종일권 기준</span>
+          </div>
+          <div id="channelRows"></div>
+          <!-- 채널 추가 -->
+          <div class="add-ch-form">
+            <div class="add-ch-title">+ 새 채널 추가</div>
+            <div class="add-ch-row">
+              <input class="add-ch-input" id="newChName" placeholder="채널명 (예: 클룩)">
+              <input class="add-ch-input" id="newChColor" type="color" value="#185FA5" style="width:40px;padding:2px;">
+            </div>
+            <div class="add-ch-row">
+              <input class="add-ch-input" id="newChWeekday" type="number" placeholder="주중 금액">
+              <input class="add-ch-input" id="newChWeekend" type="number" placeholder="주말 금액">
+              <button class="add-ch-btn" onclick="addChannel()">추가</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="save-btn" id="saveBtn" onclick="saveAll()">
+          저장하고 GitHub 업데이트
+        </button>
+        <div class="result-box" id="resultBox"></div>
+      </div>
     </div>
 
-    <div class="sec-label">파크 선택</div>
-    <select class="park-select" id="parkSelect" onchange="loadParkData()">
-      <option value="">파크를 선택하세요</option>
-    </select>
-
-    <div id="editArea" style="display:none;">
-
-      <!-- 시즌 정보 -->
-      <div class="card">
-        <div class="card-hd">시즌 정보</div>
-        <div class="field-row">
-          <div class="field-label">시즌명</div>
-          <input class="field-input" id="seasonName" placeholder="예: 로우 시즌 (2026.03~05)">
-        </div>
-        <div class="field-row">
-          <div class="field-label">공지사항</div>
-          <input class="field-input" id="noticeText" placeholder="예: 매주 월·화 휴장">
-        </div>
+    <!-- ── 뉴스 등록 ──────────────────────────────────── -->
+    <div class="menu-section" id="menu-news">
+      <div class="info-box">
+        📰 협회 주간동향 등 네이버에서 검색되지 않는 뉴스를 직접 등록하세요.<br>
+        등록한 뉴스는 앱 뉴스 탭 <b>맨 위</b>에 표시됩니다.<br>
+        ⚠️ 서버 재시작 시 초기화됩니다 (Railway 무료 플랜은 비활성 시 재시작됨)
       </div>
 
-      <!-- 티켓 가격 -->
-      <div class="card">
-        <div class="card-hd">
-          티켓 가격
-          <span class="card-hd-note" id="ticketNoteLabel"></span>
+      <div class="news-form">
+        <div class="news-form-title">뉴스 직접 등록</div>
+        <input class="news-input" id="newsTitle" placeholder="제목 *">
+        <input class="news-input" id="newsUrl" placeholder="링크 URL * (예: https://katpa.or.kr/...)">
+        <input class="news-input" id="newsSummary" placeholder="요약 (선택)">
+        <div class="news-row">
+          <input class="news-input" id="newsSource" placeholder="출처 (예: 한국테마파크협회)">
+          <select class="tag-select" id="newsTag">
+            <option value="협회">협회</option>
+            <option value="이벤트">이벤트</option>
+            <option value="가격">가격</option>
+            <option value="개장">개장</option>
+            <option value="신규시설">신규시설</option>
+            <option value="워터파크">워터파크</option>
+            <option value="스파">스파</option>
+            <option value="뉴스">뉴스</option>
+          </select>
         </div>
-        <div id="ticketRows"></div>
+        <button class="news-submit" onclick="submitNews()">등록하기</button>
+        <div class="result-box" id="newsResultBox"></div>
       </div>
 
-      <!-- 채널별 할인금액 -->
-      <div class="card">
-        <div class="card-hd">
-          채널별 판매금액
-          <span class="card-hd-note">대인 종일권 기준</span>
-        </div>
-        <div id="channelRows"></div>
-      </div>
-
-      <button class="save-btn" id="saveBtn" onclick="saveAll()">
-        저장하고 GitHub 업데이트
-      </button>
-      <div class="result-box" id="resultBox"></div>
+      <div class="sec-label">등록된 뉴스 <span id="newsCount" style="font-weight:600;color:var(--txt);">0</span>건</div>
+      <div id="newsList"><div class="empty-news">등록된 뉴스가 없습니다.</div></div>
     </div>
+
   </div>
 </div>
 
@@ -173,14 +265,13 @@ const CH_INFO = {
   mrt:      { name:'마이리얼트립',  color:'#0369A1' },
 };
 
-// ── 로그인 ────────────────────────────────────────────────────
+// ── 로그인 ──────────────────────────────────────────────────
 async function doLogin() {
   const pw = document.getElementById('pwInput').value;
   if (!pw) return;
   try {
     const res = await fetch(`${API}/admin/login`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ password: pw })
     });
     const data = await res.json();
@@ -202,7 +293,16 @@ function doLogout() {
   document.getElementById('pwInput').value = '';
 }
 
-// ── 초기화 ────────────────────────────────────────────────────
+// ── 메뉴 탭 전환 ────────────────────────────────────────────
+function switchMenu(name, el) {
+  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('menu-' + name).classList.add('active');
+  el.classList.add('active');
+  if (name === 'news') loadManualNews();
+}
+
+// ── 초기화 ──────────────────────────────────────────────────
 async function initAdmin() {
   const res = await fetch(`${API}/parks`);
   parkList = await res.json();
@@ -211,13 +311,10 @@ async function initAdmin() {
     parkList.map(p => `<option value="${p.key}">${p.name}</option>`).join('');
 }
 
-// ── 파크 데이터 로드 ──────────────────────────────────────────
+// ── 파크 데이터 로드 ────────────────────────────────────────
 async function loadParkData() {
   currentParkKey = document.getElementById('parkSelect').value;
-  if (!currentParkKey) {
-    document.getElementById('editArea').style.display = 'none';
-    return;
-  }
+  if (!currentParkKey) { document.getElementById('editArea').style.display = 'none'; return; }
   const res = await fetch(`${API}/prices?park=${currentParkKey}`);
   currentParkData = await res.json();
   document.getElementById('editArea').style.display = 'block';
@@ -225,76 +322,99 @@ async function loadParkData() {
   renderEditor();
 }
 
-// ── 편집 UI 렌더링 ────────────────────────────────────────────
+// ── 편집 UI 렌더링 ──────────────────────────────────────────
 function renderEditor() {
   const d = currentParkData;
-
-  // 시즌 정보
   document.getElementById('seasonName').value = d.currentSeason || '';
   document.getElementById('noticeText').value = d.notice || '';
+  document.getElementById('ticketNoteLabel').textContent = d.ticketNote || '';
 
-  // ticketNote (아쿠아필드, 아산스파비스, 스플라스)
-  const noteEl = document.getElementById('ticketNoteLabel');
-  noteEl.textContent = d.ticketNote || '';
-
-  // ── 티켓 가격 렌더링 ──────────────────────────────────────
-  const ticketRows = document.getElementById('ticketRows');
-  ticketRows.innerHTML = d.tickets.map((t, ti) => {
-    const priceKeys = Object.keys(t.prices);
-    const priceRowsHTML = priceKeys.map(pk => {
-      const lbl = t.priceLabels?.[pk] || pk;
-      const val = t.prices[pk];
-      return `<div class="price-row">
-        <div class="price-lbl">${lbl}</div>
-        <div class="price-input-wrap">
-          <input class="price-input" type="number" step="1000"
-            id="ticket_${ti}_${pk}" value="${val}">
-          <span class="price-unit">원</span>
-        </div>
-      </div>`;
-    }).join('');
-
-    return `<div class="ticket-block">
+  // 티켓 가격
+  document.getElementById('ticketRows').innerHTML = d.tickets.map((t, ti) => `
+    <div class="ticket-block">
       <div class="ticket-block-hd">
         <span class="ticket-name">${t.label}</span>
         <span class="ticket-time">${t.time || ''}</span>
       </div>
-      ${priceRowsHTML}
-    </div>`;
-  }).join('');
+      ${Object.keys(t.prices).map(pk => `
+        <div class="price-row">
+          <div class="price-lbl">${t.priceLabels?.[pk] || pk}</div>
+          <div class="price-input-wrap">
+            <input class="price-input" type="number" step="1000"
+              id="ticket_${ti}_${pk}" value="${t.prices[pk]}">
+            <span class="price-unit">원</span>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
 
-  // ── 채널별 할인금액 렌더링 ────────────────────────────────
+  // 채널 할인금액
   const discounts = d.channelDiscounts || {};
-  const channelRows = document.getElementById('channelRows');
-
-  // 공홈 포함 전체 채널 순서
-  const chKeys = ['home','nori','naver','coupang','kakao','yanolja','yeogi','gmarket','11st','auction','kidsnote','mrt'];
-
-  channelRows.innerHTML = chKeys.map(key => {
-    if (!discounts[key]) return ''; // 이 파크에 없는 채널은 숨김
+  document.getElementById('channelRows').innerHTML = Object.entries(discounts).map(([key, disc]) => {
     const info = CH_INFO[key] || { name: key, color: '#888' };
-    const wd = discounts[key].weekday || 0;
-    const we = discounts[key].weekend || 0;
-    return `<div class="ch-block">
-      <div class="ch-hd">
+    const isActive = disc.active !== false;
+    return `<div class="ch-block${!isActive?' ch-inactive':''}" id="chblock_${key}">
+      <div class="ch-main-row">
         <div class="ch-dot" style="background:${info.color}"></div>
         <div class="ch-name-txt">${info.name}</div>
+        <label class="ch-toggle" title="판매없음 체크 시 앱에서 숨김">
+          <input type="checkbox" id="ch_active_${key}" ${!isActive?'checked':''}
+            onchange="toggleChActive('${key}',this)">
+          <span class="ch-toggle-lbl">판매없음</span>
+        </label>
       </div>
       <div class="ch-inputs">
         <span class="ch-input-lbl">주중 대인</span>
-        <input class="ch-price-input" type="number" step="100"
-          id="ch_${key}_weekday" value="${wd}">
+        <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekday" value="${disc.weekday||0}">
         <span class="price-unit">원</span>
-        <span class="ch-input-lbl" style="margin-left:8px;">주말·공휴일</span>
-        <input class="ch-price-input" type="number" step="100"
-          id="ch_${key}_weekend" value="${we}">
+        <span class="ch-input-lbl" style="margin-left:6px;">주말·공휴일</span>
+        <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekend" value="${disc.weekend||0}">
         <span class="price-unit">원</span>
+        <div class="ch-date-wrap">
+          <span class="ch-input-lbl" style="min-width:40px;">판매기간</span>
+          <input class="ch-date-input" type="date" id="ch_${key}_start"
+            value="${disc.startDate||''}" placeholder="시작일">
+          <span style="font-size:11px;color:var(--txt3);">~</span>
+          <input class="ch-date-input" type="date" id="ch_${key}_end"
+            value="${disc.endDate||''}" placeholder="종료일">
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ── 전체 저장 ─────────────────────────────────────────────────
+function toggleChActive(key, checkbox) {
+  const block = document.getElementById('chblock_' + key);
+  if (checkbox.checked) block.classList.add('ch-inactive');
+  else block.classList.remove('ch-inactive');
+}
+
+// ── 채널 추가 ────────────────────────────────────────────────
+function addChannel() {
+  const name = document.getElementById('newChName').value.trim();
+  const color = document.getElementById('newChColor').value;
+  const weekday = parseInt(document.getElementById('newChWeekday').value) || 0;
+  const weekend = parseInt(document.getElementById('newChWeekend').value) || 0;
+  if (!name) { alert('채널명을 입력해주세요.'); return; }
+
+  // key 생성 (한글 채널명을 영문 key로 변환)
+  const key = 'custom_' + Date.now();
+
+  // currentParkData에 추가
+  if (!currentParkData.channelDiscounts) currentParkData.channelDiscounts = {};
+  currentParkData.channelDiscounts[key] = { weekday, weekend, active: true, note: name };
+
+  // CH_INFO에 임시 추가
+  CH_INFO[key] = { name, color };
+
+  renderEditor();
+
+  // 입력 초기화
+  document.getElementById('newChName').value = '';
+  document.getElementById('newChWeekday').value = '';
+  document.getElementById('newChWeekend').value = '';
+}
+
+// ── 전체 저장 ────────────────────────────────────────────────
 async function saveAll() {
   const btn = document.getElementById('saveBtn');
   const resultBox = document.getElementById('resultBox');
@@ -315,16 +435,27 @@ async function saveAll() {
       return { ...t, prices: newPrices };
     });
 
-    // 채널 할인금액 수집
-    const updatedDiscounts = { ...(d.channelDiscounts || {}) };
-    Object.keys(updatedDiscounts).forEach(key => {
+    // 채널 수집
+    const updatedDiscounts = {};
+    Object.keys(d.channelDiscounts || {}).forEach(key => {
       const wdEl = document.getElementById(`ch_${key}_weekday`);
       const weEl = document.getElementById(`ch_${key}_weekend`);
-      if (wdEl) updatedDiscounts[key] = {
-        ...updatedDiscounts[key],
-        weekday: parseInt(wdEl.value) || updatedDiscounts[key].weekday,
-        weekend: parseInt(weEl.value) || updatedDiscounts[key].weekend
+      const acEl = document.getElementById(`ch_active_${key}`);
+      const stEl = document.getElementById(`ch_${key}_start`);
+      const enEl = document.getElementById(`ch_${key}_end`);
+      const info = CH_INFO[key] || {};
+      updatedDiscounts[key] = {
+        ...d.channelDiscounts[key],
+        weekday:   wdEl ? (parseInt(wdEl.value) || 0) : (d.channelDiscounts[key].weekday || 0),
+        weekend:   weEl ? (parseInt(weEl.value) || 0) : (d.channelDiscounts[key].weekend || 0),
+        active:    acEl ? !acEl.checked : true,
+        startDate: stEl?.value || undefined,
+        endDate:   enEl?.value || undefined,
+        note:      d.channelDiscounts[key].note || info.name || key
       };
+      // 빈 날짜 제거
+      if (!updatedDiscounts[key].startDate) delete updatedDiscounts[key].startDate;
+      if (!updatedDiscounts[key].endDate)   delete updatedDiscounts[key].endDate;
     });
 
     const updatedData = {
@@ -338,10 +469,7 @@ async function saveAll() {
 
     const res = await fetch(`${API}/admin/update-price`, {
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-admin-token': adminToken
-      },
+      headers:{ 'Content-Type':'application/json', 'x-admin-token': adminToken },
       body: JSON.stringify({ parkKey: currentParkKey, updatedData })
     });
     const result = await res.json();
@@ -360,6 +488,85 @@ async function saveAll() {
     btn.disabled = false;
     btn.innerHTML = '저장하고 GitHub 업데이트';
   }
+}
+
+// ── 수동 뉴스 ────────────────────────────────────────────────
+async function loadManualNews() {
+  try {
+    const res = await fetch(`${API}/manual-news`);
+    const items = await res.json();
+    document.getElementById('newsCount').textContent = items.length;
+    const list = document.getElementById('newsList');
+    if (!items.length) {
+      list.innerHTML = '<div class="empty-news">등록된 뉴스가 없습니다.</div>';
+      return;
+    }
+    list.innerHTML = items.map(item => `
+      <div class="news-list-item" id="newsitem_${item.id}">
+        <div class="news-item-info">
+          <div class="news-item-title">${item.title}</div>
+          <div class="news-item-meta">${item.source} · ${item.date} · <span style="color:var(--blue)">${item.tag}</span></div>
+        </div>
+        <button class="news-del-btn" onclick="deleteNews('${item.id}')">삭제</button>
+      </div>`).join('');
+  } catch(e) {
+    document.getElementById('newsList').innerHTML = '<div class="empty-news">뉴스 목록을 불러올 수 없습니다.</div>';
+  }
+}
+
+async function submitNews() {
+  const title   = document.getElementById('newsTitle').value.trim();
+  const url     = document.getElementById('newsUrl').value.trim();
+  const summary = document.getElementById('newsSummary').value.trim();
+  const source  = document.getElementById('newsSource').value.trim() || '한국테마파크협회';
+  const tag     = document.getElementById('newsTag').value;
+  const rb      = document.getElementById('newsResultBox');
+
+  if (!title) { showNewsResult('error', '제목을 입력해주세요.'); return; }
+  if (!url)   { showNewsResult('error', 'URL을 입력해주세요.'); return; }
+
+  try {
+    const res = await fetch(`${API}/admin/manual-news`, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-admin-token': adminToken },
+      body: JSON.stringify({ title, url, summary, source, tag })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    // 입력 초기화
+    ['newsTitle','newsUrl','newsSummary','newsSource'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('newsTag').value = '협회';
+
+    showNewsResult('success', '✅ 등록 완료! 앱 뉴스 탭에 즉시 반영됩니다.');
+    loadManualNews();
+  } catch(e) {
+    showNewsResult('error', '❌ 오류: ' + e.message);
+  }
+}
+
+async function deleteNews(id) {
+  if (!confirm('이 뉴스를 삭제할까요?')) return;
+  try {
+    const res = await fetch(`${API}/admin/manual-news/${id}`, {
+      method:'DELETE',
+      headers:{ 'x-admin-token': adminToken }
+    });
+    if (!res.ok) throw new Error('삭제 실패');
+    loadManualNews();
+  } catch(e) {
+    alert('삭제 오류: ' + e.message);
+  }
+}
+
+function showNewsResult(type, msg) {
+  const rb = document.getElementById('newsResultBox');
+  rb.className = `result-box result-${type}`;
+  rb.innerHTML = msg;
+  rb.style.display = 'block';
+  setTimeout(() => rb.style.display = 'none', 4000);
 }
 </script>
 </body>
