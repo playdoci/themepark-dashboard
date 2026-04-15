@@ -51,6 +51,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .tag-개장{background:var(--green-bg);color:var(--green);}
 .tag-스파{background:var(--purple-bg);color:var(--purple);}
 .tag-뉴스,.tag-안내{background:var(--bg2);color:var(--txt2);}
+.tag-협회{background:#F3E8FF;color:#7C3AED;}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
 .nmeta{font-size:11px;color:var(--txt2);}
 .nsrc{font-weight:500;}
@@ -274,22 +275,24 @@ const CATEGORY_KEYWORDS = {
   '개장':'워터파크 개장 폐장 2026'
 };
 const PARKS = [
-  {key:'woojin',      name:'웅진플레이도시', icon:'🌊', cat:'워터파크', loc:'경기 부천'},
-  {key:'caribbean',   name:'캐리비안베이',   icon:'🏄', cat:'워터파크', loc:'경기 용인'},
-  {key:'oceanworld',  name:'오션월드',        icon:'🌊', cat:'워터파크', loc:'강원 홍천'},
-  {key:'onmount',     name:'원마운트',        icon:'⛷️', cat:'워터파크', loc:'경기 고양'},
-  {key:'termeden',    name:'테르메덴',        icon:'♨️', cat:'워터파크', loc:'경기 여주'},
-  {key:'islandcastle',name:'아일랜드캐슬',   icon:'🏝️', cat:'워터파크', loc:'경기 가평'},
-  {key:'aquafield',   name:'아쿠아필드 하남',icon:'💧', cat:'워터파크', loc:'경기 하남'},
-  {key:'asanspa',     name:'아산스파비스',    icon:'🛁', cat:'워터파크', loc:'충남 아산'},
-  {key:'splash',      name:'스플라스리솜',    icon:'🎠', cat:'워터파크', loc:'충북 제천'},
-  {key:'ocean_ca',    name:'오션어드벤처천안',icon:'🐠', cat:'워터파크', loc:'충남 천안'},
-  {key:'paradise',    name:'파라다이스 도고', icon:'🌸', cat:'워터파크', loc:'충남 아산'},
-  {key:'everland',    name:'에버랜드',        icon:'🎡', cat:'테마파크', loc:'경기 용인'},
-  {key:'lotte',       name:'롯데월드',        icon:'🏰', cat:'테마파크', loc:'서울 송파'},
-  {key:'lego',        name:'레고랜드',        icon:'🟡', cat:'테마파크', loc:'강원 춘천'},
-  {key:'seoul',       name:'서울랜드',        icon:'🌳', cat:'테마파크', loc:'경기 과천'},
-  {key:'gyeongju',    name:'경주월드',        icon:'🏯', cat:'테마파크', loc:'경북 경주'},
+  {key:'woojin',       name:'웅진플레이도시',         icon:'🌊', cat:'워터파크', loc:'경기 부천'},
+  {key:'caribbean',    name:'캐리비안베이',            icon:'🏄', cat:'워터파크', loc:'경기 용인'},
+  {key:'oceanworld',   name:'오션월드',                icon:'🌊', cat:'워터파크', loc:'강원 홍천'},
+  {key:'onmount',      name:'원마운트',                icon:'⛷️', cat:'워터파크', loc:'경기 일산'},
+  {key:'islandcastle', name:'아일랜드캐슬',            icon:'🏝️', cat:'워터파크', loc:'경기 의정부'},
+  {key:'termeden',     name:'테르메덴',                icon:'♨️', cat:'워터파크', loc:'경기 이천'},
+  {key:'paradise_city',name:'파라다이스시티 씨메르',   icon:'🏖️', cat:'워터파크', loc:'인천 영종도'},
+  {key:'inspire',      name:'인스파이어 스플래시 베이',icon:'🌊', cat:'워터파크', loc:'인천 영종도'},
+  {key:'aquafield',    name:'아쿠아필드 하남',         icon:'💧', cat:'워터파크', loc:'경기 하남'},
+  {key:'asanspa',      name:'아산스파비스',            icon:'🛁', cat:'워터파크', loc:'충남 아산'},
+  {key:'splash',       name:'스플라스리솜',            icon:'🎠', cat:'워터파크', loc:'충북 제천'},
+  {key:'ocean_ca',     name:'오션어드벤처천안',        icon:'🐠', cat:'워터파크', loc:'충남 천안'},
+  {key:'paradise',     name:'파라다이스 도고',         icon:'🌸', cat:'워터파크', loc:'충남 아산'},
+  {key:'everland',     name:'에버랜드',                icon:'🎡', cat:'테마파크', loc:'경기 용인'},
+  {key:'lotte',        name:'롯데월드',                icon:'🏰', cat:'테마파크', loc:'서울 송파'},
+  {key:'lego',         name:'레고랜드',                icon:'🟡', cat:'테마파크', loc:'강원 춘천'},
+  {key:'seoul',        name:'서울랜드',                icon:'🌳', cat:'테마파크', loc:'경기 과천'},
+  {key:'gyeongju',     name:'경주월드',                icon:'🏯', cat:'테마파크', loc:'경북 경주'},
 ];
 const CHANNELS = [
   {key:'home',    name:'공식 홈페이지', cls:'l-home',    s:'홈',  type:'공식가/문화비소득공제'},
@@ -352,7 +355,8 @@ function applyFilter(filter) {
   document.getElementById('news-list').innerHTML=arts.length
     ?arts.map(a=>`<a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
         <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
-        ${a.parkName?`<span class="npark-badge">${a.parkName}</span>`:''}
+        ${a.isManual?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#F3E8FF;color:#7C3AED;margin-left:4px;">직접등록</span>`:''}
+        ${a.parkName&&!a.isManual?`<span class="npark-badge">${a.parkName}</span>`:''}
         <div class="ntitle">${a.title}</div>
         <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
       </a>`).join('')
@@ -410,53 +414,104 @@ function renderPrices(parkKey) {
     mrt:     {name:'마이리얼트립',  cls:'l-mrt',     s:'M'},
   };
 
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  // 채널 상태 판단 함수
+  function getChStatus(disc) {
+    if (disc.active === false) return 'hidden';       // 판매없음 → 완전 숨김
+    if (disc.endDate) {
+      const end = new Date(disc.endDate); end.setHours(23,59,59,0);
+      if (today > end) return 'expired';              // 기간만료 → 회색 표시
+    }
+    if (disc.startDate) {
+      const start = new Date(disc.startDate); start.setHours(0,0,0,0);
+      if (today < start) return 'upcoming';           // 판매예정 → 회색 표시
+    }
+    return 'active';
+  }
+
   let channels = Object.entries(discounts).map(([key, disc]) => {
-    const meta = CH_META[key];
-    if(!meta) return null;
+    const status = getChStatus(disc);
+    if (status === 'hidden') return null;             // 판매없음은 완전 제외
+
+    // 알려진 채널 또는 커스텀 채널 처리
+    const meta = CH_META[key] || {
+      name: disc.note || key,
+      cls:  'l-custom',
+      s:    (disc.note||key).slice(0,2)
+    };
     return {
       key, ...meta,
       weekday: disc.weekday || baseMain,
       weekend: disc.weekend || baseMain,
-      note: disc.note || meta.name
+      note: disc.note || meta.name,
+      status,
+      startDate: disc.startDate,
+      endDate: disc.endDate
     };
   }).filter(Boolean);
 
-  // 정렬 — 주중 기준
-  if(currentSort==='price') channels.sort((a,b)=>a.weekday-b.weekday);
-  else if(currentSort==='disc') channels.sort((a,b)=>(baseMain-a.weekday)-(baseMain-b.weekday));
-  else channels.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+  // 정렬 — active 채널 먼저, 그 다음 expired/upcoming (주중 기준)
+  channels.sort((a,b) => {
+    if (a.status === 'active' && b.status !== 'active') return -1;
+    if (a.status !== 'active' && b.status === 'active') return 1;
+    if (currentSort==='price') return a.weekday - b.weekday;
+    if (currentSort==='disc')  return (baseMain-a.weekday) - (baseMain-b.weekday);
+    return a.name.localeCompare(b.name,'ko');
+  });
 
-  const rows=channels.map((ch,i)=>{
-    const rCls=i===0?'r1':i===1?'r2':i===2?'r3':'rn';
-    const isHome=ch.key==='home';
-    const badge=i===0?`<span class="pi-best">최저가</span>`:
-                 ch.weekday<baseMain?`<span class="pi-disc">${Math.round((1-ch.weekday/baseMain)*100)}%↓</span>`:
-                 `<span style="font-size:10px;color:var(--txt3)">정가</span>`;
-    const origHtml=(ch.weekday<baseMain)?`<span class="pi-orig">${baseMain.toLocaleString()}</span>`:'';
+  // active 채널만 순위 부여
+  let rankIdx = 0;
+  const rows=channels.map((ch)=>{
+    const isHome = ch.key==='home';
+    const isActive = ch.status === 'active';
+    const isExpired = ch.status === 'expired';
+    const isUpcoming = ch.status === 'upcoming';
 
-    // 주중/주말이 다르면 둘 다 표시, 같으면 하나만
+    let rCls = 'rn', rankLabel = '';
+    if (isActive) {
+      rCls = rankIdx===0?'r1':rankIdx===1?'r2':rankIdx===2?'r3':'rn';
+      rankLabel = (rankIdx+1).toString();
+      rankIdx++;
+    }
+
+    // 상태 배지
+    let badge = '';
+    if (isExpired)  badge = `<span style="font-size:10px;padding:2px 6px;border-radius:3px;background:var(--bg3);color:var(--txt3);">기간만료</span>`;
+    else if (isUpcoming) badge = `<span style="font-size:10px;padding:2px 6px;border-radius:3px;background:var(--blue-bg);color:var(--blue);">${ch.startDate}~</span>`;
+    else if (rankIdx===1) badge = `<span class="pi-best">최저가</span>`;
+    else if (ch.weekday < baseMain) badge = `<span class="pi-disc">${Math.round((1-ch.weekday/baseMain)*100)}%↓</span>`;
+    else badge = `<span style="font-size:10px;color:var(--txt3)">정가</span>`;
+
+    const origHtml = (isActive && ch.weekday < baseMain) ? `<span class="pi-orig">${baseMain.toLocaleString()}</span>` : '';
+
     const samePrice = ch.weekday === ch.weekend;
-    const subPriceLine = !samePrice
+    const subPriceLine = (isActive && !samePrice)
       ? `<div class="pi-sub-row"><span class="pi-sub-label">주말</span><span class="pi-sub-price">${ch.weekend.toLocaleString()}원</span></div>`
       : '';
 
-    // 두 번째 티켓(반일권 등) 서브 표시
-    const subTicketLine = subTicket ? (() => {
-      const subKeys = Object.keys(subTicket.prices);
-      const subBase = subTicket.prices[subKeys[0]];
+    const subTicketLine = (isActive && subTicket) ? (() => {
+      const subBase = subTicket.prices[Object.keys(subTicket.prices)[0]];
       const subDisc = discounts[ch.key];
       let subPrice = subBase;
-      if(subDisc && subDisc.weekday && baseMain > 0) {
-        subPrice = Math.round(subBase * (subDisc.weekday/baseMain));
-      }
+      if (subDisc && subDisc.weekday && baseMain > 0)
+        subPrice = Math.round(subBase * (subDisc.weekday / baseMain));
       return `<div class="pi-sub-row"><span class="pi-sub-label">${subTicket.label}</span><span class="pi-sub-price">${subPrice.toLocaleString()}원</span></div>`;
     })() : '';
 
-    const clickAttr=isHome?`onclick="window.open('${data.homepageUrl}','_blank')" style="cursor:pointer;"` :'';
+    // 기간만료/예정 채널은 흐리게
+    const rowStyle = (!isActive) ? 'opacity:.45;' : '';
+    const clickAttr = isHome ? `onclick="window.open('${data.homepageUrl}','_blank')" style="cursor:pointer;${rowStyle}"` : `style="${rowStyle}"`;
+
+    // 커스텀 채널 로고 스타일
+    const logoStyle = ch.cls === 'l-custom'
+      ? `style="background:#f0ede8;color:#666;font-size:9px;"`
+      : '';
+
     return `<div class="prow" ${clickAttr}>
       <div class="ch-info">
-        <div class="rank-b ${rCls}">${i+1}</div>
-        <div class="ch-logo ${ch.cls}">${ch.s}</div>
+        <div class="rank-b ${rCls}">${rankLabel}</div>
+        <div class="ch-logo ${ch.cls}" ${logoStyle}>${ch.s}</div>
         <div>
           <div class="ch-name">${ch.name}</div>
           <div class="ch-type">${ch.note}</div>
@@ -464,10 +519,10 @@ function renderPrices(parkKey) {
       </div>
       <div class="pi">
         <div style="display:flex;align-items:center;justify-content:flex-end;gap:3px;">${origHtml}${badge}</div>
-        <div style="display:flex;align-items:baseline;justify-content:flex-end;gap:3px;margin-top:2px;">
+        ${isActive ? `<div style="display:flex;align-items:baseline;justify-content:flex-end;gap:3px;margin-top:2px;">
           ${samePrice?'':'<span class="pi-main-label">주중</span>'}
           <span class="pi-main">${ch.weekday.toLocaleString()}원</span>
-        </div>
+        </div>` : ''}
         ${subPriceLine}
         ${subTicketLine}
       </div>
