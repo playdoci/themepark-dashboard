@@ -52,6 +52,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .tag-스파{background:var(--purple-bg);color:var(--purple);}
 .tag-뉴스,.tag-안내{background:var(--bg2);color:var(--txt2);}
 .tag-협회{background:#F3E8FF;color:#7C3AED;}
+
+/* 포털 직접검색 버튼 */
+.portal-btn{flex:1;text-align:center;padding:6px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg);font-size:10px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
+.portal-btn:active{background:var(--bg2);}
+
+/* 카테고리 칩 줄바꿈 */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.chip{padding:4px 11px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);font-size:11px;font-weight:500;color:var(--txt2);cursor:pointer;white-space:nowrap;}
+.chip.active{background:var(--txt);color:var(--bg);}
+
+/* 필터 행 */
+.filter-row{display:flex;gap:5px;margin-bottom:10px;}
+.filter-select{flex:1;padding:5px 6px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;color:var(--txt);background:var(--bg);min-width:0;}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
 .nmeta{font-size:11px;color:var(--txt2);}
 .nsrc{font-weight:500;}
@@ -159,16 +172,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <!-- 뉴스 -->
 <div id="tab-news" class="section active">
-  <div class="breaking"><div class="blink"></div><div class="breaking-t" id="breaking-text">뉴스 로딩 중...</div></div>
-  <div class="chips">
-    <div class="chip active" onclick="filterNews('전체',this)">전체</div>
-    <div class="chip" onclick="filterNews('워터파크',this)">워터파크</div>
-    <div class="chip" onclick="filterNews('스파',this)">스파/온천</div>
-    <div class="chip" onclick="filterNews('이벤트',this)">이벤트</div>
-    <div class="chip" onclick="filterNews('가격',this)">가격/할인</div>
-    <div class="chip" onclick="filterNews('신규시설',this)">신규시설</div>
-    <div class="chip" onclick="filterNews('개장',this)">개장/폐장</div>
+
+  <!-- 포털 직접검색 -->
+  <div style="display:flex;gap:6px;margin-bottom:10px;">
+    <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
+    <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
+    <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
+    <a id="portal-daum-news"   class="portal-btn" target="_blank">다음뉴스</a>
   </div>
+
+  <!-- 카테고리 칩 (줄바꿈, 중복선택) -->
+  <div class="chips-wrap" id="newsChips"></div>
+
+  <!-- 필터 행 -->
+  <div class="filter-row">
+    <select class="filter-select" id="periodFilter" onchange="applyAllFilters()">
+      <option value="all">전체기간</option>
+      <option value="1">오늘</option>
+      <option value="7">7일</option>
+      <option value="10">10일</option>
+      <option value="20">20일</option>
+      <option value="30">30일</option>
+      <option value="60">60일</option>
+    </select>
+    <select class="filter-select" id="sourceFilter" onchange="applyAllFilters()">
+      <option value="all">전체소스</option>
+      <option value="naver">네이버뉴스</option>
+      <option value="google">구글뉴스</option>
+      <option value="manual">직접등록</option>
+    </select>
+    <select class="filter-select" id="sentimentFilter" onchange="applyAllFilters()">
+      <option value="all">전체감성</option>
+      <option value="positive">긍정</option>
+      <option value="neutral">중립</option>
+      <option value="negative">부정</option>
+    </select>
+  </div>
+
   <div class="news-status">
     <div class="dot-live"></div>
     <div class="status-t" id="news-status-text">네이버 뉴스 연동 중...</div>
@@ -265,15 +305,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <script>
 const API = '/api';
-const CATEGORY_KEYWORDS = {
-  '전체':'테마파크 워터파크 스파 온천',
-  '워터파크':'워터파크 물놀이',
-  '스파':'스파 온천 사우나',
-  '이벤트':'테마파크 이벤트 행사 축제',
-  '가격':'테마파크 입장료 할인 특가',
-  '신규시설':'테마파크 신규 리뉴얼 오픈',
-  '개장':'워터파크 개장 폐장 2026'
-};
+const PARK_LIST = [
+  { key:'woojin',       name:'웅진플레이도시',         keyword:'웅진플레이도시' },
+  { key:'caribbean',    name:'캐리비안베이',            keyword:'캐리비안베이' },
+  { key:'oceanworld',   name:'오션월드',                keyword:'비발디파크 오션월드' },
+  { key:'onmount',      name:'원마운트',                keyword:'원마운트 워터파크' },
+  { key:'islandcastle', name:'아일랜드캐슬',            keyword:'아일랜드캐슬' },
+  { key:'termeden',     name:'테르메덴',                keyword:'테르메덴' },
+  { key:'paradise_city',name:'파라다이스시티 씨메르',   keyword:'파라다이스시티 씨메르' },
+  { key:'inspire',      name:'인스파이어 스플래시 베이',keyword:'인스파이어 스플래시베이' },
+  { key:'aquafield',    name:'아쿠아필드 하남',         keyword:'아쿠아필드 하남' },
+  { key:'asanspa',      name:'아산스파비스',            keyword:'아산스파비스' },
+  { key:'splash',       name:'스플라스리솜',            keyword:'스플라스 리솜' },
+  { key:'ocean_ca',     name:'오션어드벤처 천안',       keyword:'오션어드벤처 천안' },
+  { key:'paradise',     name:'파라다이스 도고',         keyword:'파라다이스 도고' },
+  { key:'everland',     name:'에버랜드',                keyword:'에버랜드' },
+  { key:'lotte',        name:'롯데월드',                keyword:'롯데월드' },
+  { key:'lego',         name:'레고랜드',                keyword:'레고랜드 코리아' },
+  { key:'seoul',        name:'서울랜드',                keyword:'서울랜드' },
+  { key:'gyeongju',     name:'경주월드',                keyword:'경주월드' },
+];
 const PARKS = [
   {key:'woojin',       name:'웅진플레이도시',         icon:'🌊', cat:'워터파크', loc:'경기 부천'},
   {key:'caribbean',    name:'캐리비안베이',            icon:'🏄', cat:'워터파크', loc:'경기 용인'},
@@ -309,65 +360,249 @@ const CHANNELS = [
   {key:'mrt',     name:'마이리얼트립',  cls:'l-mrt',     s:'M',   type:'외국인 패키지'},
 ];
 
-let currentCat='전체', currentPark='woojin', currentSort='price';
-let allArticles=[], currentFilter='전체', parkPriceData={};
+let currentCat='전체', currentPricePark='woojin', currentSort='price';
+let allArticles=[], parkPriceData={};
+let selectedCategories = new Set(['전체']); // 중복선택용
+let allCategories = [];
 
 // 날짜
 const now=new Date(), days=['일','월','화','수','목','금','토'];
 document.getElementById('today-date').textContent=
   `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 ${days[now.getDay()]}요일`;
 
-// ── 뉴스 ──────────────────────────────────────────────────────
+// ── 감성 분석 ──────────────────────────────────────────────────
+const POSITIVE_WORDS = ['개장','오픈','할인','이벤트','축제','신규','리뉴얼','특가','인기','성황','혜택','무료'];
+const NEGATIVE_WORDS = ['사고','사망','부상','폐장','휴장','취소','중단','논란','민원','불만','환불','적자'];
+function getSentiment(text) {
+  const t = text.toLowerCase();
+  const pos = POSITIVE_WORDS.filter(w => t.includes(w)).length;
+  const neg = NEGATIVE_WORDS.filter(w => t.includes(w)).length;
+  if (neg > pos) return 'negative';
+  if (pos > neg) return 'positive';
+  return 'neutral';
+}
+
+// ── 구글 뉴스 RSS ─────────────────────────────────────────────
+async function fetchGoogleNews(keyword) {
+  try {
+    const url = `https://news.google.com/rss/search?q=${encodeURIComponent(keyword)}&hl=ko&gl=KR&ceid=KR:ko`;
+    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    const res = await fetch(proxy);
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, 'text/xml');
+    const items = xml.querySelectorAll('item');
+    return Array.from(items).slice(0, 5).map(item => {
+      const title = item.querySelector('title')?.textContent || '';
+      const link  = item.querySelector('link')?.textContent || '';
+      const pubDate = item.querySelector('pubDate')?.textContent || '';
+      const d = new Date(pubDate);
+      const dateStr = pubDate ? `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}` : '';
+      return { title, url: link, source: '구글뉴스', date: dateStr, tag: guessTag(title), isGoogle: true };
+    }).filter(a => a.title);
+  } catch(e) { return []; }
+}
+
+function guessTag(text) {
+  if (/개장|오픈|재개|폐장/.test(text)) return '개장';
+  if (/할인|특가|쿠폰|프로모션/.test(text)) return '가격';
+  if (/입장료|요금|가격|인상|인하/.test(text)) return '가격';
+  if (/이벤트|행사|축제|공연/.test(text)) return '이벤트';
+  if (/신규|새로|리뉴얼|신설/.test(text)) return '신규시설';
+  if (/워터파크|물놀이|슬라이드/.test(text)) return '워터파크';
+  if (/스파|온천|사우나|찜질/.test(text)) return '스파';
+  return '뉴스';
+}
+
+// ── 카테고리 칩 렌더링 ────────────────────────────────────────
+async function loadAndRenderChips() {
+  try {
+    const res = await fetch(`${API}/categories`);
+    allCategories = await res.json();
+  } catch(e) {
+    allCategories = [
+      {id:'cat_all', name:'전체'}, {id:'cat_water', name:'워터파크'},
+      {id:'cat_spa', name:'스파/온천'}, {id:'cat_event', name:'이벤트'},
+      {id:'cat_price', name:'가격/할인'}, {id:'cat_new', name:'신규시설'},
+      {id:'cat_open', name:'개장/폐장'}
+    ];
+  }
+  renderChips();
+}
+
+function renderChips() {
+  const wrap = document.getElementById('newsChips');
+  wrap.innerHTML = allCategories.map(cat => `
+    <div class="chip${selectedCategories.has(cat.name)?' active':''}"
+      onclick="toggleCategory('${cat.name}',this)">${cat.name}</div>`).join('');
+}
+
+function toggleCategory(name, el) {
+  if (name === '전체') {
+    selectedCategories.clear();
+    selectedCategories.add('전체');
+  } else {
+    selectedCategories.delete('전체');
+    if (selectedCategories.has(name)) selectedCategories.delete(name);
+    else selectedCategories.add(name);
+    if (selectedCategories.size === 0) selectedCategories.add('전체');
+  }
+  renderChips();
+  updatePortalLinks();
+  applyAllFilters();
+}
+
+// ── 포털 링크 업데이트 ────────────────────────────────────────
+function updatePortalLinks() {
+  const cats = [...selectedCategories].filter(c => c !== '전체');
+  const keyword = cats.length > 0 ? cats.join(' ') + ' 테마파크' : '테마파크 워터파크';
+  const enc = encodeURIComponent(keyword);
+  document.getElementById('portal-naver-news').href  = `https://search.naver.com/search.naver?where=news&query=${enc}`;
+  document.getElementById('portal-naver-blog').href  = `https://search.naver.com/search.naver?where=blog&query=${enc}`;
+  document.getElementById('portal-google-news').href = `https://news.google.com/search?q=${enc}&hl=ko`;
+  document.getElementById('portal-daum-news').href   = `https://search.daum.net/search?w=news&q=${enc}`;
+}
+
+// ── 뉴스 로드 ─────────────────────────────────────────────────
 async function loadNews() {
-  document.getElementById('news-list').innerHTML='<div class="loading-box"><div class="spinner"></div>네이버 뉴스 검색 중...</div>';
+  document.getElementById('news-list').innerHTML='<div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div>';
   document.getElementById('news-status-text').textContent='검색 중...';
   try {
-    const res=await fetch(`${API}/news?park=all`);
-    const data=await res.json();
-    allArticles=data.articles||[];
-    const time=data.fetchedAt?new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}):'';
-    const src=data.source==='naver'?'네이버 뉴스':data.source==='claude'?'AI 검색':'기본';
-    document.getElementById('news-status-text').textContent=`${src} · ${time} 기준${data.cached?' (캐시)':''}`;
-    if(allArticles.length>0) document.getElementById('breaking-text').textContent=allArticles[0].title;
-    applyFilter(currentFilter);
+    const res = await fetch(`${API}/news?park=all`);
+    const data = await res.json();
+    let naverArticles = (data.articles || []).map(a => ({ ...a, sourceType:'naver' }));
+
+    // 구글 뉴스 RSS 병렬 수집
+    const googleResults = await Promise.allSettled(
+      PARK_LIST.map(p => fetchGoogleNews(p.keyword))
+    );
+    const seen = new Set(naverArticles.map(a => a.title));
+    const googleArticles = [];
+    googleResults.forEach((r, i) => {
+      if (r.status !== 'fulfilled') return;
+      r.value.forEach(a => {
+        // 제목에 파크명 포함 여부 확인 (제목 기준 필터링)
+        const parkKeywords = PARK_LIST[i].keyword.split(' ');
+        const titleMatch = parkKeywords.some(kw => a.title.includes(kw));
+        if (!titleMatch) return;
+        if (seen.has(a.title)) return;
+        seen.add(a.title);
+        googleArticles.push({ ...a, parkName: PARK_LIST[i].name, sourceType:'google' });
+      });
+    });
+
+    // 네이버도 제목 기준 필터링
+    naverArticles = naverArticles.filter(a => {
+      if (a.isManual) return true;
+      return PARK_LIST.some(p => {
+        const kws = p.keyword.split(' ');
+        return kws.some(kw => a.title.includes(kw));
+      });
+    });
+
+    // 감성 분석 추가
+    allArticles = [...(data.articles?.filter(a=>a.isManual)||[]).map(a=>({...a,sourceType:'manual'})),
+                  ...naverArticles.filter(a=>!a.isManual),
+                  ...googleArticles]
+      .map(a => ({ ...a, sentiment: getSentiment(a.title + ' ' + (a.summary||'')) }));
+
+    const time = data.fetchedAt ? new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '';
+    document.getElementById('news-status-text').textContent =
+      `네이버+구글 · ${allArticles.length}건 · ${time} 기준`;
+
+    updatePortalLinks();
+    applyAllFilters();
   } catch(e) {
     document.getElementById('news-list').innerHTML='<div class="loading-box">뉴스를 불러올 수 없습니다.</div>';
     document.getElementById('news-status-text').textContent='연결 오류';
   }
 }
-function applyFilter(filter) {
-  currentFilter=filter;
-  let arts=allArticles;
-  if(filter!=='전체') {
-    arts=arts.filter(a=>{
-      const t=(a.title+' '+(a.summary||'')).toLowerCase();
-      if(filter==='워터파크') return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
-      if(filter==='스파') return a.tag==='스파'||t.includes('스파')||t.includes('온천')||t.includes('사우나');
-      if(filter==='이벤트') return a.tag==='이벤트'||t.includes('이벤트')||t.includes('행사')||t.includes('축제');
-      if(filter==='가격') return a.tag==='가격'||t.includes('할인')||t.includes('입장료')||t.includes('특가');
-      if(filter==='신규시설') return a.tag==='신규시설'||t.includes('신규')||t.includes('리뉴얼');
-      if(filter==='개장') return a.tag==='개장'||t.includes('개장')||t.includes('폐장');
+
+// ── 전체 필터 적용 ────────────────────────────────────────────
+function applyAllFilters() {
+  const period    = document.getElementById('periodFilter')?.value || 'all';
+  const sourceF   = document.getElementById('sourceFilter')?.value || 'all';
+  const sentiment = document.getElementById('sentimentFilter')?.value || 'all';
+  const now = new Date(); now.setHours(0,0,0,0);
+
+  let arts = allArticles;
+
+  // 카테고리 필터 (중복선택)
+  if (!selectedCategories.has('전체')) {
+    arts = arts.filter(a => {
+      return [...selectedCategories].some(cat => {
+        const t = a.title.toLowerCase();
+        if (cat==='워터파크'||cat==='워터파크') return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
+        if (cat==='스파/온천') return a.tag==='스파'||t.includes('스파')||t.includes('온천');
+        if (cat==='이벤트')   return a.tag==='이벤트'||t.includes('이벤트')||t.includes('행사');
+        if (cat==='가격/할인') return a.tag==='가격'||t.includes('할인')||t.includes('입장료');
+        if (cat==='신규시설') return a.tag==='신규시설'||t.includes('신규')||t.includes('리뉴얼');
+        if (cat==='개장/폐장') return a.tag==='개장'||t.includes('개장')||t.includes('폐장');
+        if (cat==='협회')     return a.tag==='협회'||a.isManual;
+        return a.tag === cat || a.title.includes(cat);
+      });
+    });
+  }
+
+  // 기간 필터
+  if (period !== 'all') {
+    const days = parseInt(period);
+    arts = arts.filter(a => {
+      if (!a.date) return true;
+      const d = new Date(a.date.replace(/\./g,'-'));
+      const diff = (now - d) / (1000*60*60*24);
+      return diff <= days;
+    });
+  }
+
+  // 소스 필터
+  if (sourceF !== 'all') {
+    arts = arts.filter(a => {
+      if (sourceF==='manual') return a.isManual;
+      if (sourceF==='naver')  return a.sourceType==='naver' && !a.isManual;
+      if (sourceF==='google') return a.sourceType==='google';
       return true;
     });
   }
-  const kw=CATEGORY_KEYWORDS[filter]||CATEGORY_KEYWORDS['전체'];
-  document.getElementById('naver-more-link').href=`https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(kw)}`;
-  document.getElementById('news-list').innerHTML=arts.length
-    ?arts.map(a=>`<a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
-        <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
-        ${a.isManual?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#F3E8FF;color:#7C3AED;margin-left:4px;">직접등록</span>`:''}
-        ${a.parkName&&!a.isManual?`<span class="npark-badge">${a.parkName}</span>`:''}
-        <div class="ntitle">${a.title}</div>
-        <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
-      </a>`).join('')
-    :'<div class="loading-box">해당 카테고리 뉴스가 없습니다.</div>';
+
+  // 감성 필터
+  if (sentiment !== 'all') {
+    arts = arts.filter(a => a.sentiment === sentiment);
+  }
+
+  // 날짜순 정렬 (수동등록 맨 위)
+  arts.sort((a,b) => {
+    if (a.isManual && !b.isManual) return -1;
+    if (!a.isManual && b.isManual) return 1;
+    const da = new Date((a.date||'').replace(/\./g,'-'));
+    const db = new Date((b.date||'').replace(/\./g,'-'));
+    return db - da;
+  });
+
+  renderNewsArticles(arts);
 }
-function filterNews(cat,el){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  applyFilter(cat);
+
+function renderNewsArticles(arts) {
+  const list = document.getElementById('news-list');
+  if (!arts.length) {
+    list.innerHTML = '<div class="loading-box">해당 조건의 뉴스가 없습니다.</div>';
+    return;
+  }
+  const sentimentIcon = { positive:'😊', negative:'😟', neutral:'' };
+  list.innerHTML = arts.map(a => `
+    <a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
+      <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
+      ${a.isManual?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#F3E8FF;color:#7C3AED;margin-left:4px;">직접등록</span>`:''}
+      ${a.sourceType==='google'?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#E8F5E3;color:#3B6D11;margin-left:4px;">구글</span>`:''}
+      ${a.parkName&&!a.isManual?`<span class="npark-badge">${a.parkName}</span>`:''}
+      ${sentimentIcon[a.sentiment]?`<span style="font-size:11px;margin-left:3px;">${sentimentIcon[a.sentiment]}</span>`:''}
+      <div class="ntitle">${a.title}</div>
+      <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
+    </a>`).join('');
 }
+
 function refreshNews(){loadNews();}
+
 
 // ── 가격비교 ─────────────────────────────────────────────────
 async function loadPriceData(parkKey) {
@@ -381,8 +616,6 @@ async function loadPriceData(parkKey) {
     document.getElementById('price-section').innerHTML='<div class="loading-box">가격 정보를 불러올 수 없습니다.</div>';
   }
 }
-
-function renderPrices(parkKey) {
   const data=parkPriceData[parkKey];
   const park=PARKS.find(p=>p.key===parkKey);
   if(!data||!park) return;
@@ -536,6 +769,8 @@ function renderPrices(parkKey) {
         <div>
           <div class="tbl-park">${park.name}</div>
           <div class="tbl-season">${data.currentSeason}${data.ticketNote?' · '+data.ticketNote:''}</div>
+          ${data.operatingHours?.weekday?`<div style="font-size:10px;color:var(--txt2);margin-top:2px;">⏰ ${data.operatingHours.weekday}</div>`:''}
+          ${data.operatingHours?.weekend?`<div style="font-size:10px;color:var(--txt2);">⏰ ${data.operatingHours.weekend}</div>`:''}
         </div>
         <a class="tbl-link" href="${data.pricePageUrl}" target="_blank">공홈 ↗</a>
       </div>
@@ -550,14 +785,14 @@ function renderParkGrid(filter){
   if(currentCat!=='전체') parks=parks.filter(p=>p.cat===currentCat);
   if(filter) parks=parks.filter(p=>p.name.includes(filter));
   grid.innerHTML=parks.map(p=>`
-    <div class="pcard${p.key===currentPark?' active':''}" onclick="selPark('${p.key}',this)">
+    <div class="pcard${p.key===currentPricePark?' active':''}" onclick="selPark('${p.key}',this)">
       <div class="picon">${p.icon}</div>
       <div class="pname">${p.name}</div>
       <div class="ploc">${p.loc}</div>
     </div>`).join('');
 }
 function selPark(key,el){
-  currentPark=key;
+  currentPricePark=key;
   document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('active'));
   if(el) el.classList.add('active');
   loadPriceData(key);
@@ -573,7 +808,7 @@ function setSort(type,el){
   currentSort=type;
   document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  renderPrices(currentPark);
+  renderPrices(currentPricePark);
 }
 function switchTab(name,tabBtn,navBtn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -584,9 +819,15 @@ function switchTab(name,tabBtn,navBtn){
   document.querySelectorAll('.tab-btn')[map[name]].classList.add('active');
   const navEl=document.getElementById('nav-'+name);
   if(navEl) navEl.classList.add('active');
-  if(name==='price'){renderParkGrid('');loadPriceData(currentPark);}
+  if(name==='price'){renderParkGrid('');loadPriceData(currentPricePark);}
 }
-loadNews();
+
+// ── 초기 실행 ────────────────────────────────────────────────
+(async () => {
+  await loadAndRenderChips();   // 카테고리 칩 로드
+  updatePortalLinks();          // 포털 링크 초기화
+  loadNews();                   // 뉴스 로드
+})();
 </script>
 </body>
 </html>
