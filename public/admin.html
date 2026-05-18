@@ -136,6 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="menu-tabs">
     <button class="menu-tab active" onclick="switchMenu('price',this)">가격 관리</button>
     <button class="menu-tab" onclick="switchMenu('news',this)">뉴스 등록</button>
+    <button class="menu-tab" onclick="switchMenu('category',this)">카테고리</button>
   </div>
 
   <div class="content">
@@ -240,6 +241,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <div id="newsList"><div class="empty-news">등록된 뉴스가 없습니다.</div></div>
     </div>
 
+    <!-- ── 카테고리 관리 ──────────────────────────────── -->
+    <div class="menu-section" id="menu-category">
+      <div class="info-box">
+        🏷️ 뉴스 탭에 표시되는 카테고리 칩을 관리해요.<br>
+        추가/삭제한 내용은 앱에 <b>즉시 반영</b>됩니다.<br>
+        ⚠️ 서버 재시작 시 기본값으로 초기화됩니다.
+      </div>
+      <div class="news-form">
+        <div class="news-form-title">카테고리 추가</div>
+        <div class="news-row">
+          <input class="news-input" id="catName" placeholder="카테고리명 (예: 축제)">
+          <button class="news-submit" style="width:auto;padding:0 16px;margin-top:0;" onclick="addCategory()">추가</button>
+        </div>
+        <div class="result-box" id="catResultBox"></div>
+      </div>
+      <div class="sec-label">현재 카테고리 <span id="catCount" style="font-weight:600;color:var(--txt);">0</span>개</div>
+      <div id="catList"><div class="empty-news">로딩 중...</div></div>
+    </div>
+
   </div>
 </div>
 
@@ -300,6 +320,7 @@ function switchMenu(name, el) {
   document.getElementById('menu-' + name).classList.add('active');
   el.classList.add('active');
   if (name === 'news') loadManualNews();
+  if (name === 'category') loadCategories();
 }
 
 // ── 초기화 ──────────────────────────────────────────────────
@@ -328,9 +349,15 @@ function renderEditor() {
   document.getElementById('seasonName').value = d.currentSeason || '';
   document.getElementById('noticeText').value = d.notice || '';
   document.getElementById('ticketNoteLabel').textContent = d.ticketNote || '';
+  document.getElementById('opsWeekday').value = d.operatingHours?.weekday || '';
+  document.getElementById('opsWeekend').value = d.operatingHours?.weekend || '';
+
+  const tickets = d.tickets || [];
+  const ticketLabels = tickets.map(t => t.label).join(' / ');
+  document.getElementById('chCardNote').textContent = `대인 기준 (${ticketLabels})`;
 
   // 티켓 가격
-  document.getElementById('ticketRows').innerHTML = d.tickets.map((t, ti) => `
+  document.getElementById('ticketRows').innerHTML = tickets.map((t, ti) => `
     <div class="ticket-block">
       <div class="ticket-block-hd">
         <span class="ticket-name">${t.label}</span>
@@ -347,11 +374,27 @@ function renderEditor() {
         </div>`).join('')}
     </div>`).join('');
 
-  // 채널 할인금액
+  // 채널 할인금액 + 티켓별 금액
   const discounts = d.channelDiscounts || {};
   document.getElementById('channelRows').innerHTML = Object.entries(discounts).map(([key, disc]) => {
-    const info = CH_INFO[key] || { name: key, color: '#888' };
+    const info = CH_INFO[key] || { name: disc.note || key, color: '#888' };
     const isActive = disc.active !== false;
+    const tp = disc.ticketPrices || {};
+
+    // 두 번째 티켓부터 주중/주말 입력란 추가
+    const subTicketInputs = tickets.slice(1).map((t, si) => {
+      return `<div class="ch-date-wrap" style="margin-top:5px;">
+        <span class="ch-input-lbl" style="min-width:70px;">${t.label} 주중</span>
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_sub${si}_weekday" value="${tp[t.id]?.weekday||''}">
+        <span class="price-unit">원</span>
+        <span class="ch-input-lbl" style="margin-left:4px;">주말</span>
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_sub${si}_weekend" value="${tp[t.id]?.weekend||''}">
+        <span class="price-unit">원</span>
+      </div>`;
+    }).join('');
+
     return `<div class="ch-block${!isActive?' ch-inactive':''}" id="chblock_${key}">
       <div class="ch-main-row">
         <div class="ch-dot" style="background:${info.color}"></div>
@@ -363,12 +406,13 @@ function renderEditor() {
         </label>
       </div>
       <div class="ch-inputs">
-        <span class="ch-input-lbl">주중 대인</span>
+        <span class="ch-input-lbl">${tickets[0]?.label||'종일권'} 주중</span>
         <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekday" value="${disc.weekday||0}">
         <span class="price-unit">원</span>
-        <span class="ch-input-lbl" style="margin-left:6px;">주말·공휴일</span>
+        <span class="ch-input-lbl" style="margin-left:4px;">주말</span>
         <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekend" value="${disc.weekend||0}">
         <span class="price-unit">원</span>
+        ${subTicketInputs}
         <div class="ch-date-wrap">
           <span class="ch-input-lbl" style="min-width:40px;">판매기간</span>
           <input class="ch-date-input" type="date" id="ch_${key}_start"
@@ -437,6 +481,7 @@ async function saveAll() {
 
     // 채널 수집
     const updatedDiscounts = {};
+    const tickets = d.tickets || [];
     Object.keys(d.channelDiscounts || {}).forEach(key => {
       const wdEl = document.getElementById(`ch_${key}_weekday`);
       const weEl = document.getElementById(`ch_${key}_weekend`);
@@ -444,16 +489,30 @@ async function saveAll() {
       const stEl = document.getElementById(`ch_${key}_start`);
       const enEl = document.getElementById(`ch_${key}_end`);
       const info = CH_INFO[key] || {};
+
+      // 두 번째 이후 티켓 가격 수집
+      const ticketPrices = {};
+      tickets.slice(1).forEach((t, si) => {
+        const swdEl = document.getElementById(`ch_${key}_sub${si}_weekday`);
+        const sweEl = document.getElementById(`ch_${key}_sub${si}_weekend`);
+        if (swdEl || sweEl) {
+          ticketPrices[t.id] = {
+            weekday: swdEl ? (parseInt(swdEl.value) || 0) : 0,
+            weekend: sweEl ? (parseInt(sweEl.value) || 0) : 0
+          };
+        }
+      });
+
       updatedDiscounts[key] = {
         ...d.channelDiscounts[key],
-        weekday:   wdEl ? (parseInt(wdEl.value) || 0) : (d.channelDiscounts[key].weekday || 0),
-        weekend:   weEl ? (parseInt(weEl.value) || 0) : (d.channelDiscounts[key].weekend || 0),
-        active:    acEl ? !acEl.checked : true,
-        startDate: stEl?.value || undefined,
-        endDate:   enEl?.value || undefined,
-        note:      d.channelDiscounts[key].note || info.name || key
+        weekday:      wdEl ? (parseInt(wdEl.value) || 0) : (d.channelDiscounts[key].weekday || 0),
+        weekend:      weEl ? (parseInt(weEl.value) || 0) : (d.channelDiscounts[key].weekend || 0),
+        active:       acEl ? !acEl.checked : true,
+        startDate:    stEl?.value || undefined,
+        endDate:      enEl?.value || undefined,
+        note:         d.channelDiscounts[key].note || info.name || key,
+        ticketPrices: Object.keys(ticketPrices).length > 0 ? ticketPrices : (d.channelDiscounts[key].ticketPrices || {})
       };
-      // 빈 날짜 제거
       if (!updatedDiscounts[key].startDate) delete updatedDiscounts[key].startDate;
       if (!updatedDiscounts[key].endDate)   delete updatedDiscounts[key].endDate;
     });
@@ -464,6 +523,10 @@ async function saveAll() {
       channelDiscounts: updatedDiscounts,
       currentSeason: document.getElementById('seasonName').value,
       notice: document.getElementById('noticeText').value,
+      operatingHours: {
+        weekday: document.getElementById('opsWeekday').value,
+        weekend: document.getElementById('opsWeekend').value
+      },
       updatedAt: new Date().toISOString().slice(0,10)
     };
 
@@ -567,6 +630,71 @@ function showNewsResult(type, msg) {
   rb.innerHTML = msg;
   rb.style.display = 'block';
   setTimeout(() => rb.style.display = 'none', 4000);
+}
+
+// ── 카테고리 관리 ─────────────────────────────────────────────
+async function loadCategories() {
+  try {
+    const res = await fetch(`${API}/categories`);
+    const cats = await res.json();
+    document.getElementById('catCount').textContent = cats.length;
+    const list = document.getElementById('catList');
+    if (!cats.length) {
+      list.innerHTML = '<div class="empty-news">카테고리가 없습니다.</div>';
+      return;
+    }
+    list.innerHTML = cats.map(cat => `
+      <div class="news-list-item" id="catitem_${cat.id}">
+        <div class="news-item-info">
+          <div class="news-item-title">${cat.name}</div>
+          <div class="news-item-meta">${cat.isDefault ? '기본 항목' : '추가 항목'}</div>
+        </div>
+        ${!cat.isDefault ? `<button class="news-del-btn" onclick="deleteCategory('${cat.id}')">삭제</button>` : ''}
+      </div>`).join('');
+  } catch(e) {
+    document.getElementById('catList').innerHTML = '<div class="empty-news">카테고리를 불러올 수 없습니다.</div>';
+  }
+}
+
+async function addCategory() {
+  const name = document.getElementById('catName').value.trim();
+  if (!name) { showCatResult('error', '카테고리명을 입력해주세요.'); return; }
+  try {
+    const res = await fetch(`${API}/admin/categories`, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-admin-token': adminToken },
+      body: JSON.stringify({ name })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    document.getElementById('catName').value = '';
+    showCatResult('success', '✅ 추가 완료!');
+    loadCategories();
+  } catch(e) {
+    showCatResult('error', '❌ 오류: ' + e.message);
+  }
+}
+
+async function deleteCategory(id) {
+  if (!confirm('이 카테고리를 삭제할까요?')) return;
+  try {
+    const res = await fetch(`${API}/admin/categories/${id}`, {
+      method:'DELETE',
+      headers:{ 'x-admin-token': adminToken }
+    });
+    if (!res.ok) throw new Error('삭제 실패');
+    loadCategories();
+  } catch(e) {
+    alert('삭제 오류: ' + e.message);
+  }
+}
+
+function showCatResult(type, msg) {
+  const rb = document.getElementById('catResultBox');
+  rb.className = `result-box result-${type}`;
+  rb.innerHTML = msg;
+  rb.style.display = 'block';
+  setTimeout(() => rb.style.display = 'none', 3000);
 }
 </script>
 </body>
