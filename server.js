@@ -11,8 +11,20 @@ const PORT = process.env.PORT || 3000;
 const newsCache  = new NodeCache({ stdTTL: 1800 });
 const priceCache = new NodeCache({ stdTTL: 3600 });
 
-// 수동 등록 뉴스 메모리 저장 (서버 재시작 시 초기화됨 — 중요 뉴스는 prices.js처럼 GitHub 저장도 가능)
+// 수동 등록 뉴스 메모리 저장
 let manualNews = [];
+
+// 카테고리 메모리 저장
+const DEFAULT_CATEGORIES = [
+  { id:'cat_all',      name:'전체',    isDefault:true },
+  { id:'cat_water',    name:'워터파크', isDefault:true },
+  { id:'cat_spa',      name:'스파/온천', isDefault:true },
+  { id:'cat_event',    name:'이벤트',   isDefault:true },
+  { id:'cat_price',    name:'가격/할인', isDefault:true },
+  { id:'cat_new',      name:'신규시설', isDefault:true },
+  { id:'cat_open',     name:'개장/폐장', isDefault:true },
+];
+let categories = [...DEFAULT_CATEGORIES];
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -120,10 +132,40 @@ function generatePricesJs(PARK_PRICES) {
   return `// ============================================================\n// prices.js - 파크별 실제 가격 데이터\n// 마지막 업데이트: ${today}\n// ============================================================\n\nconst PARK_PRICES = ${JSON.stringify(PARK_PRICES, null, 2)};\n\nmodule.exports = { PARK_PRICES };\n`;
 }
 
+// ── 카테고리 API ──────────────────────────────────────────────
+app.get('/api/categories', (req, res) => {
+  res.json(categories);
+});
+
+app.post('/api/admin/categories', adminAuth, (req, res) => {
+  const { name } = req.body;
+  if (!name) return res.status(400).json({ error: '카테고리명 필요' });
+  if (categories.find(c => c.name === name))
+    return res.status(400).json({ error: '이미 존재하는 카테고리입니다' });
+  const item = { id: 'cat_' + Date.now(), name, isDefault: false };
+  categories.push(item);
+  res.json({ success: true, item });
+});
+
+app.delete('/api/admin/categories/:id', adminAuth, (req, res) => {
+  const { id } = req.params;
+  const cat = categories.find(c => c.id === id);
+  if (!cat) return res.status(404).json({ error: '카테고리를 찾을 수 없습니다' });
+  if (cat.isDefault) return res.status(400).json({ error: '기본 카테고리는 삭제할 수 없습니다' });
+  categories = categories.filter(c => c.id !== id);
+  res.json({ success: true });
+});
+
 // ── 수동 뉴스 API ─────────────────────────────────────────────
 // 조회
 app.get('/api/manual-news', (req, res) => {
-  res.json(manualNews);
+  // 날짜 최신순 정렬
+  const sorted = [...manualNews].sort((a, b) => {
+    const da = new Date(a.date.replace(/\./g, '-'));
+    const db = new Date(b.date.replace(/\./g, '-'));
+    return db - da;
+  });
+  res.json(sorted);
 });
 
 // 등록 (관리자 전용)
