@@ -57,14 +57,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .portal-btn{flex:1;text-align:center;padding:6px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg);font-size:10px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
 .portal-btn:active{background:var(--bg2);}
 
-/* 카테고리 칩 줄바꿈 */
-.chips-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+/* 카테고리/필터 칩 */
+.filter-section-label{font-size:10px;font-weight:500;color:var(--txt2);margin-bottom:5px;margin-top:6px;letter-spacing:.3px;}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
 .chip{padding:4px 11px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);font-size:11px;font-weight:500;color:var(--txt2);cursor:pointer;white-space:nowrap;}
 .chip.active{background:var(--txt);color:var(--bg);}
-
-/* 필터 행 */
-.filter-row{display:flex;gap:5px;margin-bottom:10px;}
-.filter-select{flex:1;padding:5px 6px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;color:var(--txt);background:var(--bg);min-width:0;}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
 .nmeta{font-size:11px;color:var(--txt2);}
 .nsrc{font-weight:500;}
@@ -174,7 +171,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <div id="tab-news" class="section active">
 
   <!-- 포털 직접검색 -->
-  <div style="display:flex;gap:6px;margin-bottom:10px;">
+  <div style="display:flex;gap:5px;margin-bottom:10px;">
     <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
     <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
     <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
@@ -182,36 +179,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 
   <!-- 카테고리 칩 (줄바꿈, 중복선택) -->
+  <div class="filter-section-label">카테고리</div>
   <div class="chips-wrap" id="newsChips"></div>
 
-  <!-- 필터 행 -->
-  <div class="filter-row">
-    <select class="filter-select" id="periodFilter" onchange="applyAllFilters()">
-      <option value="all">전체기간</option>
-      <option value="1">오늘</option>
-      <option value="7">7일</option>
-      <option value="10">10일</option>
-      <option value="20">20일</option>
-      <option value="30">30일</option>
-      <option value="60">60일</option>
-    </select>
-    <select class="filter-select" id="sourceFilter" onchange="applyAllFilters()">
-      <option value="all">전체소스</option>
-      <option value="naver">네이버뉴스</option>
-      <option value="google">구글뉴스</option>
-      <option value="manual">직접등록</option>
-    </select>
-    <select class="filter-select" id="sentimentFilter" onchange="applyAllFilters()">
-      <option value="all">전체감성</option>
-      <option value="positive">긍정</option>
-      <option value="neutral">중립</option>
-      <option value="negative">부정</option>
-    </select>
+  <!-- 파크 칩 -->
+  <div class="filter-section-label">파크</div>
+  <div class="chips-wrap" id="parkChips"></div>
+
+  <!-- 기간 필터 칩 -->
+  <div class="filter-section-label">기간</div>
+  <div class="chips-wrap" id="periodChips">
+    <div class="chip active" onclick="setPeriod('all',this)">전체</div>
+    <div class="chip" onclick="setPeriod('1',this)">오늘</div>
+    <div class="chip" onclick="setPeriod('7',this)">7일</div>
+    <div class="chip" onclick="setPeriod('10',this)">10일</div>
+    <div class="chip" onclick="setPeriod('20',this)">20일</div>
+    <div class="chip" onclick="setPeriod('30',this)">30일</div>
+    <div class="chip" onclick="setPeriod('60',this)">60일</div>
+  </div>
+
+  <!-- 소스 필터 칩 -->
+  <div class="filter-section-label">소스</div>
+  <div class="chips-wrap" id="sourceChips">
+    <div class="chip active" onclick="setSource('all',this)">전체</div>
+    <div class="chip" onclick="setSource('naver',this)">네이버뉴스</div>
+    <div class="chip" onclick="setSource('google',this)">구글뉴스</div>
+    <div class="chip" onclick="setSource('manual',this)">직접등록</div>
+  </div>
+
+  <!-- 감성 필터 칩 -->
+  <div class="filter-section-label">감성</div>
+  <div class="chips-wrap" style="margin-bottom:10px;">
+    <div class="chip active" onclick="setSentiment('all',this)">전체</div>
+    <div class="chip" onclick="setSentiment('positive',this)">😊 긍정</div>
+    <div class="chip" onclick="setSentiment('neutral',this)">중립</div>
+    <div class="chip" onclick="setSentiment('negative',this)">😟 부정</div>
   </div>
 
   <div class="news-status">
     <div class="dot-live"></div>
-    <div class="status-t" id="news-status-text">네이버 뉴스 연동 중...</div>
+    <div class="status-t" id="news-status-text">뉴스 로딩 중...</div>
   </div>
   <div id="news-list"><div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div></div>
   <a class="naver-more" id="naver-more-link" href="https://search.naver.com/search.naver?where=news&query=테마파크+워터파크" target="_blank">네이버에서 더 보기 →</a>
@@ -362,8 +369,13 @@ const CHANNELS = [
 
 let currentCat='전체', currentPricePark='woojin', currentSort='price';
 let allArticles=[], parkPriceData={};
-let selectedCategories = new Set(['전체']); // 중복선택용
+let selectedCategories = new Set(['전체']);
+let selectedPark = '전체';   // 파크 필터 (단일선택)
+let selectedPeriod = 'all';  // 기간 필터
+let selectedSource = 'all';  // 소스 필터
+let selectedSentiment = 'all'; // 감성 필터
 let allCategories = [];
+let newsLoading = false;      // 탭 블로킹 방지용
 
 // 날짜
 const now=new Date(), days=['일','월','화','수','목','금','토'];
@@ -414,8 +426,42 @@ function guessTag(text) {
   return '뉴스';
 }
 
-// ── 카테고리 칩 렌더링 ────────────────────────────────────────
-async function loadAndRenderChips() {
+// ── 파크 칩 렌더링 ───────────────────────────────────────────
+function renderParkChips() {
+  const wrap = document.getElementById('parkChips');
+  const items = [{ key:'전체', name:'전체' }, ...PARKS];
+  wrap.innerHTML = items.map(p => `
+    <div class="chip${selectedPark===p.name?' active':''}"
+      onclick="setParkFilter('${p.name}',this)">${p.name}</div>`).join('');
+}
+
+function setParkFilter(name, el) {
+  selectedPark = name;
+  document.querySelectorAll('#parkChips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  updatePortalLinks();
+  applyAllFilters();
+}
+
+// 기간/소스/감성 단일선택
+function setPeriod(val, el) {
+  selectedPeriod = val;
+  document.querySelectorAll('#periodChips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  applyAllFilters();
+}
+function setSource(val, el) {
+  selectedSource = val;
+  document.querySelectorAll('#sourceChips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  applyAllFilters();
+}
+function setSentiment(val, el) {
+  selectedSentiment = val;
+  document.querySelectorAll('#sentimentChips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  applyAllFilters();
+}
   try {
     const res = await fetch(`${API}/categories`);
     allCategories = await res.json();
@@ -465,66 +511,65 @@ function updatePortalLinks() {
 
 // ── 뉴스 로드 ─────────────────────────────────────────────────
 async function loadNews() {
-  document.getElementById('news-list').innerHTML='<div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div>';
+  if (newsLoading) return;
+  newsLoading = true;
   document.getElementById('news-status-text').textContent='검색 중...';
+  // 로딩 표시는 news-list 안에만 — 탭 전환은 항상 가능
+  document.getElementById('news-list').innerHTML='<div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div>';
+
   try {
     const res = await fetch(`${API}/news?park=all`);
     const data = await res.json();
-    let naverArticles = (data.articles || []).map(a => ({ ...a, sourceType:'naver' }));
 
-    // 구글 뉴스 RSS 병렬 수집
-    const googleResults = await Promise.allSettled(
-      PARK_LIST.map(p => fetchGoogleNews(p.keyword))
-    );
-    const seen = new Set(naverArticles.map(a => a.title));
-    const googleArticles = [];
-    googleResults.forEach((r, i) => {
-      if (r.status !== 'fulfilled') return;
-      r.value.forEach(a => {
-        // 제목에 파크명 포함 여부 확인 (제목 기준 필터링)
-        const parkKeywords = PARK_LIST[i].keyword.split(' ');
-        const titleMatch = parkKeywords.some(kw => a.title.includes(kw));
-        if (!titleMatch) return;
-        if (seen.has(a.title)) return;
-        seen.add(a.title);
-        googleArticles.push({ ...a, parkName: PARK_LIST[i].name, sourceType:'google' });
-      });
-    });
+    // 수동 등록 뉴스
+    const manualArticles = (data.articles||[])
+      .filter(a=>a.isManual)
+      .map(a=>({...a, sourceType:'manual'}));
 
-    // 네이버도 제목 기준 필터링
-    naverArticles = naverArticles.filter(a => {
-      if (a.isManual) return true;
-      return PARK_LIST.some(p => {
-        const kws = p.keyword.split(' ');
-        return kws.some(kw => a.title.includes(kw));
-      });
-    });
+    // 네이버 뉴스 (제목 기준 필터링)
+    let naverArticles = (data.articles||[])
+      .filter(a => !a.isManual)
+      .filter(a => PARK_LIST.some(p => p.keyword.split(' ').some(kw => a.title.includes(kw))))
+      .map(a=>({...a, sourceType:'naver', sentiment: getSentiment(a.title+' '+(a.summary||''))}));
 
-    // 감성 분석 추가
-    allArticles = [...(data.articles?.filter(a=>a.isManual)||[]).map(a=>({...a,sourceType:'manual'})),
-                  ...naverArticles.filter(a=>!a.isManual),
-                  ...googleArticles]
-      .map(a => ({ ...a, sentiment: getSentiment(a.title + ' ' + (a.summary||'')) }));
-
+    // 네이버 먼저 표시
+    allArticles = [...manualArticles, ...naverArticles];
     const time = data.fetchedAt ? new Date(data.fetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '';
-    document.getElementById('news-status-text').textContent =
-      `네이버+구글 · ${allArticles.length}건 · ${time} 기준`;
-
+    document.getElementById('news-status-text').textContent = `네이버 ${naverArticles.length}건 · 구글 로딩 중...`;
     updatePortalLinks();
     applyAllFilters();
+
+    // 구글 뉴스 백그라운드 추가
+    const seen = new Set(allArticles.map(a=>a.title));
+    const googleResults = await Promise.allSettled(
+      PARK_LIST.map(p => fetchGoogleNews(p.keyword).then(items =>
+        items
+          .filter(a => p.keyword.split(' ').some(kw => a.title.includes(kw)))
+          .filter(a => { if(seen.has(a.title)) return false; seen.add(a.title); return true; })
+          .map(a=>({...a, parkName:p.name, sourceType:'google', sentiment:getSentiment(a.title)}))
+      ))
+    );
+
+    const googleArticles = googleResults
+      .filter(r=>r.status==='fulfilled')
+      .flatMap(r=>r.value);
+
+    allArticles = [...manualArticles, ...naverArticles, ...googleArticles];
+    document.getElementById('news-status-text').textContent =
+      `네이버+구글 ${allArticles.length}건 · ${time} 기준`;
+    applyAllFilters();
+
   } catch(e) {
     document.getElementById('news-list').innerHTML='<div class="loading-box">뉴스를 불러올 수 없습니다.</div>';
     document.getElementById('news-status-text').textContent='연결 오류';
+  } finally {
+    newsLoading = false;
   }
 }
 
 // ── 전체 필터 적용 ────────────────────────────────────────────
 function applyAllFilters() {
-  const period    = document.getElementById('periodFilter')?.value || 'all';
-  const sourceF   = document.getElementById('sourceFilter')?.value || 'all';
-  const sentiment = document.getElementById('sentimentFilter')?.value || 'all';
   const now = new Date(); now.setHours(0,0,0,0);
-
   let arts = allArticles;
 
   // 카테고리 필터 (중복선택)
@@ -532,51 +577,55 @@ function applyAllFilters() {
     arts = arts.filter(a => {
       return [...selectedCategories].some(cat => {
         const t = a.title.toLowerCase();
-        if (cat==='워터파크'||cat==='워터파크') return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
+        if (cat==='워터파크')  return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
         if (cat==='스파/온천') return a.tag==='스파'||t.includes('스파')||t.includes('온천');
         if (cat==='이벤트')   return a.tag==='이벤트'||t.includes('이벤트')||t.includes('행사');
         if (cat==='가격/할인') return a.tag==='가격'||t.includes('할인')||t.includes('입장료');
         if (cat==='신규시설') return a.tag==='신규시설'||t.includes('신규')||t.includes('리뉴얼');
         if (cat==='개장/폐장') return a.tag==='개장'||t.includes('개장')||t.includes('폐장');
         if (cat==='협회')     return a.tag==='협회'||a.isManual;
-        return a.tag === cat || a.title.includes(cat);
+        return a.tag===cat||a.title.includes(cat);
       });
     });
   }
 
+  // 파크 필터
+  if (selectedPark !== '전체') {
+    arts = arts.filter(a => a.isManual || (a.parkName && a.parkName === selectedPark));
+  }
+
   // 기간 필터
-  if (period !== 'all') {
-    const days = parseInt(period);
+  if (selectedPeriod !== 'all') {
+    const days = parseInt(selectedPeriod);
     arts = arts.filter(a => {
       if (!a.date) return true;
       const d = new Date(a.date.replace(/\./g,'-'));
-      const diff = (now - d) / (1000*60*60*24);
-      return diff <= days;
+      return (now - d) / (1000*60*60*24) <= days;
     });
   }
 
   // 소스 필터
-  if (sourceF !== 'all') {
+  if (selectedSource !== 'all') {
     arts = arts.filter(a => {
-      if (sourceF==='manual') return a.isManual;
-      if (sourceF==='naver')  return a.sourceType==='naver' && !a.isManual;
-      if (sourceF==='google') return a.sourceType==='google';
+      if (selectedSource==='manual') return a.isManual;
+      if (selectedSource==='naver')  return a.sourceType==='naver'&&!a.isManual;
+      if (selectedSource==='google') return a.sourceType==='google';
       return true;
     });
   }
 
   // 감성 필터
-  if (sentiment !== 'all') {
-    arts = arts.filter(a => a.sentiment === sentiment);
+  if (selectedSentiment !== 'all') {
+    arts = arts.filter(a => a.sentiment === selectedSentiment);
   }
 
   // 날짜순 정렬 (수동등록 맨 위)
-  arts.sort((a,b) => {
-    if (a.isManual && !b.isManual) return -1;
-    if (!a.isManual && b.isManual) return 1;
-    const da = new Date((a.date||'').replace(/\./g,'-'));
-    const db = new Date((b.date||'').replace(/\./g,'-'));
-    return db - da;
+  arts.sort((a,b)=>{
+    if (a.isManual&&!b.isManual) return -1;
+    if (!a.isManual&&b.isManual) return 1;
+    const da=new Date((a.date||'').replace(/\./g,'-'));
+    const db=new Date((b.date||'').replace(/\./g,'-'));
+    return db-da;
   });
 
   renderNewsArticles(arts);
@@ -825,6 +874,7 @@ function switchTab(name,tabBtn,navBtn){
 // ── 초기 실행 ────────────────────────────────────────────────
 (async () => {
   await loadAndRenderChips();   // 카테고리 칩 로드
+  renderParkChips();            // 파크 칩 렌더링
   updatePortalLinks();          // 포털 링크 초기화
   loadNews();                   // 뉴스 로드
 })();
