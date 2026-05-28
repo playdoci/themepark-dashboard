@@ -1371,7 +1371,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.lotteworld.com",
     "pricePageUrl": "https://www.lotteworld.com/app/adv_ticket/list.asp",
     "currentSeason": "2026 기준",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "베이비: 36개월~만4세 / 소인: 만5세~만12세 / 청소년: 만13세~만18세",
     "tickets": [
       {
@@ -1414,150 +1414,74 @@ const PARK_PRICES = {
         "weekday": 72000,
         "weekend": 72000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 46800,
         "weekend": 46800,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 50400,
         "weekend": 50400,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "네이버 예약"
       },
       "coupang": {
         "weekday": 51840,
         "weekend": 51840,
-        "active": false,
-        "note": "쿠팡",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "쿠팡"
       },
       "kakao": {
         "weekday": 54000,
         "weekend": 54000,
         "active": true,
-        "note": "카카오",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "카카오"
       },
       "yanolja": {
         "weekday": 50400,
         "weekend": 50400,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 51840,
         "weekend": 51840,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "여기어때"
       },
       "gmarket": {
         "weekday": 54000,
         "weekend": 54000,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "지마켓"
       },
       "11st": {
         "weekday": 52560,
         "weekend": 52560,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "11번가"
       },
       "auction": {
         "weekday": 54720,
         "weekend": 54720,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "옥션"
       },
       "kidsnote": {
         "weekday": 48960,
         "weekend": 48960,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "키즈노트"
       },
       "mrt": {
         "weekday": 57600,
         "weekend": 57600,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {
-          "evening": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "seoul": {
@@ -1793,7 +1717,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.legoland.kr",
     "pricePageUrl": "https://www.legoland.kr/plan-your-visit/tickets",
     "currentSeason": "2026 기준",
-    "updatedAt": "2026-04-14",
+    "updatedAt": "2026-05-28",
     "notice": "강원 춘천",
     "tickets": [
       {
@@ -1815,74 +1739,90 @@ const PARK_PRICES = {
         "weekday": 64000,
         "weekend": 64000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 41600,
         "weekend": 41600,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {}
       },
       "naver": {
         "weekday": 44800,
         "weekend": 44800,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "ticketPrices": {}
       },
       "coupang": {
         "weekday": 46080,
         "weekend": 46080,
-        "active": true,
-        "note": "쿠팡"
+        "active": false,
+        "note": "쿠팡",
+        "ticketPrices": {}
       },
       "kakao": {
         "weekday": 48000,
         "weekend": 48000,
         "active": true,
-        "note": "카카오"
+        "note": "카카오",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 44800,
         "weekend": 44800,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 46080,
         "weekend": 46080,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {}
       },
       "gmarket": {
         "weekday": 48000,
         "weekend": 48000,
-        "active": true,
-        "note": "지마켓"
+        "active": false,
+        "note": "지마켓",
+        "ticketPrices": {}
       },
       "11st": {
         "weekday": 46720,
         "weekend": 46720,
-        "active": true,
-        "note": "11번가"
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {}
       },
       "auction": {
         "weekday": 48640,
         "weekend": 48640,
-        "active": true,
-        "note": "옥션"
+        "active": false,
+        "note": "옥션",
+        "ticketPrices": {}
       },
       "kidsnote": {
         "weekday": 43520,
         "weekend": 43520,
-        "active": true,
-        "note": "키즈노트"
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 51200,
         "weekend": 51200,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   }
 };
