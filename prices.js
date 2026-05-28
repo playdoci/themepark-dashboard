@@ -8,7 +8,7 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "하이시즌 (2026.06.03~07.16)     /     골드시즌 (2026.07.17~08.17)",
+    "currentSeason": "하이시즌 (2026.06.03~07.16)   /   골드시즌 (2026.07.17~08.17)",
     "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
@@ -51,7 +51,7 @@ const PARK_PRICES = {
       "nori": {
         "weekday": 37200,
         "weekend": 37200,
-        "active": false,
+        "active": true,
         "note": "놀이의발견",
         "ticketPrices": {
           "half": {
@@ -75,7 +75,7 @@ const PARK_PRICES = {
       "coupang": {
         "weekday": 43200,
         "weekend": 43200,
-        "active": false,
+        "active": true,
         "note": "쿠팡",
         "ticketPrices": {
           "half": {
@@ -87,7 +87,7 @@ const PARK_PRICES = {
       "kakao": {
         "weekday": 45000,
         "weekend": 45000,
-        "active": false,
+        "active": true,
         "note": "카카오",
         "ticketPrices": {
           "half": {
@@ -147,7 +147,7 @@ const PARK_PRICES = {
       "auction": {
         "weekday": 45600,
         "weekend": 45600,
-        "active": false,
+        "active": true,
         "note": "옥션",
         "ticketPrices": {
           "half": {
