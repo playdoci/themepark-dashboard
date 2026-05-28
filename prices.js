@@ -47,7 +47,7 @@ const PARK_PRICES = {
             "weekend": 32000
           }
         },
-        "startDate": "2026-05-27",
+        "startDate": "2026-05-25",
         "endDate": "2026-06-28"
       },
       "nori": {
@@ -75,7 +75,7 @@ const PARK_PRICES = {
             "weekend": 32900
           }
         },
-        "startDate": "2026-06-03",
+        "startDate": "2026-05-25",
         "endDate": "2026-07-16"
       },
       "coupang": {
@@ -199,7 +199,7 @@ const PARK_PRICES = {
             "weekend": 24900
           }
         },
-        "startDate": "2026-05-28",
+        "startDate": "2026-06-02",
         "endDate": "2026-06-07"
       }
     },
