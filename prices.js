@@ -8,7 +8,7 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "하이시즌 (2026.06.03~07.16)   /   골드시즌 (2026.07.17~08.17)",
+    "currentSeason": "하이시즌 (2026.06.03~07.16)",
     "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
@@ -191,7 +191,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.everland.com/caribbeanbay/home/main",
     "pricePageUrl": "https://reservation.everland.com/web/cb.do?method=productMain",
     "currentSeason": "봄 시즌 (로우)",
-    "updatedAt": "2026-04-14",
+    "updatedAt": "2026-05-28",
     "notice": "소인/경로: 36개월~만12세 및 경로 / 36개월 미만 무료",
     "tickets": [
       {
@@ -226,74 +226,150 @@ const PARK_PRICES = {
         "weekday": 55000,
         "weekend": 55000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "nori": {
         "weekday": 35750,
         "weekend": 35750,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "naver": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": true,
-        "note": "네이버 예약"
+        "active": false,
+        "note": "네이버 예약",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "coupang": {
         "weekday": 39600,
         "weekend": 39600,
-        "active": true,
-        "note": "쿠팡"
+        "active": false,
+        "note": "쿠팡",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kakao": {
         "weekday": 41250,
         "weekend": 41250,
-        "active": true,
-        "note": "카카오"
+        "active": false,
+        "note": "카카오",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yeogi": {
         "weekday": 39600,
         "weekend": 39600,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "gmarket": {
         "weekday": 41250,
         "weekend": 41250,
-        "active": true,
-        "note": "지마켓"
+        "active": false,
+        "note": "지마켓",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "11st": {
         "weekday": 40150,
         "weekend": 40150,
-        "active": true,
-        "note": "11번가"
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "auction": {
         "weekday": 41800,
         "weekend": 41800,
-        "active": true,
-        "note": "옥션"
+        "active": false,
+        "note": "옥션",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kidsnote": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": true,
-        "note": "키즈노트"
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "mrt": {
         "weekday": 42900,
         "weekend": 42900,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "oceanworld": {
