@@ -99,7 +99,7 @@ const PARK_PRICES = {
       "yanolja": {
         "weekday": 42000,
         "weekend": 42000,
-        "active": true,
+        "active": false,
         "note": "야놀자",
         "ticketPrices": {
           "half": {
@@ -111,7 +111,7 @@ const PARK_PRICES = {
       "yeogi": {
         "weekday": 43200,
         "weekend": 43200,
-        "active": true,
+        "active": false,
         "note": "여기어때",
         "ticketPrices": {
           "half": {
@@ -123,7 +123,7 @@ const PARK_PRICES = {
       "gmarket": {
         "weekday": 45000,
         "weekend": 45000,
-        "active": true,
+        "active": false,
         "note": "지마켓",
         "ticketPrices": {
           "half": {
