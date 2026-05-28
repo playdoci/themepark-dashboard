@@ -1274,7 +1274,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.everland.com",
     "pricePageUrl": "https://reservation.everland.com",
     "currentSeason": "A시즌 (봄 성수기)",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "시즌 3분류 (A·B·C) / 소인/경로: 36개월~만12세 및 경로",
     "tickets": [
       {
@@ -1288,140 +1288,6 @@ const PARK_PRICES = {
         "priceLabels": {
           "adult": "대인",
           "child": "소인/경로"
-        }
-      }
-    ],
-    "channelDiscounts": {
-      "home": {
-        "weekday": 72000,
-        "weekend": 72000,
-        "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {}
-      },
-      "nori": {
-        "weekday": 46800,
-        "weekend": 46800,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {}
-      },
-      "naver": {
-        "weekday": 50400,
-        "weekend": 50400,
-        "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {}
-      },
-      "coupang": {
-        "weekday": 51840,
-        "weekend": 51840,
-        "active": false,
-        "note": "쿠팡",
-        "ticketPrices": {}
-      },
-      "kakao": {
-        "weekday": 54000,
-        "weekend": 54000,
-        "active": true,
-        "note": "카카오",
-        "ticketPrices": {}
-      },
-      "yanolja": {
-        "weekday": 50400,
-        "weekend": 50400,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {}
-      },
-      "yeogi": {
-        "weekday": 51840,
-        "weekend": 51840,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {}
-      },
-      "gmarket": {
-        "weekday": 54000,
-        "weekend": 54000,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {}
-      },
-      "11st": {
-        "weekday": 52560,
-        "weekend": 52560,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {}
-      },
-      "auction": {
-        "weekday": 54720,
-        "weekend": 54720,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {}
-      },
-      "kidsnote": {
-        "weekday": 48960,
-        "weekend": 48960,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {}
-      },
-      "mrt": {
-        "weekday": 57600,
-        "weekend": 57600,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {}
-      }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
-    }
-  },
-  "lotte": {
-    "name": "롯데월드",
-    "homepageUrl": "https://www.lotteworld.com",
-    "pricePageUrl": "https://www.lotteworld.com/app/adv_ticket/list.asp",
-    "currentSeason": "2026 기준",
-    "updatedAt": "2026-04-14",
-    "notice": "베이비: 36개월~만4세 / 소인: 만5세~만12세 / 청소년: 만13세~만18세",
-    "tickets": [
-      {
-        "id": "day",
-        "label": "종일권 (1Day)",
-        "time": "개장~마감",
-        "prices": {
-          "adult": 72000,
-          "youth": 63000,
-          "child": 54000,
-          "baby": 45000
-        },
-        "priceLabels": {
-          "adult": "대인",
-          "youth": "청소년",
-          "child": "소인",
-          "baby": "베이비"
-        }
-      },
-      {
-        "id": "evening",
-        "label": "야간권 (After4)",
-        "time": "16:00~마감",
-        "prices": {
-          "adult": 49000,
-          "youth": 43000,
-          "child": 37000,
-          "baby": 31000
-        },
-        "priceLabels": {
-          "adult": "대인",
-          "youth": "청소년",
-          "child": "소인",
-          "baby": "베이비"
         }
       }
     ],
@@ -1498,6 +1364,200 @@ const PARK_PRICES = {
         "active": true,
         "note": "마이리얼트립"
       }
+    }
+  },
+  "lotte": {
+    "name": "롯데월드",
+    "homepageUrl": "https://www.lotteworld.com",
+    "pricePageUrl": "https://www.lotteworld.com/app/adv_ticket/list.asp",
+    "currentSeason": "2026 기준",
+    "updatedAt": "2026-05-28",
+    "notice": "베이비: 36개월~만4세 / 소인: 만5세~만12세 / 청소년: 만13세~만18세",
+    "tickets": [
+      {
+        "id": "day",
+        "label": "종일권 (1Day)",
+        "time": "개장~마감",
+        "prices": {
+          "adult": 72000,
+          "youth": 63000,
+          "child": 54000,
+          "baby": 45000
+        },
+        "priceLabels": {
+          "adult": "대인",
+          "youth": "청소년",
+          "child": "소인",
+          "baby": "베이비"
+        }
+      },
+      {
+        "id": "evening",
+        "label": "야간권 (After4)",
+        "time": "16:00~마감",
+        "prices": {
+          "adult": 49000,
+          "youth": 43000,
+          "child": 37000,
+          "baby": 31000
+        },
+        "priceLabels": {
+          "adult": "대인",
+          "youth": "청소년",
+          "child": "소인",
+          "baby": "베이비"
+        }
+      }
+    ],
+    "channelDiscounts": {
+      "home": {
+        "weekday": 72000,
+        "weekend": 72000,
+        "active": true,
+        "note": "공홈 정가",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "nori": {
+        "weekday": 46800,
+        "weekend": 46800,
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "naver": {
+        "weekday": 50400,
+        "weekend": 50400,
+        "active": true,
+        "note": "네이버 예약",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "coupang": {
+        "weekday": 51840,
+        "weekend": 51840,
+        "active": false,
+        "note": "쿠팡",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "kakao": {
+        "weekday": 54000,
+        "weekend": 54000,
+        "active": true,
+        "note": "카카오",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "yanolja": {
+        "weekday": 50400,
+        "weekend": 50400,
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "yeogi": {
+        "weekday": 51840,
+        "weekend": 51840,
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "gmarket": {
+        "weekday": 54000,
+        "weekend": 54000,
+        "active": false,
+        "note": "지마켓",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "11st": {
+        "weekday": 52560,
+        "weekend": 52560,
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "auction": {
+        "weekday": 54720,
+        "weekend": 54720,
+        "active": false,
+        "note": "옥션",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "kidsnote": {
+        "weekday": 48960,
+        "weekend": 48960,
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      },
+      "mrt": {
+        "weekday": 57600,
+        "weekend": 57600,
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {
+          "evening": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
+      }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "seoul": {
