@@ -199,7 +199,7 @@ const PARK_PRICES = {
             "weekend": 24900
           }
         },
-        "startDate": "2026-06-02",
+        "startDate": "2026-05-28",
         "endDate": "2026-06-07"
       }
     },
