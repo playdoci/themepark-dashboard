@@ -1110,8 +1110,8 @@ const PARK_PRICES = {
     "name": "아산스파비스",
     "homepageUrl": "https://www.spabis.co.kr",
     "pricePageUrl": "https://www.spabis.co.kr",
-    "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
+    "currentSeason": "미들시즌 (2026.01.01~06.30.)   /   골드시즌 (2026.07.17~08.17.)",
+    "updatedAt": "2026-05-28",
     "notice": "충남 아산",
     "ticketNote": "(스파 기준)",
     "tickets": [
@@ -1120,7 +1120,7 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 32000
+          "adult": 50000
         },
         "priceLabels": {
           "adult": "대인"
@@ -1131,7 +1131,7 @@ const PARK_PRICES = {
         "label": "오후권",
         "time": "14:00~마감",
         "prices": {
-          "adult": 25000
+          "adult": 20000
         },
         "priceLabels": {
           "adult": "대인"
@@ -1142,75 +1142,153 @@ const PARK_PRICES = {
       "home": {
         "weekday": 32000,
         "weekend": 36000,
-        "active": true,
-        "note": "공홈 정가"
+        "active": false,
+        "note": "공홈 정가",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "nori": {
         "weekday": 22400,
         "weekend": 25200,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "naver": {
-        "weekday": 22400,
-        "weekend": 25200,
+        "weekday": 28000,
+        "weekend": 28000,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "startDate": "2026-04-27",
+        "endDate": "2026-06-30",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "coupang": {
         "weekday": 23680,
         "weekend": 26640,
-        "active": true,
-        "note": "쿠팡"
+        "active": false,
+        "note": "쿠팡",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kakao": {
         "weekday": 24000,
         "weekend": 27000,
-        "active": true,
-        "note": "카카오"
+        "active": false,
+        "note": "카카오",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yanolja": {
         "weekday": 22400,
         "weekend": 25200,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yeogi": {
         "weekday": 23040,
         "weekend": 25920,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "gmarket": {
         "weekday": 24000,
         "weekend": 27000,
-        "active": true,
-        "note": "지마켓"
+        "active": false,
+        "note": "지마켓",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "11st": {
         "weekday": 23360,
         "weekend": 26280,
-        "active": true,
-        "note": "11번가"
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "auction": {
         "weekday": 24320,
         "weekend": 27360,
-        "active": true,
-        "note": "옥션"
+        "active": false,
+        "note": "옥션",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kidsnote": {
         "weekday": 21760,
         "weekend": 24480,
-        "active": true,
-        "note": "키즈노트"
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "mrt": {
         "weekday": 25600,
         "weekend": 28800,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "splash": {
