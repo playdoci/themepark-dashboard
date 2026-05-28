@@ -9,12 +9,15 @@
 :root{
   --bg:#fff;--bg2:#f7f7f5;--bg3:#f0ede8;
   --txt:#1a1a1a;--txt2:#666;--txt3:#aaa;
-  --border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.2);
   --blue:#185FA5;--blue-bg:#E6F1FB;
   --green:#3B6D11;--green-bg:#EAF3DE;
   --red:#993C1D;--red-bg:#FAECE7;
   --amber:#854F0B;--amber-bg:#FAEEDA;
   --radius:12px;--radius-sm:8px;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#1a1a1a;--bg2:#242424;--bg3:#2e2e2e;--txt:#f0f0f0;--txt2:#aaa;--txt3:#555;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);}
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:var(--bg3);color:var(--txt);max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:40px;}
 
@@ -32,28 +35,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .topbar{background:var(--bg);border-bottom:0.5px solid var(--border);padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;}
 .topbar-title{font-size:17px;font-weight:600;}
 .logout-btn{font-size:12px;padding:5px 10px;border-radius:20px;border:0.5px solid var(--border2);background:none;color:var(--txt2);cursor:pointer;}
-
-/* 메뉴 탭 */
 .menu-tabs{display:flex;background:var(--bg);border-bottom:0.5px solid var(--border);position:sticky;top:46px;z-index:99;}
 .menu-tab{flex:1;padding:10px 4px;font-size:12px;border:none;background:none;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;font-weight:500;}
 .menu-tab.active{color:var(--txt);border-bottom-color:var(--txt);}
-
 .content{padding:14px;}
 .menu-section{display:none;}
 .menu-section.active{display:block;}
 
 /* 공통 */
-.sec-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
 .info-box{background:var(--amber-bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--amber);line-height:1.6;}
+.sec-label{font-size:11px;font-weight:500;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
 .park-select{width:100%;padding:10px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:var(--bg);margin-bottom:16px;}
 .card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
 .card-hd{background:var(--bg2);padding:10px 14px;font-size:13px;font-weight:600;color:var(--txt);display:flex;justify-content:space-between;align-items:center;}
 .card-hd-note{font-size:10px;font-weight:400;color:var(--txt2);}
+
+/* 시즌/필드 */
 .field-row{padding:11px 14px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:10px;}
-.field-label{font-size:12px;color:var(--txt2);min-width:70px;flex-shrink:0;}
+.field-label{font-size:12px;color:var(--txt2);min-width:88px;flex-shrink:0;}
 .field-input{flex:1;padding:7px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);}
+
+/* 티켓 */
 .ticket-block{border-top:0.5px solid var(--border);}
-.ticket-block-hd{padding:8px 14px;background:var(--bg3);display:flex;align-items:center;gap:6px;}
+.ticket-hd{padding:8px 14px;background:var(--bg3);display:flex;align-items:center;gap:6px;}
 .ticket-name{font-size:12px;font-weight:600;color:var(--txt);}
 .ticket-time{font-size:10px;color:var(--txt2);}
 .price-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-top:0.5px solid var(--border);}
@@ -67,25 +71,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .ch-main-row{display:flex;align-items:center;padding:10px 14px;gap:8px;}
 .ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .ch-name-txt{font-size:12px;font-weight:500;color:var(--txt);flex:1;}
-.ch-inactive-label{font-size:10px;color:var(--txt3);margin-right:4px;}
 .ch-toggle{display:flex;align-items:center;gap:4px;cursor:pointer;}
 .ch-toggle input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--red);}
 .ch-toggle-lbl{font-size:10px;color:var(--txt2);}
-.ch-inputs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 14px 10px 30px;border-top:0.5px solid var(--border);}
-.ch-input-lbl{font-size:10px;color:var(--txt2);min-width:55px;}
-.ch-price-input{width:90px;padding:5px 8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
-.ch-date-wrap{display:flex;align-items:center;gap:4px;width:100%;margin-top:4px;}
-.ch-date-input{flex:1;padding:4px 8px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;color:var(--txt);background:var(--bg);}
+.ch-inputs{display:flex;flex-wrap:wrap;align-items:center;gap:5px;padding:6px 14px 10px 30px;border-top:0.5px solid var(--border);}
+.ch-input-lbl{font-size:10px;color:var(--txt2);}
+.ch-price-input{width:82px;padding:5px 7px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;font-weight:500;color:var(--txt);background:var(--bg);text-align:right;}
+.ch-sub-row{display:flex;align-items:center;gap:5px;width:100%;margin-top:5px;padding-top:5px;border-top:0.5px dashed var(--border);}
+.ch-date-wrap{display:flex;align-items:center;gap:4px;width:100%;margin-top:5px;}
+.ch-date-input{flex:1;padding:4px 7px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;color:var(--txt);background:var(--bg);}
 .ch-inactive .ch-inputs{opacity:.4;pointer-events:none;}
 
 /* 채널 추가 */
 .add-ch-form{padding:12px 14px;border-top:0.5px solid var(--border);background:var(--blue-bg);}
 .add-ch-title{font-size:11px;font-weight:500;color:var(--blue);margin-bottom:8px;}
-.add-ch-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
-.add-ch-input{flex:1;min-width:80px;padding:6px 10px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;color:var(--txt);background:var(--bg);}
+.add-ch-row{display:flex;gap:6px;margin-bottom:6px;}
+.add-ch-input{flex:1;padding:6px 9px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;color:var(--txt);background:var(--bg);}
 .add-ch-btn{padding:6px 12px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
 
-/* 저장 버튼 */
+/* 저장 */
 .save-btn{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:4px;}
 .save-btn:active{opacity:.85;}
 .save-btn:disabled{background:var(--txt3);cursor:not-allowed;}
@@ -99,11 +103,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .news-form{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;}
 .news-form-title{font-size:13px;font-weight:600;margin-bottom:12px;}
 .news-input{width:100%;padding:9px 12px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;color:var(--txt);background:var(--bg);margin-bottom:8px;}
-.news-input::placeholder{color:var(--txt3);}
 .news-row{display:flex;gap:8px;margin-bottom:8px;}
 .news-row .news-input{margin-bottom:0;}
 .news-submit{width:100%;padding:11px;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;}
-.news-submit:active{opacity:.85;}
 .news-list-item{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
 .news-item-info{flex:1;min-width:0;}
 .news-item-title{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -138,24 +140,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <button class="menu-tab" onclick="switchMenu('news',this)">뉴스 등록</button>
     <button class="menu-tab" onclick="switchMenu('category',this)">카테고리</button>
   </div>
-
   <div class="content">
 
-    <!-- ── 가격 관리 ──────────────────────────────────── -->
+    <!-- 가격 관리 -->
     <div class="menu-section active" id="menu-price">
       <div class="info-box">
         💡 공식 홈페이지에서 현재 시즌 가격 확인 후 수정해주세요.<br>
-        저장 시 GitHub 자동 업데이트 → <b>2~3분 후</b> 앱에 반영<br>
+        저장 시 GitHub 자동 업데이트 → <b>2~3분 후</b> 앱 반영<br>
         <b>판매없음</b> 체크 시 앱에서 해당 채널이 숨겨집니다.
       </div>
-
       <div class="sec-label">파크 선택</div>
       <select class="park-select" id="parkSelect" onchange="loadParkData()">
         <option value="">파크를 선택하세요</option>
       </select>
-
       <div id="editArea" style="display:none;">
-
         <!-- 시즌 정보 -->
         <div class="card">
           <div class="card-hd">시즌 정보</div>
@@ -164,11 +162,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
             <input class="field-input" id="seasonName" placeholder="예: 로우 시즌 (2026.03~05)">
           </div>
           <div class="field-row">
+            <div class="field-label">운영시간(주중)</div>
+            <input class="field-input" id="opsWeekday" placeholder="예: 주중 10:00~18:00">
+          </div>
+          <div class="field-row">
+            <div class="field-label">운영시간(주말)</div>
+            <input class="field-input" id="opsWeekend" placeholder="예: 주말·공휴일 09:00~19:00">
+          </div>
+          <div class="field-row">
             <div class="field-label">공지사항</div>
             <input class="field-input" id="noticeText" placeholder="예: 매주 월·화 휴장">
           </div>
         </div>
-
         <!-- 티켓 가격 -->
         <div class="card">
           <div class="card-hd">
@@ -177,12 +182,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
           </div>
           <div id="ticketRows"></div>
         </div>
-
         <!-- 채널별 판매금액 -->
         <div class="card">
           <div class="card-hd">
             채널별 판매금액
-            <span class="card-hd-note">대인 종일권 기준</span>
+            <span class="card-hd-note" id="chCardNote">대인 기준</span>
           </div>
           <div id="channelRows"></div>
           <!-- 채널 추가 -->
@@ -190,7 +194,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
             <div class="add-ch-title">+ 새 채널 추가</div>
             <div class="add-ch-row">
               <input class="add-ch-input" id="newChName" placeholder="채널명 (예: 클룩)">
-              <input class="add-ch-input" id="newChColor" type="color" value="#185FA5" style="width:40px;padding:2px;">
+              <input type="color" id="newChColor" value="#185FA5"
+                style="width:40px;padding:2px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);">
             </div>
             <div class="add-ch-row">
               <input class="add-ch-input" id="newChWeekday" type="number" placeholder="주중 금액">
@@ -199,7 +204,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
             </div>
           </div>
         </div>
-
         <button class="save-btn" id="saveBtn" onclick="saveAll()">
           저장하고 GitHub 업데이트
         </button>
@@ -207,18 +211,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       </div>
     </div>
 
-    <!-- ── 뉴스 등록 ──────────────────────────────────── -->
+    <!-- 뉴스 등록 -->
     <div class="menu-section" id="menu-news">
       <div class="info-box">
         📰 협회 주간동향 등 네이버에서 검색되지 않는 뉴스를 직접 등록하세요.<br>
         등록한 뉴스는 앱 뉴스 탭 <b>맨 위</b>에 표시됩니다.<br>
-        ⚠️ 서버 재시작 시 초기화됩니다 (Railway 무료 플랜은 비활성 시 재시작됨)
+        ⚠️ 서버 재시작 시 초기화됩니다.
       </div>
-
       <div class="news-form">
         <div class="news-form-title">뉴스 직접 등록</div>
         <input class="news-input" id="newsTitle" placeholder="제목 *">
-        <input class="news-input" id="newsUrl" placeholder="링크 URL * (예: https://katpa.or.kr/...)">
+        <input class="news-input" id="newsUrl" placeholder="링크 URL * (https://...)">
         <input class="news-input" id="newsSummary" placeholder="요약 (선택)">
         <div class="news-row">
           <input class="news-input" id="newsSource" placeholder="출처 (예: 한국테마파크협회)">
@@ -236,12 +239,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
         <button class="news-submit" onclick="submitNews()">등록하기</button>
         <div class="result-box" id="newsResultBox"></div>
       </div>
-
       <div class="sec-label">등록된 뉴스 <span id="newsCount" style="font-weight:600;color:var(--txt);">0</span>건</div>
       <div id="newsList"><div class="empty-news">등록된 뉴스가 없습니다.</div></div>
     </div>
 
-    <!-- ── 카테고리 관리 ──────────────────────────────── -->
+    <!-- 카테고리 -->
     <div class="menu-section" id="menu-category">
       <div class="info-box">
         🏷️ 뉴스 탭에 표시되는 카테고리 칩을 관리해요.<br>
@@ -306,6 +308,7 @@ async function doLogin() {
     el.textContent = e.message || '비밀번호가 틀렸습니다.';
   }
 }
+
 function doLogout() {
   adminToken = '';
   document.getElementById('loginWrap').style.display = 'flex';
@@ -313,7 +316,7 @@ function doLogout() {
   document.getElementById('pwInput').value = '';
 }
 
-// ── 메뉴 탭 전환 ────────────────────────────────────────────
+// ── 메뉴 탭 ─────────────────────────────────────────────────
 function switchMenu(name, el) {
   document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
@@ -346,20 +349,21 @@ async function loadParkData() {
 // ── 편집 UI 렌더링 ──────────────────────────────────────────
 function renderEditor() {
   const d = currentParkData;
+  const tickets = d.tickets || [];
+
   document.getElementById('seasonName').value = d.currentSeason || '';
-  document.getElementById('noticeText').value = d.notice || '';
-  document.getElementById('ticketNoteLabel').textContent = d.ticketNote || '';
   document.getElementById('opsWeekday').value = d.operatingHours?.weekday || '';
   document.getElementById('opsWeekend').value = d.operatingHours?.weekend || '';
+  document.getElementById('noticeText').value = d.notice || '';
+  document.getElementById('ticketNoteLabel').textContent = d.ticketNote || '';
 
-  const tickets = d.tickets || [];
   const ticketLabels = tickets.map(t => t.label).join(' / ');
   document.getElementById('chCardNote').textContent = `대인 기준 (${ticketLabels})`;
 
   // 티켓 가격
   document.getElementById('ticketRows').innerHTML = tickets.map((t, ti) => `
     <div class="ticket-block">
-      <div class="ticket-block-hd">
+      <div class="ticket-hd">
         <span class="ticket-name">${t.label}</span>
         <span class="ticket-time">${t.time || ''}</span>
       </div>
@@ -374,17 +378,17 @@ function renderEditor() {
         </div>`).join('')}
     </div>`).join('');
 
-  // 채널 할인금액 + 티켓별 금액
+  // 채널별 판매금액
   const discounts = d.channelDiscounts || {};
   document.getElementById('channelRows').innerHTML = Object.entries(discounts).map(([key, disc]) => {
     const info = CH_INFO[key] || { name: disc.note || key, color: '#888' };
     const isActive = disc.active !== false;
     const tp = disc.ticketPrices || {};
 
-    // 두 번째 티켓부터 주중/주말 입력란 추가
-    const subTicketInputs = tickets.slice(1).map((t, si) => {
-      return `<div class="ch-date-wrap" style="margin-top:5px;">
-        <span class="ch-input-lbl" style="min-width:70px;">${t.label} 주중</span>
+    // 2번째 이후 티켓 금액 입력란
+    const subTicketInputs = tickets.slice(1).map((t, si) => `
+      <div class="ch-sub-row">
+        <span class="ch-input-lbl" style="min-width:65px;">${t.label} 주중</span>
         <input class="ch-price-input" type="number" step="100"
           id="ch_${key}_sub${si}_weekday" value="${tp[t.id]?.weekday||''}">
         <span class="price-unit">원</span>
@@ -392,14 +396,13 @@ function renderEditor() {
         <input class="ch-price-input" type="number" step="100"
           id="ch_${key}_sub${si}_weekend" value="${tp[t.id]?.weekend||''}">
         <span class="price-unit">원</span>
-      </div>`;
-    }).join('');
+      </div>`).join('');
 
     return `<div class="ch-block${!isActive?' ch-inactive':''}" id="chblock_${key}">
       <div class="ch-main-row">
         <div class="ch-dot" style="background:${info.color}"></div>
         <div class="ch-name-txt">${info.name}</div>
-        <label class="ch-toggle" title="판매없음 체크 시 앱에서 숨김">
+        <label class="ch-toggle">
           <input type="checkbox" id="ch_active_${key}" ${!isActive?'checked':''}
             onchange="toggleChActive('${key}',this)">
           <span class="ch-toggle-lbl">판매없음</span>
@@ -407,19 +410,21 @@ function renderEditor() {
       </div>
       <div class="ch-inputs">
         <span class="ch-input-lbl">${tickets[0]?.label||'종일권'} 주중</span>
-        <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekday" value="${disc.weekday||0}">
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_weekday" value="${disc.weekday||0}">
         <span class="price-unit">원</span>
         <span class="ch-input-lbl" style="margin-left:4px;">주말</span>
-        <input class="ch-price-input" type="number" step="100" id="ch_${key}_weekend" value="${disc.weekend||0}">
+        <input class="ch-price-input" type="number" step="100"
+          id="ch_${key}_weekend" value="${disc.weekend||0}">
         <span class="price-unit">원</span>
         ${subTicketInputs}
         <div class="ch-date-wrap">
           <span class="ch-input-lbl" style="min-width:40px;">판매기간</span>
           <input class="ch-date-input" type="date" id="ch_${key}_start"
-            value="${disc.startDate||''}" placeholder="시작일">
+            value="${disc.startDate||''}">
           <span style="font-size:11px;color:var(--txt3);">~</span>
           <input class="ch-date-input" type="date" id="ch_${key}_end"
-            value="${disc.endDate||''}" placeholder="종료일">
+            value="${disc.endDate||''}">
         </div>
       </div>
     </div>`;
@@ -439,20 +444,11 @@ function addChannel() {
   const weekday = parseInt(document.getElementById('newChWeekday').value) || 0;
   const weekend = parseInt(document.getElementById('newChWeekend').value) || 0;
   if (!name) { alert('채널명을 입력해주세요.'); return; }
-
-  // key 생성 (한글 채널명을 영문 key로 변환)
   const key = 'custom_' + Date.now();
-
-  // currentParkData에 추가
   if (!currentParkData.channelDiscounts) currentParkData.channelDiscounts = {};
-  currentParkData.channelDiscounts[key] = { weekday, weekend, active: true, note: name };
-
-  // CH_INFO에 임시 추가
+  currentParkData.channelDiscounts[key] = { weekday, weekend, active:true, note:name, ticketPrices:{} };
   CH_INFO[key] = { name, color };
-
   renderEditor();
-
-  // 입력 초기화
   document.getElementById('newChName').value = '';
   document.getElementById('newChWeekday').value = '';
   document.getElementById('newChWeekend').value = '';
@@ -468,9 +464,10 @@ async function saveAll() {
 
   try {
     const d = currentParkData;
+    const tickets = d.tickets || [];
 
     // 티켓 가격 수집
-    const updatedTickets = d.tickets.map((t, ti) => {
+    const updatedTickets = tickets.map((t, ti) => {
       const newPrices = {};
       Object.keys(t.prices).forEach(pk => {
         const el = document.getElementById(`ticket_${ti}_${pk}`);
@@ -481,7 +478,6 @@ async function saveAll() {
 
     // 채널 수집
     const updatedDiscounts = {};
-    const tickets = d.tickets || [];
     Object.keys(d.channelDiscounts || {}).forEach(key => {
       const wdEl = document.getElementById(`ch_${key}_weekday`);
       const weEl = document.getElementById(`ch_${key}_weekend`);
@@ -490,28 +486,28 @@ async function saveAll() {
       const enEl = document.getElementById(`ch_${key}_end`);
       const info = CH_INFO[key] || {};
 
-      // 두 번째 이후 티켓 가격 수집
+      // 서브 티켓 가격 수집
       const ticketPrices = {};
       tickets.slice(1).forEach((t, si) => {
-        const swdEl = document.getElementById(`ch_${key}_sub${si}_weekday`);
-        const sweEl = document.getElementById(`ch_${key}_sub${si}_weekend`);
-        if (swdEl || sweEl) {
+        const swEl = document.getElementById(`ch_${key}_sub${si}_weekday`);
+        const seEl = document.getElementById(`ch_${key}_sub${si}_weekend`);
+        if (swEl || seEl) {
           ticketPrices[t.id] = {
-            weekday: swdEl ? (parseInt(swdEl.value) || 0) : 0,
-            weekend: sweEl ? (parseInt(sweEl.value) || 0) : 0
+            weekday: swEl ? (parseInt(swEl.value)||0) : 0,
+            weekend: seEl ? (parseInt(seEl.value)||0) : 0
           };
         }
       });
 
       updatedDiscounts[key] = {
         ...d.channelDiscounts[key],
-        weekday:      wdEl ? (parseInt(wdEl.value) || 0) : (d.channelDiscounts[key].weekday || 0),
-        weekend:      weEl ? (parseInt(weEl.value) || 0) : (d.channelDiscounts[key].weekend || 0),
+        weekday:      wdEl ? (parseInt(wdEl.value)||0) : (d.channelDiscounts[key].weekday||0),
+        weekend:      weEl ? (parseInt(weEl.value)||0) : (d.channelDiscounts[key].weekend||0),
         active:       acEl ? !acEl.checked : true,
         startDate:    stEl?.value || undefined,
         endDate:      enEl?.value || undefined,
         note:         d.channelDiscounts[key].note || info.name || key,
-        ticketPrices: Object.keys(ticketPrices).length > 0 ? ticketPrices : (d.channelDiscounts[key].ticketPrices || {})
+        ticketPrices: Object.keys(ticketPrices).length > 0 ? ticketPrices : (d.channelDiscounts[key].ticketPrices||{})
       };
       if (!updatedDiscounts[key].startDate) delete updatedDiscounts[key].startDate;
       if (!updatedDiscounts[key].endDate)   delete updatedDiscounts[key].endDate;
@@ -573,21 +569,18 @@ async function loadManualNews() {
         <button class="news-del-btn" onclick="deleteNews('${item.id}')">삭제</button>
       </div>`).join('');
   } catch(e) {
-    document.getElementById('newsList').innerHTML = '<div class="empty-news">뉴스 목록을 불러올 수 없습니다.</div>';
+    document.getElementById('newsList').innerHTML = '<div class="empty-news">불러올 수 없습니다.</div>';
   }
 }
 
 async function submitNews() {
-  const title   = document.getElementById('newsTitle').value.trim();
-  const url     = document.getElementById('newsUrl').value.trim();
-  const summary = document.getElementById('newsSummary').value.trim();
-  const source  = document.getElementById('newsSource').value.trim() || '한국테마파크협회';
-  const tag     = document.getElementById('newsTag').value;
-  const rb      = document.getElementById('newsResultBox');
-
-  if (!title) { showNewsResult('error', '제목을 입력해주세요.'); return; }
-  if (!url)   { showNewsResult('error', 'URL을 입력해주세요.'); return; }
-
+  const title  = document.getElementById('newsTitle').value.trim();
+  const url    = document.getElementById('newsUrl').value.trim();
+  const summary= document.getElementById('newsSummary').value.trim();
+  const source = document.getElementById('newsSource').value.trim() || '한국테마파크협회';
+  const tag    = document.getElementById('newsTag').value;
+  if (!title) { showNewsResult('error','제목을 입력해주세요.'); return; }
+  if (!url)   { showNewsResult('error','URL을 입력해주세요.'); return; }
   try {
     const res = await fetch(`${API}/admin/manual-news`, {
       method:'POST',
@@ -596,17 +589,14 @@ async function submitNews() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error);
-
-    // 입력 초기화
     ['newsTitle','newsUrl','newsSummary','newsSource'].forEach(id => {
       document.getElementById(id).value = '';
     });
     document.getElementById('newsTag').value = '협회';
-
-    showNewsResult('success', '✅ 등록 완료! 앱 뉴스 탭에 즉시 반영됩니다.');
+    showNewsResult('success','✅ 등록 완료! 앱 뉴스 탭에 즉시 반영됩니다.');
     loadManualNews();
   } catch(e) {
-    showNewsResult('error', '❌ 오류: ' + e.message);
+    showNewsResult('error','❌ 오류: ' + e.message);
   }
 }
 
@@ -614,14 +604,11 @@ async function deleteNews(id) {
   if (!confirm('이 뉴스를 삭제할까요?')) return;
   try {
     const res = await fetch(`${API}/admin/manual-news/${id}`, {
-      method:'DELETE',
-      headers:{ 'x-admin-token': adminToken }
+      method:'DELETE', headers:{ 'x-admin-token': adminToken }
     });
     if (!res.ok) throw new Error('삭제 실패');
     loadManualNews();
-  } catch(e) {
-    alert('삭제 오류: ' + e.message);
-  }
+  } catch(e) { alert('삭제 오류: ' + e.message); }
 }
 
 function showNewsResult(type, msg) {
@@ -632,33 +619,30 @@ function showNewsResult(type, msg) {
   setTimeout(() => rb.style.display = 'none', 4000);
 }
 
-// ── 카테고리 관리 ─────────────────────────────────────────────
+// ── 카테고리 관리 ────────────────────────────────────────────
 async function loadCategories() {
   try {
     const res = await fetch(`${API}/categories`);
     const cats = await res.json();
     document.getElementById('catCount').textContent = cats.length;
     const list = document.getElementById('catList');
-    if (!cats.length) {
-      list.innerHTML = '<div class="empty-news">카테고리가 없습니다.</div>';
-      return;
-    }
+    if (!cats.length) { list.innerHTML = '<div class="empty-news">카테고리가 없습니다.</div>'; return; }
     list.innerHTML = cats.map(cat => `
       <div class="news-list-item" id="catitem_${cat.id}">
         <div class="news-item-info">
           <div class="news-item-title">${cat.name}</div>
-          <div class="news-item-meta">${cat.isDefault ? '기본 항목' : '추가 항목'}</div>
+          <div class="news-item-meta">${cat.isDefault?'기본 항목':'추가 항목'}</div>
         </div>
-        ${!cat.isDefault ? `<button class="news-del-btn" onclick="deleteCategory('${cat.id}')">삭제</button>` : ''}
+        ${!cat.isDefault?`<button class="news-del-btn" onclick="deleteCategory('${cat.id}')">삭제</button>`:''}
       </div>`).join('');
   } catch(e) {
-    document.getElementById('catList').innerHTML = '<div class="empty-news">카테고리를 불러올 수 없습니다.</div>';
+    document.getElementById('catList').innerHTML = '<div class="empty-news">불러올 수 없습니다.</div>';
   }
 }
 
 async function addCategory() {
   const name = document.getElementById('catName').value.trim();
-  if (!name) { showCatResult('error', '카테고리명을 입력해주세요.'); return; }
+  if (!name) { showCatResult('error','카테고리명을 입력해주세요.'); return; }
   try {
     const res = await fetch(`${API}/admin/categories`, {
       method:'POST',
@@ -668,25 +652,20 @@ async function addCategory() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error);
     document.getElementById('catName').value = '';
-    showCatResult('success', '✅ 추가 완료!');
+    showCatResult('success','✅ 추가 완료!');
     loadCategories();
-  } catch(e) {
-    showCatResult('error', '❌ 오류: ' + e.message);
-  }
+  } catch(e) { showCatResult('error','❌ 오류: ' + e.message); }
 }
 
 async function deleteCategory(id) {
   if (!confirm('이 카테고리를 삭제할까요?')) return;
   try {
     const res = await fetch(`${API}/admin/categories/${id}`, {
-      method:'DELETE',
-      headers:{ 'x-admin-token': adminToken }
+      method:'DELETE', headers:{ 'x-admin-token': adminToken }
     });
     if (!res.ok) throw new Error('삭제 실패');
     loadCategories();
-  } catch(e) {
-    alert('삭제 오류: ' + e.message);
-  }
+  } catch(e) { alert('삭제 오류: ' + e.message); }
 }
 
 function showCatResult(type, msg) {
