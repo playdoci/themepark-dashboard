@@ -877,8 +877,8 @@ const PARK_PRICES = {
     "name": "파라다이스시티 씨메르",
     "homepageUrl": "https://www.p-city.com/ko/facility/cimer",
     "pricePageUrl": "https://www.p-city.com/ko/facility/cimer",
-    "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
+    "currentSeason": "골드시즌 (2026.07.24~08.17.)",
+    "updatedAt": "2026-05-28",
     "notice": "인천 영종도 / 파라다이스시티 호텔 내",
     "tickets": [
       {
@@ -886,8 +886,8 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 55000,
-          "child": 40000
+          "adult": 60000,
+          "child": 50000
         },
         "priceLabels": {
           "adult": "대인",
@@ -897,41 +897,53 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 55000,
-        "weekend": 65000,
+        "weekday": 51000,
+        "weekend": 51000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {}
       },
       "naver": {
-        "weekday": 38500,
-        "weekend": 45500,
+        "weekday": 54000,
+        "weekend": 54000,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "startDate": "2026-05-01",
+        "endDate": "2026-06-30",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 40000,
         "weekend": 47000,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 41000,
         "weekend": 48000,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "inspire": {
