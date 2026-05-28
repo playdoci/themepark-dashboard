@@ -8,7 +8,7 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "하이시즌 (2026.06.03~07.16)",
+    "currentSeason": "하이시즌 (2026.06.03~07.16)   /   골드시즌 (2026.07.17~08.17)",
     "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
@@ -17,7 +17,7 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "10:00~18:00",
         "prices": {
-          "adult": 60000
+          "adult": 65000
         },
         "priceLabels": {
           "adult": "대인"
@@ -28,7 +28,7 @@ const PARK_PRICES = {
         "label": "반일권",
         "time": "14:00~18:00",
         "prices": {
-          "adult": 50000
+          "adult": 55000
         },
         "priceLabels": {
           "adult": "대인"
@@ -37,57 +37,65 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 33000,
-        "weekend": 33000,
+        "weekday": 32000,
+        "weekend": 36000,
         "active": true,
         "note": "공홈 할인가",
         "ticketPrices": {
           "half": {
-            "weekday": 0,
-            "weekend": 0
+            "weekday": 26000,
+            "weekend": 32000
           }
-        }
+        },
+        "startDate": "2026-05-27",
+        "endDate": "2026-06-28"
       },
       "nori": {
-        "weekday": 37200,
-        "weekend": 37200,
+        "weekday": 29900,
+        "weekend": 29900,
         "active": true,
         "note": "놀이의발견",
         "ticketPrices": {
           "half": {
-            "weekday": 0,
-            "weekend": 0
+            "weekday": 24900,
+            "weekend": 24900
           }
-        }
+        },
+        "startDate": "2026-06-11",
+        "endDate": "2026-06-14"
       },
       "naver": {
-        "weekday": 42000,
-        "weekend": 42000,
+        "weekday": 29900,
+        "weekend": 29900,
         "active": true,
         "note": "네이버 예약",
         "ticketPrices": {
           "half": {
-            "weekday": 0,
-            "weekend": 0
+            "weekday": 24900,
+            "weekend": 24900
           }
-        }
+        },
+        "startDate": "2026-06-02",
+        "endDate": "2026-06-07"
       },
       "coupang": {
-        "weekday": 43200,
-        "weekend": 43200,
+        "weekday": 31900,
+        "weekend": 35900,
         "active": true,
         "note": "쿠팡",
         "ticketPrices": {
           "half": {
-            "weekday": 0,
-            "weekend": 0
+            "weekday": 25900,
+            "weekend": 31900
           }
-        }
+        },
+        "startDate": "2026-06-08",
+        "endDate": "2026-06-10"
       },
       "kakao": {
         "weekday": 45000,
         "weekend": 45000,
-        "active": true,
+        "active": false,
         "note": "카카오",
         "ticketPrices": {
           "half": {
@@ -147,7 +155,7 @@ const PARK_PRICES = {
       "auction": {
         "weekday": 45600,
         "weekend": 45600,
-        "active": true,
+        "active": false,
         "note": "옥션",
         "ticketPrices": {
           "half": {
