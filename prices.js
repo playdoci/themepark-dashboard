@@ -8,7 +8,7 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "하이시즌 (2026.06.03~07.16)   /   골드시즌 (2026.07.17~08.17)",
+    "currentSeason": "하이시즌 (2026.06.03.~07.16.)   /   골드시즌 (2026.07.17.~08.17.)",
     "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
