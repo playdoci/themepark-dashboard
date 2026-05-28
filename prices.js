@@ -984,7 +984,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.resort.co.kr/splashresort",
     "pricePageUrl": "https://www.resort.co.kr/splashresort",
     "currentSeason": "7월 리뉴얼 오픈 예정",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "충북 제천 / 7월 리뉴얼 후 재오픈",
     "ticketNote": "(스파/워터파크 기준)",
     "tickets": [
@@ -1007,90 +1007,74 @@ const PARK_PRICES = {
         "weekday": 52000,
         "weekend": 52000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {}
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 34840,
         "weekend": 34840,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {}
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 36400,
         "weekend": 36400,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {}
+        "note": "네이버 예약"
       },
       "coupang": {
         "weekday": 37440,
         "weekend": 37440,
-        "active": false,
-        "note": "쿠팡",
-        "ticketPrices": {}
+        "active": true,
+        "note": "쿠팡"
       },
       "kakao": {
         "weekday": 39000,
         "weekend": 39000,
         "active": true,
-        "note": "카카오",
-        "ticketPrices": {}
+        "note": "카카오"
       },
       "yanolja": {
         "weekday": 36400,
         "weekend": 36400,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {}
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 37440,
         "weekend": 37440,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {}
+        "active": true,
+        "note": "여기어때"
       },
       "gmarket": {
         "weekday": 39000,
         "weekend": 39000,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {}
+        "active": true,
+        "note": "지마켓"
       },
       "11st": {
         "weekday": 37960,
         "weekend": 37960,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {}
+        "active": true,
+        "note": "11번가"
       },
       "auction": {
         "weekday": 39520,
         "weekend": 39520,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {}
+        "active": true,
+        "note": "옥션"
       },
       "kidsnote": {
         "weekday": 35360,
         "weekend": 35360,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {}
+        "active": true,
+        "note": "키즈노트"
       },
       "mrt": {
         "weekday": 40560,
         "weekend": 40560,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {}
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "ocean_ca": {
@@ -1098,7 +1082,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.oceanadventure.co.kr",
     "pricePageUrl": "https://www.oceanadventure.co.kr",
     "currentSeason": "봄 시즌",
-    "updatedAt": "2026-04-14",
+    "updatedAt": "2026-05-28",
     "notice": "충남 천안",
     "tickets": [
       {
@@ -1124,74 +1108,90 @@ const PARK_PRICES = {
         "weekday": 30000,
         "weekend": 35000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 21000,
         "weekend": 24500,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {}
       },
       "naver": {
         "weekday": 21000,
         "weekend": 24500,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "ticketPrices": {}
       },
       "coupang": {
         "weekday": 22200,
         "weekend": 25900,
-        "active": true,
-        "note": "쿠팡"
+        "active": false,
+        "note": "쿠팡",
+        "ticketPrices": {}
       },
       "kakao": {
         "weekday": 22500,
         "weekend": 26250,
         "active": true,
-        "note": "카카오"
+        "note": "카카오",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 21000,
         "weekend": 24500,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 21600,
         "weekend": 25200,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {}
       },
       "gmarket": {
         "weekday": 22500,
         "weekend": 26250,
-        "active": true,
-        "note": "지마켓"
+        "active": false,
+        "note": "지마켓",
+        "ticketPrices": {}
       },
       "11st": {
         "weekday": 21900,
         "weekend": 25550,
-        "active": true,
-        "note": "11번가"
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {}
       },
       "auction": {
         "weekday": 22800,
         "weekend": 26600,
-        "active": true,
-        "note": "옥션"
+        "active": false,
+        "note": "옥션",
+        "ticketPrices": {}
       },
       "kidsnote": {
         "weekday": 20400,
         "weekend": 23800,
-        "active": true,
-        "note": "키즈노트"
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 24000,
         "weekend": 28000,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "paradise": {
