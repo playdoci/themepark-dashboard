@@ -644,7 +644,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.p-city.com/ko/facility/cimer",
     "pricePageUrl": "https://www.p-city.com/ko/facility/cimer",
     "currentSeason": "상시",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "인천 영종도 / 파라다이스시티 호텔 내",
     "tickets": [
       {
@@ -666,48 +666,38 @@ const PARK_PRICES = {
         "weekday": 55000,
         "weekend": 65000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {}
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {}
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 38500,
         "weekend": 45500,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {}
+        "note": "네이버 예약"
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {}
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 40000,
         "weekend": 47000,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {}
+        "active": true,
+        "note": "여기어때"
       },
       "mrt": {
         "weekday": 41000,
         "weekend": 48000,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {}
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "inspire": {
@@ -715,7 +705,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.inspirekorearesortnews.com",
     "pricePageUrl": "https://www.inspirekorearesortnews.com",
     "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
+    "updatedAt": "2026-05-28",
     "notice": "인천 영종도 / 인스파이어 엔터테인먼트 리조트 내",
     "tickets": [
       {
@@ -737,38 +727,48 @@ const PARK_PRICES = {
         "weekday": 60000,
         "weekend": 70000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 42000,
         "weekend": 49000,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {}
       },
       "naver": {
         "weekday": 42000,
         "weekend": 49000,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 42000,
         "weekend": 49000,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 43500,
         "weekend": 50500,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 45000,
         "weekend": 52000,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "aquafield": {
