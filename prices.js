@@ -618,7 +618,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.termeden.com",
     "pricePageUrl": "https://www.termeden.com",
     "currentSeason": "상시 운영",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "경기 이천 / 천연 온천수",
     "tickets": [
       {
@@ -651,138 +651,68 @@ const PARK_PRICES = {
         "weekday": 38000,
         "weekend": 38000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 26600,
         "weekend": 26600,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 26600,
         "weekend": 26600,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "네이버 예약"
       },
       "kakao": {
         "weekday": 28500,
         "weekend": 28500,
-        "active": false,
-        "note": "카카오",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "카카오"
       },
       "yanolja": {
         "weekday": 27360,
         "weekend": 27360,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 27360,
         "weekend": 27360,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "여기어때"
       },
       "gmarket": {
         "weekday": 28500,
         "weekend": 28500,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "지마켓"
       },
       "11st": {
         "weekday": 27740,
         "weekend": 27740,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "11번가"
       },
       "auction": {
         "weekday": 28880,
         "weekend": 28880,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "옥션"
       },
       "kidsnote": {
         "weekday": 25840,
         "weekend": 25840,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "키즈노트"
       },
       "mrt": {
         "weekday": 29640,
         "weekend": 29640,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "paradise_city": {
@@ -790,7 +720,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.p-city.com/ko/facility/cimer",
     "pricePageUrl": "https://www.p-city.com/ko/facility/cimer",
     "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
+    "updatedAt": "2026-05-28",
     "notice": "인천 영종도 / 파라다이스시티 호텔 내",
     "tickets": [
       {
@@ -812,38 +742,48 @@ const PARK_PRICES = {
         "weekday": 55000,
         "weekend": 65000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": true,
-        "note": "놀이의발견"
+        "active": false,
+        "note": "놀이의발견",
+        "ticketPrices": {}
       },
       "naver": {
         "weekday": 38500,
         "weekend": 45500,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 45500,
-        "active": true,
-        "note": "야놀자"
+        "active": false,
+        "note": "야놀자",
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 40000,
         "weekend": 47000,
-        "active": true,
-        "note": "여기어때"
+        "active": false,
+        "note": "여기어때",
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 41000,
         "weekend": 48000,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "inspire": {
