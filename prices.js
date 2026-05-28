@@ -740,8 +740,8 @@ const PARK_PRICES = {
         "endDate": "2026-06-30",
         "ticketPrices": {
           "afternoon": {
-            "weekday": 0,
-            "weekend": 0
+            "weekday": 27000,
+            "weekend": 27000
           }
         }
       },
