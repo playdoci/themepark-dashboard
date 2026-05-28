@@ -249,7 +249,7 @@ const PARK_PRICES = {
       "naver": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": false,
+        "active": true,
         "note": "네이버 예약",
         "ticketPrices": {
           "afternoon": {
