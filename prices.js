@@ -8,7 +8,7 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "하이시즌 (2026.06.03~07.16)",
+    "currentSeason": "하이시즌 (2026.06.03~07.16)     /     골드시즌 (2026.07.17~08.17)",
     "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
@@ -51,7 +51,7 @@ const PARK_PRICES = {
       "nori": {
         "weekday": 37200,
         "weekend": 37200,
-        "active": true,
+        "active": false,
         "note": "놀이의발견",
         "ticketPrices": {
           "half": {
@@ -75,7 +75,7 @@ const PARK_PRICES = {
       "coupang": {
         "weekday": 43200,
         "weekend": 43200,
-        "active": true,
+        "active": false,
         "note": "쿠팡",
         "ticketPrices": {
           "half": {
@@ -87,7 +87,7 @@ const PARK_PRICES = {
       "kakao": {
         "weekday": 45000,
         "weekend": 45000,
-        "active": true,
+        "active": false,
         "note": "카카오",
         "ticketPrices": {
           "half": {
@@ -147,7 +147,7 @@ const PARK_PRICES = {
       "auction": {
         "weekday": 45600,
         "weekend": 45600,
-        "active": true,
+        "active": false,
         "note": "옥션",
         "ticketPrices": {
           "half": {
@@ -953,7 +953,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.spabis.co.kr",
     "pricePageUrl": "https://www.spabis.co.kr",
     "currentSeason": "상시",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "충남 아산",
     "ticketNote": "(스파 기준)",
     "tickets": [
@@ -985,150 +985,74 @@ const PARK_PRICES = {
         "weekday": 32000,
         "weekend": 36000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 22400,
         "weekend": 25200,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 22400,
         "weekend": 25200,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "네이버 예약"
       },
       "coupang": {
         "weekday": 23680,
         "weekend": 26640,
-        "active": false,
-        "note": "쿠팡",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "쿠팡"
       },
       "kakao": {
         "weekday": 24000,
         "weekend": 27000,
-        "active": false,
-        "note": "카카오",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "카카오"
       },
       "yanolja": {
         "weekday": 22400,
         "weekend": 25200,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 23040,
         "weekend": 25920,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "여기어때"
       },
       "gmarket": {
         "weekday": 24000,
         "weekend": 27000,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "지마켓"
       },
       "11st": {
         "weekday": 23360,
         "weekend": 26280,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "11번가"
       },
       "auction": {
         "weekday": 24320,
         "weekend": 27360,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "옥션"
       },
       "kidsnote": {
         "weekday": 21760,
         "weekend": 24480,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "키즈노트"
       },
       "mrt": {
         "weekday": 25600,
         "weekend": 28800,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "splash": {
