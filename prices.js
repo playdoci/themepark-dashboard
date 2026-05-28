@@ -65,18 +65,18 @@ const PARK_PRICES = {
         "endDate": "2026-06-14"
       },
       "naver": {
-        "weekday": 29900,
-        "weekend": 29900,
+        "weekday": 32900,
+        "weekend": 36900,
         "active": true,
         "note": "네이버 예약",
         "ticketPrices": {
           "half": {
-            "weekday": 24900,
-            "weekend": 24900
+            "weekday": 26900,
+            "weekend": 32900
           }
         },
-        "startDate": "2026-06-02",
-        "endDate": "2026-06-07"
+        "startDate": "2026-06-03",
+        "endDate": "2026-07-16"
       },
       "coupang": {
         "weekday": 31900,
@@ -187,6 +187,20 @@ const PARK_PRICES = {
             "weekend": 0
           }
         }
+      },
+      "custom_1779957264923": {
+        "weekday": 29900,
+        "weekend": 29900,
+        "active": true,
+        "note": "네이버 라이브",
+        "ticketPrices": {
+          "half": {
+            "weekday": 24900,
+            "weekend": 24900
+          }
+        },
+        "startDate": "2026-06-02",
+        "endDate": "2026-06-07"
       }
     },
     "operatingHours": {
