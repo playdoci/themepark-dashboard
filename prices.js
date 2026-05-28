@@ -8,8 +8,8 @@ const PARK_PRICES = {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
-    "currentSeason": "로우 시즌 (2026.03.20~05.31)",
-    "updatedAt": "2026-04-14",
+    "currentSeason": "하이시즌 (2026.06.03~07.16)",
+    "updatedAt": "2026-05-28",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
       {
@@ -40,74 +40,150 @@ const PARK_PRICES = {
         "weekday": 33000,
         "weekend": 33000,
         "active": true,
-        "note": "공홈 할인가"
+        "note": "공홈 할인가",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "nori": {
         "weekday": 37200,
         "weekend": 37200,
         "active": true,
-        "note": "놀이의발견"
+        "note": "놀이의발견",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "naver": {
         "weekday": 42000,
         "weekend": 42000,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "coupang": {
         "weekday": 43200,
         "weekend": 43200,
         "active": true,
-        "note": "쿠팡"
+        "note": "쿠팡",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kakao": {
         "weekday": 45000,
         "weekend": 45000,
         "active": true,
-        "note": "카카오"
+        "note": "카카오",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yanolja": {
         "weekday": 42000,
         "weekend": 42000,
         "active": true,
-        "note": "야놀자"
+        "note": "야놀자",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yeogi": {
         "weekday": 43200,
         "weekend": 43200,
         "active": true,
-        "note": "여기어때"
+        "note": "여기어때",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "gmarket": {
         "weekday": 45000,
         "weekend": 45000,
         "active": true,
-        "note": "지마켓"
+        "note": "지마켓",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "11st": {
         "weekday": 43800,
         "weekend": 43800,
-        "active": true,
-        "note": "11번가"
+        "active": false,
+        "note": "11번가",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "auction": {
         "weekday": 45600,
         "weekend": 45600,
         "active": true,
-        "note": "옥션"
+        "note": "옥션",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kidsnote": {
         "weekday": 40800,
         "weekend": 40800,
-        "active": true,
-        "note": "키즈노트"
+        "active": false,
+        "note": "키즈노트",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "mrt": {
         "weekday": 46800,
         "weekend": 46800,
-        "active": true,
-        "note": "마이리얼트립"
+        "active": false,
+        "note": "마이리얼트립",
+        "ticketPrices": {
+          "half": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "caribbean": {
@@ -115,7 +191,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.everland.com/caribbeanbay/home/main",
     "pricePageUrl": "https://reservation.everland.com/web/cb.do?method=productMain",
     "currentSeason": "봄 시즌 (로우)",
-    "updatedAt": "2026-05-28",
+    "updatedAt": "2026-04-14",
     "notice": "소인/경로: 36개월~만12세 및 경로 / 36개월 미만 무료",
     "tickets": [
       {
@@ -150,150 +226,74 @@ const PARK_PRICES = {
         "weekday": 55000,
         "weekend": 55000,
         "active": true,
-        "note": "공홈 정가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "공홈 정가"
       },
       "nori": {
         "weekday": 35750,
         "weekend": 35750,
-        "active": false,
-        "note": "놀이의발견",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "놀이의발견"
       },
       "naver": {
         "weekday": 38500,
         "weekend": 38500,
         "active": true,
-        "note": "네이버 예약",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "네이버 예약"
       },
       "coupang": {
         "weekday": 39600,
         "weekend": 39600,
-        "active": false,
-        "note": "쿠팡",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "쿠팡"
       },
       "kakao": {
         "weekday": 41250,
         "weekend": 41250,
         "active": true,
-        "note": "카카오",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "note": "카카오"
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": false,
-        "note": "야놀자",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "야놀자"
       },
       "yeogi": {
         "weekday": 39600,
         "weekend": 39600,
-        "active": false,
-        "note": "여기어때",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "여기어때"
       },
       "gmarket": {
         "weekday": 41250,
         "weekend": 41250,
-        "active": false,
-        "note": "지마켓",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "지마켓"
       },
       "11st": {
         "weekday": 40150,
         "weekend": 40150,
-        "active": false,
-        "note": "11번가",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "11번가"
       },
       "auction": {
         "weekday": 41800,
         "weekend": 41800,
-        "active": false,
-        "note": "옥션",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "옥션"
       },
       "kidsnote": {
         "weekday": 38500,
         "weekend": 38500,
-        "active": false,
-        "note": "키즈노트",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "키즈노트"
       },
       "mrt": {
         "weekday": 42900,
         "weekend": 42900,
-        "active": false,
-        "note": "마이리얼트립",
-        "ticketPrices": {
-          "afternoon": {
-            "weekday": 0,
-            "weekend": 0
-          }
-        }
+        "active": true,
+        "note": "마이리얼트립"
       }
-    },
-    "operatingHours": {
-      "weekday": "",
-      "weekend": ""
     }
   },
   "oceanworld": {
