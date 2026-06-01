@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="테마파크 인사이트">
+<meta name="description" content="테마파크·워터파크 뉴스 및 가격비교">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
 <title>테마파크 인사이트</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -245,19 +251,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <!-- 트렌드 -->
 <div id="tab-trend" class="section">
-  <div class="sec-lbl" style="margin-bottom:10px;">이번 주 검색 급상승 · 2026년 4월</div>
-  <div style="border:0.5px solid var(--border);border-radius:var(--radius);padding:4px 14px;margin-bottom:14px;">
-    <div class="trend-row"><div class="tr-rank top">1</div><div class="tr-body"><div class="tr-kw">웅진플레이도시 봄 개장</div><div class="tr-cnt">11,800 검색</div></div><div class="arr-up">▲ 신규</div></div>
-    <div class="trend-row"><div class="tr-rank top">2</div><div class="tr-body"><div class="tr-kw">에버랜드 50주년 이벤트</div><div class="tr-cnt">9,600 검색</div></div><div class="arr-up">▲ 2</div></div>
-    <div class="trend-row"><div class="tr-rank top">3</div><div class="tr-body"><div class="tr-kw">캐리비안베이 2026 오픈</div><div class="tr-cnt">8,900 검색</div></div><div class="arr-up">▲ 4</div></div>
-    <div class="trend-row"><div class="tr-rank">4</div><div class="tr-body"><div class="tr-kw">어린이날 워터파크 예약</div><div class="tr-cnt">7,700 검색</div></div><div class="arr-up">▲ 9</div></div>
-    <div class="trend-row"><div class="tr-rank">5</div><div class="tr-body"><div class="tr-kw">오션월드 봄 시즌</div><div class="tr-cnt">6,200 검색</div></div><div class="arr-up">▲ 1</div></div>
-    <div class="trend-row"><div class="tr-rank">6</div><div class="tr-body"><div class="tr-kw">아쿠아필드 하남 입장료</div><div class="tr-cnt">5,500 검색</div></div><div class="arr-sm">— 유지</div></div>
-    <div class="trend-row"><div class="tr-rank">7</div><div class="tr-body"><div class="tr-kw">스플라스리솜 리뉴얼 오픈</div><div class="tr-cnt">5,100 검색</div></div><div class="arr-up">▲ 신규</div></div>
-    <div class="trend-row"><div class="tr-rank">8</div><div class="tr-body"><div class="tr-kw">테르메덴 온천 예약</div><div class="tr-cnt">4,400 검색</div></div><div class="arr-up">▲ 2</div></div>
-    <div class="trend-row"><div class="tr-rank">9</div><div class="tr-body"><div class="tr-kw">아산스파비스 커플 패키지</div><div class="tr-cnt">3,800 검색</div></div><div class="arr-dn">▼ 1</div></div>
-    <div class="trend-row" style="border-bottom:none;"><div class="tr-rank">10</div><div class="tr-body"><div class="tr-kw">파라다이스도고 스파 패키지</div><div class="tr-cnt">3,200 검색</div></div><div class="arr-up">▲ 신규</div></div>
+  <div class="news-status" style="margin-bottom:10px;">
+    <div class="dot-live"></div>
+    <div class="status-t" id="trend-status-text">네이버 데이터랩 로딩 중...</div>
   </div>
+  <div id="trend-list"><div class="loading-box"><div class="spinner"></div>검색 트렌드 불러오는 중...</div></div>
 </div>
 
 <!-- 알림 -->
@@ -661,6 +659,79 @@ function renderNewsArticles(arts) {
     </a>`).join('');
 }
 
+
+// ── 트렌드 로드 ──────────────────────────────────────────────
+async function loadTrend() {
+  const listEl = document.getElementById('trend-list');
+  if (listEl.dataset.loaded) return;
+  document.getElementById('trend-status-text').textContent = '네이버 데이터랩 로딩 중...';
+  try {
+    const res = await fetch(`${API}/trend`);
+    const data = await res.json();
+    if (!data.results || data.results.length === 0) {
+      listEl.innerHTML = '<div class="loading-box">트렌드 데이터를 불러올 수 없습니다.</div>';
+      return;
+    }
+    document.getElementById('trend-status-text').textContent =
+      `네이버 데이터랩 · ${data.period||''} ${data.cached?'(캐시)':''}`;
+    const maxRatio = Math.max(...data.results.map(r => r.ratio), 1);
+
+    let rows = '';
+    data.results.forEach((r, i) => {
+      const rCls = i < 3 ? 'top' : '';
+      const changeIcon = r.change > 0
+        ? '<span class="arr-up">▲ ' + r.change + '%</span>'
+        : r.change < 0
+        ? '<span class="arr-dn">▼ ' + Math.abs(r.change) + '%</span>'
+        : '<span class="arr-sm">— 유지</span>';
+      const barWidth = Math.round((r.ratio / maxRatio) * 100);
+      const borderStyle = i === data.results.length - 1 ? 'border-bottom:none;' : '';
+      rows += '<div class="trend-row" style="' + borderStyle + '">'
+        + '<div class="tr-rank ' + rCls + '">' + (i+1) + '</div>'
+        + '<div class="tr-body">'
+        + '<div class="tr-kw">' + r.name + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-top:3px;">'
+        + '<div style="flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;">'
+        + '<div style="width:' + barWidth + '%;height:100%;background:var(--blue);border-radius:2px;"></div>'
+        + '</div>'
+        + '<span class="tr-cnt">' + r.ratio + '</span>'
+        + '</div></div>'
+        + changeIcon
+        + '</div>';
+    });
+
+    listEl.innerHTML =
+      '<div style="border:0.5px solid var(--border);border-radius:var(--radius);padding:4px 14px;margin-bottom:8px;">'
+      + rows + '</div>'
+      + '<div style="font-size:10px;color:var(--txt3);text-align:center;padding:4px 0;">※ 네이버 검색량 상대지수 (100 기준) · 최근 30일</div>';
+    listEl.dataset.loaded = '1';
+  } catch(e) {
+    listEl.innerHTML = '<div class="loading-box">트렌드를 불러올 수 없습니다.</div>';
+    document.getElementById('trend-status-text').textContent = '연결 오류';
+  }
+}
+
+// ── 네이버 실시간 가격 조회 ──────────────────────────────────
+async function fetchNaverLivePrice(parkKey, el) {
+  el.textContent = '조회 중...';
+  el.style.pointerEvents = 'none';
+  try {
+    const res = await fetch(`${API}/naver-price?park=${parkKey}`);
+    const data = await res.json();
+    if (data.price) {
+      el.innerHTML = '네이버 현재가 <b style="color:var(--txt)">' + data.price.toLocaleString() + '원</b> <span style="color:var(--blue);font-size:9px;">↗ 바로가기</span>';
+      el.onclick = () => window.open(data.link, '_blank');
+      el.style.pointerEvents = 'auto';
+    } else {
+      el.textContent = '가격 조회 실패';
+      el.style.color = 'var(--txt3)';
+    }
+  } catch(e) {
+    el.textContent = '조회 오류';
+    el.style.color = 'var(--txt3)';
+  }
+}
+
 function refreshNews(){loadNews();}
 
 
@@ -714,6 +785,7 @@ function renderPrices(parkKey) {
   // 채널 상태 판단 함수
   function getChStatus(disc) {
     if (disc.active === false) return 'hidden';       // 판매없음 → 완전 숨김
+    if (disc.alwaysShow === true) return 'active';    // 상시 → 기간 무관 항상 표시
     if (disc.endDate) {
       const end = new Date(disc.endDate); end.setHours(23,59,59,0);
       if (today > end) return 'expired';              // 기간만료 → 회색 표시
@@ -820,6 +892,7 @@ function renderPrices(parkKey) {
         </div>` : ''}
         ${subPriceLine}
         ${subTicketLine}
+        ${ch.key==='naver'&&isActive?`<div id="naver-live-${parkKey}" style="font-size:10px;color:var(--blue);margin-top:3px;cursor:pointer;" onclick="fetchNaverLivePrice('${parkKey}',this)">실시간 조회 ↻</div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -882,6 +955,7 @@ function switchTab(name,tabBtn,navBtn){
   const navEl=document.getElementById('nav-'+name);
   if(navEl) navEl.classList.add('active');
   if(name==='price'){renderParkGrid('');loadPriceData(currentPricePark);}
+  if(name==='trend'){loadTrend();}
 }
 
 // ── 초기 실행 ────────────────────────────────────────────────
