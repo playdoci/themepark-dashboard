@@ -103,7 +103,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .prow{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:0.5px solid var(--border);}
 .ch-info{display:flex;align-items:center;gap:8px;}
 .ch-logo{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;}
-.l-home{background:#F1EFE8;color:#444;}.l-nori{background:#EDE9FE;color:#7C3AED;}.l-naver{background:#E8F5E3;color:#03C75A;}.l-coupang{background:#FFF0DB;color:#E67E00;}.l-kakao{background:#FEF3C7;color:#92400E;}.l-mrt{background:#E0F2FE;color:#0369A1;}.l-yanolja{background:#FBEAF0;color:#993556;}.l-yeogi{background:#E6F1FB;color:#185FA5;}.l-gmarket{background:#FAEEDA;color:#854F0B;}.l-11st{background:#FAECE7;color:#993C1D;}.l-auction{background:#EAF3DE;color:#3B6D11;}.l-kidsnote{background:#EEEDFE;color:#534AB7;}
+.l-home{background:#F1EFE8;color:#444;}.l-nori{background:#EDE9FE;color:#7C3AED;}.l-naver{background:#E8F5E3;color:#03C75A;}.l-coupang{background:#FFF0DB;color:#E67E00;}.l-kakao{background:#FFF9C2;color:#9A7700;}.l-mrt{background:#E0F2FE;color:#0369A1;}.l-yanolja{background:#FBEAF0;color:#993556;}.l-yeogi{background:#E6F1FB;color:#185FA5;}.l-gmarket{background:#FAEEDA;color:#854F0B;}.l-11st{background:#FAECE7;color:#993C1D;}.l-auction{background:#EAF3DE;color:#3B6D11;}.l-kidsnote{background:#EEEDFE;color:#534AB7;}
 .ch-name{font-size:12px;font-weight:500;color:var(--txt);}
 .ch-type{font-size:10px;color:var(--txt2);}
 .rank-b{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0;}
@@ -784,17 +784,20 @@ function renderPrices(parkKey) {
 
   // 채널 상태 판단 함수
   function getChStatus(disc) {
-    if (disc.active === false) return 'hidden';       // 판매없음 → 완전 숨김
-    if (disc.alwaysShow === true) return 'active';    // 상시 → 기간 무관 항상 표시
+    if (disc.active === false) return 'hidden';
+    if (disc.alwaysShow === true) return disc.isSale ? 'sale' : 'active';
     if (disc.endDate) {
       const end = new Date(disc.endDate); end.setHours(23,59,59,0);
-      if (today > end) return 'expired';              // 기간만료 → 회색 표시
+      if (today > end) return 'expired';
     }
     if (disc.startDate) {
       const start = new Date(disc.startDate); start.setHours(0,0,0,0);
-      if (today < start) return 'upcoming';           // 판매예정 → 회색 표시
+      // 같은 달이면 시작일 이전이어도 표시
+      const sameMonth = start.getFullYear() === today.getFullYear() &&
+                        start.getMonth() === today.getMonth();
+      if (today < start && !sameMonth) return 'upcoming';
     }
-    return 'active';
+    return disc.isSale ? 'sale' : 'active';
   }
 
   let channels = Object.entries(discounts).map(([key, disc]) => {
@@ -813,25 +816,30 @@ function renderPrices(parkKey) {
       weekend: disc.weekend || baseMain,
       note: disc.note || meta.name,
       status,
+      isSale: disc.isSale || false,
       startDate: disc.startDate,
-      endDate: disc.endDate
+      endDate: disc.endDate,
+      ticketPrices: disc.ticketPrices || {}
     };
   }).filter(Boolean);
 
-  // 정렬 — active 채널 먼저, 그 다음 expired/upcoming (주중 기준)
+  // 정렬 — sale/active 먼저, 그 다음 expired/upcoming
   channels.sort((a,b) => {
-    if (a.status === 'active' && b.status !== 'active') return -1;
-    if (a.status !== 'active' && b.status === 'active') return 1;
+    const aActive = a.status === 'active' || a.status === 'sale';
+    const bActive = b.status === 'active' || b.status === 'sale';
+    if (aActive && !bActive) return -1;
+    if (!aActive && bActive) return 1;
     if (currentSort==='price') return a.weekday - b.weekday;
     if (currentSort==='disc')  return (baseMain-a.weekday) - (baseMain-b.weekday);
     return a.name.localeCompare(b.name,'ko');
   });
 
-  // active 채널만 순위 부여
+  // active/sale 채널만 순위 부여
   let rankIdx = 0;
   const rows=channels.map((ch)=>{
     const isHome = ch.key==='home';
-    const isActive = ch.status === 'active';
+    const isActive = ch.status === 'active' || ch.status === 'sale';
+    const isSale = ch.status === 'sale';
     const isExpired = ch.status === 'expired';
     const isUpcoming = ch.status === 'upcoming';
 
@@ -842,10 +850,17 @@ function renderPrices(parkKey) {
       rankIdx++;
     }
 
+    // 판매기간 문자열
+    const periodStr = (ch.startDate || ch.endDate)
+      ? (ch.startDate ? ch.startDate.slice(5).replace('-','/') : '') +
+        (ch.endDate ? '~' + ch.endDate.slice(5).replace('-','/') : '')
+      : '';
+
     // 상태 배지
     let badge = '';
     if (isExpired)  badge = `<span style="font-size:10px;padding:2px 6px;border-radius:3px;background:var(--bg3);color:var(--txt3);">기간만료</span>`;
     else if (isUpcoming) badge = `<span style="font-size:10px;padding:2px 6px;border-radius:3px;background:var(--blue-bg);color:var(--blue);">${ch.startDate}~</span>`;
+    else if (isSale) badge = `<span style="font-size:10px;padding:2px 6px;border-radius:3px;background:#FFF0DB;color:#E67E00;font-weight:600;">특가</span>`;
     else if (rankIdx===1) badge = `<span class="pi-best">최저가</span>`;
     else if (ch.weekday < baseMain) badge = `<span class="pi-disc">${Math.round((1-ch.weekday/baseMain)*100)}%↓</span>`;
     else badge = `<span style="font-size:10px;color:var(--txt3)">정가</span>`;
@@ -858,13 +873,27 @@ function renderPrices(parkKey) {
       : '';
 
     const subTicketLine = (isActive && subTicket) ? (() => {
-      const subBase = subTicket.prices[Object.keys(subTicket.prices)[0]];
-      const subDisc = discounts[ch.key];
-      let subPrice = subBase;
-      if (subDisc && subDisc.weekday && baseMain > 0)
-        subPrice = Math.round(subBase * (subDisc.weekday / baseMain));
+      // ticketPrices에 직접 입력된 값 우선 사용, 없으면 비율 계산
+      const tp = ch.ticketPrices || {};
+      const tpData = tp[subTicket.id];
+      let subPrice = 0;
+      if (tpData && tpData.weekday && tpData.weekday > 0) {
+        subPrice = tpData.weekday;
+      } else {
+        const subBase = subTicket.prices[Object.keys(subTicket.prices)[0]];
+        const subDisc = discounts[ch.key];
+        subPrice = subBase;
+        if (subDisc && subDisc.weekday && baseMain > 0)
+          subPrice = Math.round(subBase * (subDisc.weekday / baseMain));
+      }
+      if (!subPrice) return '';
       return `<div class="pi-sub-row"><span class="pi-sub-label">${subTicket.label}</span><span class="pi-sub-price">${subPrice.toLocaleString()}원</span></div>`;
     })() : '';
+
+    // 특가일 때 판매기간 표시
+    const salePeriodLine = (isSale && periodStr)
+      ? `<div style="font-size:9px;color:#E67E00;margin-top:2px;">${periodStr}</div>`
+      : '';
 
     // 기간만료/예정 채널은 흐리게
     const rowStyle = (!isActive) ? 'opacity:.45;' : '';
@@ -892,6 +921,7 @@ function renderPrices(parkKey) {
         </div>` : ''}
         ${subPriceLine}
         ${subTicketLine}
+        ${salePeriodLine}
         ${ch.key==='naver'&&isActive?`<div id="naver-live-${parkKey}" style="font-size:10px;color:var(--blue);margin-top:3px;cursor:pointer;" onclick="fetchNaverLivePrice('${parkKey}',this)">실시간 조회 ↻</div>`:''}
       </div>
     </div>`;
