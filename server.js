@@ -304,3 +304,100 @@ function guessTag(text) {
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중 - 포트 ${PORT}`);
 });
+
+// ── 네이버 데이터랩 트렌드 API ───────────────────────────────
+app.get('/api/trend', async (req, res) => {
+  const cacheKey = 'trend_data';
+  const cached = priceCache.get(cacheKey);
+  if (cached) return res.json({ ...cached, cached: true });
+  if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET)
+    return res.json({ results: [], source: 'no_api_key' });
+  try {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 30);
+    const fmt = d => d.toISOString().slice(0,10);
+    const groups = [
+      ['웅진플레이도시','캐리비안베이','오션월드','에버랜드','롯데월드'],
+      ['아쿠아필드','테르메덴','레고랜드','서울랜드','경주월드'],
+      ['원마운트','아일랜드캐슬','아산스파비스','스플라스','파라다이스도고'],
+    ];
+    const allResults = [];
+    for (const group of groups) {
+      const body = {
+        startDate: fmt(startDate), endDate: fmt(endDate), timeUnit: 'week',
+        keywordGroups: group.map(name => ({ groupName: name, keywords: [name] }))
+      };
+      const resp = await axios.post('https://openapi.naver.com/v1/datalab/search', body, {
+        headers: {
+          'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
+          'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET,
+          'Content-Type': 'application/json'
+        }
+      });
+      for (const r of (resp.data.results || [])) {
+        const data = r.data || [];
+        const recent = data.slice(-2);
+        const prev = data.slice(-4,-2);
+        const avg = recent.length ? Math.round(recent.reduce((s,d)=>s+d.ratio,0)/recent.length*10)/10 : 0;
+        const prevAvg = prev.length ? prev.reduce((s,d)=>s+d.ratio,0)/prev.length : avg;
+        const change = prevAvg > 0 ? Math.round((avg-prevAvg)/prevAvg*100) : 0;
+        allResults.push({ name:r.title, ratio:avg, change, trend:data.map(d=>({date:d.period,ratio:d.ratio})) });
+      }
+    }
+    allResults.sort((a,b) => b.ratio - a.ratio);
+    const result = { results:allResults, fetchedAt:new Date().toISOString(), period:`${fmt(startDate)} ~ ${fmt(endDate)}`, source:'naver_datalab' };
+    priceCache.set(cacheKey, result, 3600);
+    res.json(result);
+  } catch (err) {
+    console.error('데이터랩 오류:', err.response?.data || err.message);
+    res.json({ results:[], source:'error', error:err.message });
+  }
+});
+
+// ── 네이버 쇼핑 실시간 가격 ──────────────────────────────────
+app.get('/api/naver-price', async (req, res) => {
+  const parkKey = req.query.park;
+  if (!parkKey) return res.status(400).json({ error: 'park 파라미터 필요' });
+  const park = PARK_LIST.find(p => p.key === parkKey);
+  if (!park) return res.status(404).json({ error: '파크 없음' });
+  if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET)
+    return res.json({ price: null, source: 'no_api_key' });
+  const cacheKey = `naver_price_${parkKey}`;
+  const cached = priceCache.get(cacheKey);
+  if (cached) return res.json({ ...cached, cached: true });
+  try {
+    const queries = [`${park.name} 입장권 종일권`, `${park.name} 이용권`, `${park.name} 입장권`];
+    let bestItem = null;
+    for (const query of queries) {
+      const response = await axios.get('https://openapi.naver.com/v1/search/shop.json', {
+        params: { query, display: 10, sort: 'asc' },
+        headers: { 'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET }
+      });
+      const parkKeywords = park.keyword.split(' ');
+      const filtered = (response.data.items || []).filter(item => {
+        const title = item.title.replace(/<[^>]*>/g, '');
+        return parkKeywords.some(kw => title.includes(kw)) && /입장|이용권|종일|티켓|자유/.test(title);
+      });
+      if (filtered.length > 0) {
+        filtered.sort((a,b) => parseInt(a.lprice) - parseInt(b.lprice));
+        bestItem = filtered[0];
+        break;
+      }
+    }
+    if (!bestItem) return res.json({ price: null, source: 'not_found' });
+    const result = {
+      price: parseInt(bestItem.lprice),
+      title: bestItem.title.replace(/<[^>]*>/g, ''),
+      mallName: bestItem.mallName,
+      link: bestItem.link,
+      fetchedAt: new Date().toISOString(),
+      source: 'naver_shopping'
+    };
+    priceCache.set(cacheKey, result, 3600);
+    res.json(result);
+  } catch (err) {
+    console.error('네이버 쇼핑 오류:', err.message);
+    res.json({ price: null, source: 'error', error: err.message });
+  }
+});
