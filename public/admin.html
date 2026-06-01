@@ -88,6 +88,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .add-ch-row{display:flex;gap:6px;margin-bottom:6px;}
 .add-ch-input{flex:1;padding:6px 9px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;color:var(--txt);background:var(--bg);}
 .add-ch-btn{padding:6px 12px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.color-swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;flex-shrink:0;transition:transform .1s;}
+.color-swatch:hover{transform:scale(1.15);}
+.color-swatch.selected{border-color:var(--txt);transform:scale(1.15);}
 
 /* 저장 */
 .save-btn{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:4px;}
@@ -194,8 +197,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
             <div class="add-ch-title">+ 새 채널 추가</div>
             <div class="add-ch-row">
               <input class="add-ch-input" id="newChName" placeholder="채널명 (예: 클룩)">
-              <input type="color" id="newChColor" value="#185FA5"
-                style="width:40px;padding:2px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);">
+            </div>
+            <div style="margin-bottom:6px;">
+              <div style="font-size:10px;color:var(--blue);margin-bottom:5px;">색상 선택</div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;" id="colorPalette">
+                <div class="color-swatch" style="background:#888"    data-color="#888"    title="공식홈"></div>
+                <div class="color-swatch" style="background:#7C3AED" data-color="#7C3AED" title="놀이의발견"></div>
+                <div class="color-swatch" style="background:#03C75A" data-color="#03C75A" title="네이버"></div>
+                <div class="color-swatch" style="background:#E67E00" data-color="#E67E00" title="쿠팡"></div>
+                <div class="color-swatch" style="background:#92400E" data-color="#92400E" title="카카오"></div>
+                <div class="color-swatch" style="background:#FF4E96" data-color="#FF4E96" title="야놀자"></div>
+                <div class="color-swatch" style="background:#00BCD4" data-color="#00BCD4" title="여기어때"></div>
+                <div class="color-swatch" style="background:#854F0B" data-color="#854F0B" title="지마켓"></div>
+                <div class="color-swatch" style="background:#993C1D" data-color="#993C1D" title="11번가"></div>
+                <div class="color-swatch" style="background:#3B6D11" data-color="#3B6D11" title="옥션"></div>
+                <div class="color-swatch" style="background:#534AB7" data-color="#534AB7" title="키즈노트"></div>
+                <div class="color-swatch" style="background:#0369A1" data-color="#0369A1" title="마이리얼트립"></div>
+                <label style="display:flex;align-items:center;gap:3px;cursor:pointer;">
+                  <input type="color" id="newChColor" value="#185FA5"
+                    style="width:22px;height:22px;border-radius:50%;border:0.5px solid var(--border2);cursor:pointer;padding:1px;"
+                    onchange="document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'))">
+                  <span style="font-size:9px;color:var(--txt2);">직접</span>
+                </label>
+              </div>
             </div>
             <div class="add-ch-row">
               <input class="add-ch-input" id="newChWeekday" type="number" placeholder="주중 금액">
@@ -425,6 +449,11 @@ function renderEditor() {
           <span style="font-size:11px;color:var(--txt3);">~</span>
           <input class="ch-date-input" type="date" id="ch_${key}_end"
             value="${disc.endDate||''}">
+          <label style="display:flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer;margin-left:4px;">
+            <input type="checkbox" id="ch_always_${key}" ${disc.alwaysShow?'checked':''}
+              style="width:12px;height:12px;accent-color:var(--green);">
+            <span style="font-size:10px;color:var(--green);font-weight:500;">상시</span>
+          </label>
         </div>
       </div>
     </div>`;
@@ -438,6 +467,15 @@ function toggleChActive(key, checkbox) {
 }
 
 // ── 채널 추가 ────────────────────────────────────────────────
+// 색상 팔레트 클릭 이벤트 (동적으로 등록)
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('color-swatch')) {
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+    e.target.classList.add('selected');
+    document.getElementById('newChColor').value = e.target.dataset.color;
+  }
+});
+
 function addChannel() {
   const name = document.getElementById('newChName').value.trim();
   const color = document.getElementById('newChColor').value;
@@ -446,12 +484,13 @@ function addChannel() {
   if (!name) { alert('채널명을 입력해주세요.'); return; }
   const key = 'custom_' + Date.now();
   if (!currentParkData.channelDiscounts) currentParkData.channelDiscounts = {};
-  currentParkData.channelDiscounts[key] = { weekday, weekend, active:true, note:name, ticketPrices:{} };
+  currentParkData.channelDiscounts[key] = { weekday, weekend, active:true, alwaysShow:false, note:name, ticketPrices:{} };
   CH_INFO[key] = { name, color };
   renderEditor();
   document.getElementById('newChName').value = '';
   document.getElementById('newChWeekday').value = '';
   document.getElementById('newChWeekend').value = '';
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
 }
 
 // ── 전체 저장 ────────────────────────────────────────────────
@@ -504,6 +543,7 @@ async function saveAll() {
         weekday:      wdEl ? (parseInt(wdEl.value)||0) : (d.channelDiscounts[key].weekday||0),
         weekend:      weEl ? (parseInt(weEl.value)||0) : (d.channelDiscounts[key].weekend||0),
         active:       acEl ? !acEl.checked : true,
+        alwaysShow:   document.getElementById(`ch_always_${key}`)?.checked || false,
         startDate:    stEl?.value || undefined,
         endDate:      enEl?.value || undefined,
         note:         d.channelDiscounts[key].note || info.name || key,
