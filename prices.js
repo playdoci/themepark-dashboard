@@ -84,7 +84,7 @@ const PARK_PRICES = {
         "weekend": 35000,
         "active": true,
         "note": "쿠팡",
-        "alwaysShow": true,
+        "alwaysShow": false,
         "startDate": "2026-06-18",
         "endDate": "2026-06-20",
         "ticketPrices": {
