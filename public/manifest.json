@@ -1,0 +1,14 @@
+{
+  "name": "테마파크 인사이트",
+  "short_name": "테마파크",
+  "description": "테마파크·워터파크 뉴스 및 가격비교",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0ede8",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
