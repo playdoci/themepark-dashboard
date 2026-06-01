@@ -726,7 +726,7 @@ const PARK_PRICES = {
         "note": "카카오",
         "alwaysShow": true,
         "startDate": "2026-06-01",
-        "endDate": "2026-06-30",
+        "endDate": "2026-06-02",
         "ticketPrices": {
           "afternoon": {
             "weekday": 0,
