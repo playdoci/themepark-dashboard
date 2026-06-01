@@ -7,7 +7,7 @@ const PARK_PRICES = {
   "woojin": {
     "name": "웅진플레이도시",
     "homepageUrl": "https://www.playdoci.com",
-    "pricePageUrl": "https://playdoci.com/Common/Pop_FeeInfo.aspx",
+    "pricePageUrl": "https://www.playdoci.com/water/info_charge.aspx",
     "currentSeason": "하이시즌 (2026.06.03.~07.16)  / 골드시즌(2026.07.17.~08.17.)",
     "updatedAt": "2026-06-01",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
@@ -306,7 +306,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 40150,
         "weekend": 40150,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -407,7 +407,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 32850,
         "weekend": 32850,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -432,8 +432,8 @@ const PARK_PRICES = {
   },
   "onmount": {
     "name": "원마운트",
-    "homepageUrl": "https://www.onmount.co.kr",
-    "pricePageUrl": "https://www.onmount.co.kr",
+    "homepageUrl": "https://onemount.co.kr/ko/",
+    "pricePageUrl": "https://onemount.co.kr/ko/page/theme/water/fee.php",
     "currentSeason": "봄 시즌",
     "updatedAt": "2026-04-14",
     "notice": "경기 일산 / 지하철 3호선 정발산역 도보 10분",
@@ -443,8 +443,8 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult_weekday": 49000,
-          "adult_weekend": 55000
+          "adult_weekday": 65000,
+          "adult_weekend": 65000
         },
         "priceLabels": {
           "adult_weekday": "주중 대인",
@@ -456,8 +456,8 @@ const PARK_PRICES = {
         "label": "오후권",
         "time": "14:00~마감",
         "prices": {
-          "adult_weekday": 39000,
-          "adult_weekend": 45000
+          "adult_weekday": 50000,
+          "adult_weekend": 50000
         },
         "priceLabels": {
           "adult_weekday": "주중 대인",
@@ -481,7 +481,7 @@ const PARK_PRICES = {
       "naver": {
         "weekday": 34300,
         "weekend": 38500,
-        "active": true,
+        "active": false,
         "note": "네이버 예약"
       },
       "coupang": {
@@ -517,7 +517,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 35770,
         "weekend": 40150,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -542,8 +542,8 @@ const PARK_PRICES = {
   },
   "islandcastle": {
     "name": "아일랜드캐슬",
-    "homepageUrl": "https://www.islandcastle.co.kr",
-    "pricePageUrl": "https://www.islandcastle.co.kr",
+    "homepageUrl": "https://island-castle.com/",
+    "pricePageUrl": "https://island-castle.com/bbs/board.php?bo_table=free",
     "currentSeason": "봄 시즌",
     "updatedAt": "2026-04-14",
     "notice": "경기 의정부",
@@ -623,7 +623,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 32120,
         "weekend": 32120,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -649,7 +649,7 @@ const PARK_PRICES = {
   "termeden": {
     "name": "테르메덴",
     "homepageUrl": "https://www.termeden.com",
-    "pricePageUrl": "https://www.termeden.com",
+    "pricePageUrl": "https://termeden.com/poolspa_infomation_use.html",
     "currentSeason": "상시 운영",
     "updatedAt": "2026-04-14",
     "notice": "경기 이천 / 천연 온천수",
@@ -725,7 +725,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 27740,
         "weekend": 27740,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -750,8 +750,8 @@ const PARK_PRICES = {
   },
   "paradise_city": {
     "name": "파라다이스시티 씨메르",
-    "homepageUrl": "https://www.p-city.com/ko/facility/cimer",
-    "pricePageUrl": "https://www.p-city.com/ko/facility/cimer",
+    "homepageUrl": "https://www.p-city.com/front/cimer/overview",
+    "pricePageUrl": "https://www.p-city.com/front/cimer/operation",
     "currentSeason": "상시",
     "updatedAt": "2026-04-14",
     "notice": "인천 영종도 / 파라다이스시티 호텔 내",
@@ -811,8 +811,8 @@ const PARK_PRICES = {
   },
   "inspire": {
     "name": "인스파이어 스플래시 베이",
-    "homepageUrl": "https://www.inspirekorearesortnews.com",
-    "pricePageUrl": "https://www.inspirekorearesortnews.com",
+    "homepageUrl": "https://www.inspireresorts.com/ko/splash-bay",
+    "pricePageUrl": "https://www.inspireresorts.com/ko/splash-bay/facilities/splash-bay-dome",
     "currentSeason": "상시",
     "updatedAt": "2026-04-14",
     "notice": "인천 영종도 / 인스파이어 엔터테인먼트 리조트 내",
@@ -872,8 +872,8 @@ const PARK_PRICES = {
   },
   "aquafield": {
     "name": "아쿠아필드 하남",
-    "homepageUrl": "https://www.starfield.co.kr/hanam/store/aquafield",
-    "pricePageUrl": "https://www.starfield.co.kr/hanam/store/aquafield",
+    "homepageUrl": "https://www.aquafield.co.kr/index.html",
+    "pricePageUrl": "https://www.aquafield.co.kr/usage.html",
     "currentSeason": "상시 (주중·주말 구분)",
     "updatedAt": "2026-04-14",
     "notice": "경기 하남 스타필드 내 / 찜질스파·워터파크·멀티패스 구분",
@@ -958,7 +958,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 35040,
         "weekend": 42340,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -983,8 +983,8 @@ const PARK_PRICES = {
   },
   "asanspa": {
     "name": "아산스파비스",
-    "homepageUrl": "https://www.spabis.co.kr",
-    "pricePageUrl": "https://www.spabis.co.kr",
+    "homepageUrl": "https://www.spavis.co.kr",
+    "pricePageUrl": "https://www.spavis.co.kr/reservation.guide.asp",
     "currentSeason": "상시",
     "updatedAt": "2026-04-14",
     "notice": "충남 아산",
@@ -995,7 +995,7 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 32000
+          "adult": 50000
         },
         "priceLabels": {
           "adult": "대인"
@@ -1006,7 +1006,7 @@ const PARK_PRICES = {
         "label": "오후권",
         "time": "14:00~마감",
         "prices": {
-          "adult": 25000
+          "adult": 20000
         },
         "priceLabels": {
           "adult": "대인"
@@ -1015,8 +1015,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 32000,
-        "weekend": 36000,
+        "weekday": 50000,
+        "weekend": 50000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1027,8 +1027,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 22400,
-        "weekend": 25200,
+        "weekday": 28000,
+        "weekend": 28000,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1065,7 +1065,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 23360,
         "weekend": 26280,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1090,8 +1090,8 @@ const PARK_PRICES = {
   },
   "splash": {
     "name": "스플라스리솜",
-    "homepageUrl": "https://www.resort.co.kr/splashresort",
-    "pricePageUrl": "https://www.resort.co.kr/splashresort",
+    "homepageUrl": "https://www.resom.co.kr/spa/water/intd.asp",
+    "pricePageUrl": "https://www.resom.co.kr/spa/water/usage_fee.asp",
     "currentSeason": "7월 리뉴얼 오픈 예정",
     "updatedAt": "2026-04-14",
     "notice": "충북 제천 / 7월 리뉴얼 후 재오픈",
@@ -1102,7 +1102,7 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 52000,
+          "adult": 55000,
           "child": 40000
         },
         "priceLabels": {
@@ -1113,8 +1113,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 52000,
-        "weekend": 52000,
+        "weekday": 55000,
+        "weekend": 55000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1127,7 +1127,7 @@ const PARK_PRICES = {
       "naver": {
         "weekday": 36400,
         "weekend": 36400,
-        "active": true,
+        "active": false,
         "note": "네이버 예약"
       },
       "coupang": {
@@ -1163,7 +1163,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 37960,
         "weekend": 37960,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1188,10 +1188,10 @@ const PARK_PRICES = {
   },
   "ocean_ca": {
     "name": "오션어드벤처 천안",
-    "homepageUrl": "https://www.oceanadventure.co.kr",
-    "pricePageUrl": "https://www.oceanadventure.co.kr",
-    "currentSeason": "봄 시즌",
-    "updatedAt": "2026-04-14",
+    "homepageUrl": "https://www.sonohotelsresorts.com/oceanadventure_car",
+    "pricePageUrl": "https://www.sonohotelsresorts.com/oceanadventure_ca/discount",
+    "currentSeason": "미들시즌 (2026.04.25.~06.19.)  / 하이시즌 (2026.06.20.~07.10.)",
+    "updatedAt": "2026-06-01",
     "notice": "충남 천안",
     "tickets": [
       {
@@ -1199,10 +1199,10 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult_weekday": 30000,
-          "adult_weekend": 35000,
-          "child_weekday": 24000,
-          "child_weekend": 28000
+          "adult_weekday": 55000,
+          "adult_weekend": 60000,
+          "child_weekday": 45000,
+          "child_weekend": 50000
         },
         "priceLabels": {
           "adult_weekday": "주중 대인",
@@ -1214,8 +1214,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 30000,
-        "weekend": 35000,
+        "weekday": 55000,
+        "weekend": 60000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1226,8 +1226,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 21000,
-        "weekend": 24500,
+        "weekday": 37000,
+        "weekend": 41000,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1264,7 +1264,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 21900,
         "weekend": 25550,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1289,8 +1289,8 @@ const PARK_PRICES = {
   },
   "paradise": {
     "name": "파라다이스 도고",
-    "homepageUrl": "https://www.paradisedogo.com",
-    "pricePageUrl": "https://www.paradisedogo.com",
+    "homepageUrl": "https://www.paradisespa.co.kr/",
+    "pricePageUrl": "https://www.paradisespa.co.kr/Guidance/ServiceTime.do?MM=202",
     "currentSeason": "상시",
     "updatedAt": "2026-04-14",
     "notice": "충남 아산 / 호텔 연계 스파",
@@ -1300,8 +1300,8 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult_weekday": 35000,
-          "adult_weekend": 40000
+          "adult_weekday": 45000,
+          "adult_weekend": 53000
         },
         "priceLabels": {
           "adult_weekday": "주중 대인",
@@ -1311,8 +1311,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 35000,
-        "weekend": 40000,
+        "weekday": 45000,
+        "weekend": 53000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1323,8 +1323,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 24500,
-        "weekend": 28000,
+        "weekday": 36500,
+        "weekend": 43500,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1355,7 +1355,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 25550,
         "weekend": 29200,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1380,8 +1380,8 @@ const PARK_PRICES = {
   },
   "everland": {
     "name": "에버랜드",
-    "homepageUrl": "https://www.everland.com",
-    "pricePageUrl": "https://reservation.everland.com",
+    "homepageUrl": "https://www.everland.com/everland/home/main",
+    "pricePageUrl": "https://reservation.everland.com/web/el.do?method=productMain&",
     "currentSeason": "A시즌 (봄 성수기)",
     "updatedAt": "2026-04-14",
     "notice": "시즌 3분류 (A·B·C) / 소인/경로: 36개월~만12세 및 경로",
@@ -1391,8 +1391,8 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "개장~마감",
         "prices": {
-          "adult": 72000,
-          "child": 58000
+          "adult": 62000,
+          "child": 52000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1402,8 +1402,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 72000,
-        "weekend": 72000,
+        "weekday": 43000,
+        "weekend": 36000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1414,8 +1414,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 50400,
-        "weekend": 50400,
+        "weekday": 41000,
+        "weekend": 41000,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1452,7 +1452,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 52560,
         "weekend": 52560,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1477,26 +1477,26 @@ const PARK_PRICES = {
   },
   "lotte": {
     "name": "롯데월드",
-    "homepageUrl": "https://www.lotteworld.com",
-    "pricePageUrl": "https://www.lotteworld.com/app/adv_ticket/list.asp",
+    "homepageUrl": "https://adventure.lotteworld.com",
+    "pricePageUrl": "https://adventure.lotteworld.com/price/price",
     "currentSeason": "2026 기준",
     "updatedAt": "2026-04-14",
-    "notice": "베이비: 36개월~만4세 / 소인: 만5세~만12세 / 청소년: 만13세~만18세",
+    "notice": "베이비: 36개월~만4세 / 어린이: 만5세~만12세 / 청소년: 만13세~만18세",
     "tickets": [
       {
         "id": "day",
         "label": "종일권 (1Day)",
         "time": "개장~마감",
         "prices": {
-          "adult": 72000,
-          "youth": 63000,
-          "child": 54000,
-          "baby": 45000
+          "adult": 67000,
+          "youth": 58000,
+          "child": 50000,
+          "baby": 17000
         },
         "priceLabels": {
           "adult": "대인",
           "youth": "청소년",
-          "child": "소인",
+          "child": "어린이",
           "baby": "베이비"
         }
       },
@@ -1505,23 +1505,23 @@ const PARK_PRICES = {
         "label": "야간권 (After4)",
         "time": "16:00~마감",
         "prices": {
-          "adult": 49000,
-          "youth": 43000,
-          "child": 37000,
-          "baby": 31000
+          "adult": 55000,
+          "youth": 47000,
+          "child": 39000,
+          "baby": 17000
         },
         "priceLabels": {
           "adult": "대인",
           "youth": "청소년",
-          "child": "소인",
+          "child": "어린이",
           "baby": "베이비"
         }
       }
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 72000,
-        "weekend": 72000,
+        "weekday": 67000,
+        "weekend": 67000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1532,8 +1532,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 50400,
-        "weekend": 50400,
+        "weekday": 41000,
+        "weekend": 41000,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1570,7 +1570,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 52560,
         "weekend": 52560,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1596,7 +1596,7 @@ const PARK_PRICES = {
   "seoul": {
     "name": "서울랜드",
     "homepageUrl": "https://www.seoulland.co.kr",
-    "pricePageUrl": "https://www.seoulland.co.kr",
+    "pricePageUrl": "https://seoulland.co.kr/?p=38",
     "currentSeason": "2026 봄 시즌",
     "updatedAt": "2026-04-14",
     "notice": "경기 과천",
@@ -1606,9 +1606,9 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "개장~마감",
         "prices": {
-          "adult": 35000,
-          "youth": 30000,
-          "child": 26000
+          "adult": 52000,
+          "youth": 46000,
+          "child": 43000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1621,9 +1621,9 @@ const PARK_PRICES = {
         "label": "야간권",
         "time": "16:00~마감",
         "prices": {
-          "adult": 25000,
-          "youth": 22000,
-          "child": 19000
+          "adult": 45000,
+          "youth": 39000,
+          "child": 36000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1634,8 +1634,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 35000,
-        "weekend": 35000,
+        "weekday": 52000,
+        "weekend": 52000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1646,8 +1646,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 24500,
-        "weekend": 24500,
+        "weekday": 34900,
+        "weekend": 34900,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1684,7 +1684,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 25550,
         "weekend": 25550,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1709,8 +1709,8 @@ const PARK_PRICES = {
   },
   "gyeongju": {
     "name": "경주월드",
-    "homepageUrl": "https://www.gjworld.co.kr",
-    "pricePageUrl": "https://www.gjworld.co.kr",
+    "homepageUrl": "https://www.gjw.co.kr/Contents/contents.php",
+    "pricePageUrl": "https://www.gjw.co.kr/Contents/contents.php?cmsNo=DA0300",
     "currentSeason": "2026 봄 시즌",
     "updatedAt": "2026-04-14",
     "notice": "경북 경주",
@@ -1720,9 +1720,9 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "개장~마감",
         "prices": {
-          "adult": 43000,
-          "youth": 38000,
-          "child": 35000
+          "adult": 54000,
+          "youth": 47000,
+          "child": 39000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1735,9 +1735,9 @@ const PARK_PRICES = {
         "label": "오후권",
         "time": "평일 15:00~ / 휴일 16:00~",
         "prices": {
-          "adult": 35000,
-          "youth": 31000,
-          "child": 28000
+          "adult": 39000,
+          "youth": 35000,
+          "child": 29000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1748,8 +1748,8 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 43000,
-        "weekend": 43000,
+        "weekday": 54000,
+        "weekend": 54000,
         "active": true,
         "note": "공홈 정가"
       },
@@ -1760,8 +1760,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 30100,
-        "weekend": 30100,
+        "weekday": 39900,
+        "weekend": 30900,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1798,7 +1798,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 31390,
         "weekend": 31390,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
@@ -1824,7 +1824,7 @@ const PARK_PRICES = {
   "lego": {
     "name": "레고랜드",
     "homepageUrl": "https://www.legoland.kr",
-    "pricePageUrl": "https://www.legoland.kr/plan-your-visit/tickets",
+    "pricePageUrl": "https://www.legoland.kr",
     "currentSeason": "2026 기준",
     "updatedAt": "2026-04-14",
     "notice": "강원 춘천",
@@ -1857,8 +1857,8 @@ const PARK_PRICES = {
         "note": "놀이의발견"
       },
       "naver": {
-        "weekday": 44800,
-        "weekend": 44800,
+        "weekday": 47000,
+        "weekend": 47000,
         "active": true,
         "note": "네이버 예약"
       },
@@ -1895,7 +1895,7 @@ const PARK_PRICES = {
       "11st": {
         "weekday": 46720,
         "weekend": 46720,
-        "active": true,
+        "active": false,
         "note": "11번가"
       },
       "auction": {
