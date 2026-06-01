@@ -650,8 +650,8 @@ const PARK_PRICES = {
     "name": "테르메덴",
     "homepageUrl": "https://www.termeden.com",
     "pricePageUrl": "https://termeden.com/poolspa_infomation_use.html",
-    "currentSeason": "상시 운영",
-    "updatedAt": "2026-04-14",
+    "currentSeason": "미들시즌(2026.04.24.~06.30.)",
+    "updatedAt": "2026-06-01",
     "notice": "경기 이천 / 천연 온천수",
     "tickets": [
       {
@@ -659,8 +659,8 @@ const PARK_PRICES = {
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 38000,
-          "child": 28000
+          "adult": 49000,
+          "child": 40000
         },
         "priceLabels": {
           "adult": "대인",
@@ -672,7 +672,7 @@ const PARK_PRICES = {
         "label": "오후권",
         "time": "14:00~마감",
         "prices": {
-          "adult": 30000
+          "adult": 27000
         },
         "priceLabels": {
           "adult": "대인"
@@ -684,68 +684,151 @@ const PARK_PRICES = {
         "weekday": 38000,
         "weekend": 38000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "nori": {
         "weekday": 26600,
         "weekend": 26600,
         "active": false,
-        "note": "놀이의발견"
+        "note": "놀이의발견",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "naver": {
         "weekday": 26600,
         "weekend": 26600,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kakao": {
-        "weekday": 28500,
-        "weekend": 28500,
-        "active": false,
-        "note": "카카오"
+        "weekday": 29400,
+        "weekend": 29400,
+        "active": true,
+        "note": "카카오",
+        "alwaysShow": true,
+        "startDate": "2026-06-01",
+        "endDate": "2026-06-30",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yanolja": {
         "weekday": 27360,
         "weekend": 27360,
         "active": false,
-        "note": "야놀자"
+        "note": "야놀자",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yeogi": {
         "weekday": 27360,
         "weekend": 27360,
         "active": false,
-        "note": "여기어때"
+        "note": "여기어때",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "gmarket": {
         "weekday": 28500,
         "weekend": 28500,
         "active": false,
-        "note": "지마켓"
+        "note": "지마켓",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "11st": {
         "weekday": 27740,
         "weekend": 27740,
         "active": false,
-        "note": "11번가"
+        "note": "11번가",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "auction": {
         "weekday": 28880,
         "weekend": 28880,
         "active": false,
-        "note": "옥션"
+        "note": "옥션",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kidsnote": {
         "weekday": 25840,
         "weekend": 25840,
         "active": false,
-        "note": "키즈노트"
+        "note": "키즈노트",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "mrt": {
         "weekday": 29640,
         "weekend": 29640,
         "active": false,
-        "note": "마이리얼트립"
+        "note": "마이리얼트립",
+        "alwaysShow": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       }
+    },
+    "operatingHours": {
+      "weekday": "",
+      "weekend": ""
     }
   },
   "paradise_city": {
