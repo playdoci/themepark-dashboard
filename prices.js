@@ -1,6 +1,6 @@
 // ============================================================
 // prices.js - 파크별 실제 가격 데이터
-// 마지막 업데이트: 2026년 6월 1일
+// 마지막 업데이트: 2026년 6월 2일
 // ============================================================
 
 const PARK_PRICES = {
@@ -9,7 +9,7 @@ const PARK_PRICES = {
     "homepageUrl": "https://www.playdoci.com",
     "pricePageUrl": "https://www.playdoci.com/water/info_charge.aspx",
     "currentSeason": "하이시즌 (2026.06.03.~07.16)  / 골드시즌(2026.07.17.~08.17.)",
-    "updatedAt": "2026-06-01",
+    "updatedAt": "2026-06-02",
     "notice": "매주 월·화 정기휴장 / 36개월 미만 무료",
     "tickets": [
       {
@@ -49,7 +49,8 @@ const PARK_PRICES = {
           }
         },
         "startDate": "2026-06-03",
-        "endDate": "2026-07-16"
+        "endDate": "2026-07-16",
+        "isSale": false
       },
       "nori": {
         "weekday": 37200,
@@ -62,7 +63,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "naver": {
         "weekday": 32900,
@@ -77,7 +79,8 @@ const PARK_PRICES = {
           }
         },
         "startDate": "2026-06-03",
-        "endDate": "2026-07-16"
+        "endDate": "2026-07-16",
+        "isSale": false
       },
       "coupang": {
         "weekday": 35000,
@@ -92,7 +95,8 @@ const PARK_PRICES = {
             "weekday": 31000,
             "weekend": 31000
           }
-        }
+        },
+        "isSale": true
       },
       "kakao": {
         "weekday": 45000,
@@ -105,7 +109,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "yanolja": {
         "weekday": 42000,
@@ -118,7 +123,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "yeogi": {
         "weekday": 43200,
@@ -131,7 +137,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "gmarket": {
         "weekday": 45000,
@@ -144,7 +151,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "11st": {
         "weekday": 43800,
@@ -157,7 +165,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "auction": {
         "weekday": 45600,
@@ -170,7 +179,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "kidsnote": {
         "weekday": 40800,
@@ -183,7 +193,8 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "mrt": {
         "weekday": 46800,
@@ -196,13 +207,14 @@ const PARK_PRICES = {
             "weekday": 0,
             "weekend": 0
           }
-        }
+        },
+        "isSale": false
       },
       "custom_1780275214268": {
         "weekday": 29900,
         "weekend": 29900,
         "active": true,
-        "alwaysShow": true,
+        "alwaysShow": false,
         "note": "네이버라이브",
         "ticketPrices": {
           "half": {
@@ -211,7 +223,8 @@ const PARK_PRICES = {
           }
         },
         "startDate": "2026-06-02",
-        "endDate": "2026-06-07"
+        "endDate": "2026-06-07",
+        "isSale": true
       }
     },
     "operatingHours": {
