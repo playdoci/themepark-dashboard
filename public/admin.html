@@ -205,7 +205,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
                 <div class="color-swatch" style="background:#7C3AED" data-color="#7C3AED" title="놀이의발견"></div>
                 <div class="color-swatch" style="background:#03C75A" data-color="#03C75A" title="네이버"></div>
                 <div class="color-swatch" style="background:#E67E00" data-color="#E67E00" title="쿠팡"></div>
-                <div class="color-swatch" style="background:#92400E" data-color="#92400E" title="카카오"></div>
+                <div class="color-swatch" style="background:#92400E" data-color="#fae100" title="카카오"></div>
                 <div class="color-swatch" style="background:#FF4E96" data-color="#FF4E96" title="야놀자"></div>
                 <div class="color-swatch" style="background:#00BCD4" data-color="#00BCD4" title="여기어때"></div>
                 <div class="color-swatch" style="background:#854F0B" data-color="#854F0B" title="지마켓"></div>
@@ -301,7 +301,7 @@ const CH_INFO = {
   nori:     { name:'놀이의발견',    color:'#7C3AED' },
   naver:    { name:'네이버',        color:'#03C75A' },
   coupang:  { name:'쿠팡',          color:'#E67E00' },
-  kakao:    { name:'카카오',        color:'#92400E' },
+  kakao:    { name:'카카오',        color:'#fae100' },
   yanolja:  { name:'야놀자',        color:'#FF4E96' },
   yeogi:    { name:'여기어때',      color:'#00BCD4' },
   gmarket:  { name:'지마켓',        color:'#854F0B' },
@@ -454,6 +454,11 @@ function renderEditor() {
               style="width:12px;height:12px;accent-color:var(--green);">
             <span style="font-size:10px;color:var(--green);font-weight:500;">상시</span>
           </label>
+          <label style="display:flex;align-items:center;gap:3px;white-space:nowrap;cursor:pointer;margin-left:4px;">
+            <input type="checkbox" id="ch_sale_${key}" ${disc.isSale?'checked':''}
+              style="width:12px;height:12px;accent-color:#E67E00;">
+            <span style="font-size:10px;color:#E67E00;font-weight:500;">특가</span>
+          </label>
         </div>
       </div>
     </div>`;
@@ -544,6 +549,7 @@ async function saveAll() {
         weekend:      weEl ? (parseInt(weEl.value)||0) : (d.channelDiscounts[key].weekend||0),
         active:       acEl ? !acEl.checked : true,
         alwaysShow:   document.getElementById(`ch_always_${key}`)?.checked || false,
+        isSale:       document.getElementById(`ch_sale_${key}`)?.checked || false,
         startDate:    stEl?.value || undefined,
         endDate:      enEl?.value || undefined,
         note:         d.channelDiscounts[key].note || info.name || key,
