@@ -235,7 +235,7 @@ const PARK_PRICES = {
   "caribbean": {
     "name": "캐리비안베이",
     "homepageUrl": "https://www.everland.com/caribbeanbay/home/main",
-    "pricePageUrl": "https://reservation.everland.com/web/cb.do?method=productMain",
+    "pricePageUrl": "https://www.everland.com/caribbeanbay/promotion/usage-fee",
     "currentSeason": "봄 시즌 (로우)",
     "updatedAt": "2026-04-14",
     "notice": "소인/경로: 36개월~만12세 및 경로 / 36개월 미만 무료",
