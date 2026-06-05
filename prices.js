@@ -1,6 +1,6 @@
 // ============================================================
 // prices.js - 파크별 실제 가격 데이터
-// 마지막 업데이트: 2026년 6월 2일
+// 마지막 업데이트: 2026년 6월 5일
 // ============================================================
 
 const PARK_PRICES = {
@@ -447,9 +447,9 @@ const PARK_PRICES = {
     "name": "원마운트",
     "homepageUrl": "https://onemount.co.kr/ko/",
     "pricePageUrl": "https://onemount.co.kr/ko/page/theme/water/fee.php",
-    "currentSeason": "봄 시즌",
-    "updatedAt": "2026-04-14",
-    "notice": "경기 일산 / 지하철 3호선 정발산역 도보 10분",
+    "currentSeason": "하이시즌 (2026.06.01.~07.24.)  / 골드시즌(2026.07.25.~08.17.)",
+    "updatedAt": "2026-06-05",
+    "notice": "매주 월 휴장",
     "tickets": [
       {
         "id": "day",
@@ -483,74 +483,174 @@ const PARK_PRICES = {
         "weekday": 49000,
         "weekend": 55000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "nori": {
         "weekday": 31850,
         "weekend": 35750,
         "active": false,
-        "note": "놀이의발견"
+        "note": "놀이의발견",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "naver": {
         "weekday": 34300,
         "weekend": 38500,
         "active": false,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "coupang": {
         "weekday": 35280,
         "weekend": 39600,
         "active": false,
-        "note": "쿠팡"
+        "note": "쿠팡",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kakao": {
         "weekday": 36750,
         "weekend": 41250,
         "active": false,
-        "note": "카카오"
+        "note": "카카오",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yanolja": {
         "weekday": 34300,
         "weekend": 38500,
         "active": false,
-        "note": "야놀자"
+        "note": "야놀자",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "yeogi": {
         "weekday": 35280,
         "weekend": 39600,
         "active": false,
-        "note": "여기어때"
+        "note": "여기어때",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "gmarket": {
         "weekday": 36750,
         "weekend": 41250,
         "active": false,
-        "note": "지마켓"
+        "note": "지마켓",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "11st": {
         "weekday": 35770,
         "weekend": 40150,
         "active": false,
-        "note": "11번가"
+        "note": "11번가",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "auction": {
         "weekday": 37240,
         "weekend": 41800,
         "active": false,
-        "note": "옥션"
+        "note": "옥션",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "kidsnote": {
         "weekday": 33320,
         "weekend": 37400,
         "active": false,
-        "note": "키즈노트"
+        "note": "키즈노트",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       },
       "mrt": {
         "weekday": 38220,
         "weekend": 42900,
         "active": false,
-        "note": "마이리얼트립"
+        "note": "마이리얼트립",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        }
       }
+    },
+    "operatingHours": {
+      "weekday": "10:00~17:30",
+      "weekend": "10:00~19:30"
     }
   },
   "islandcastle": {
