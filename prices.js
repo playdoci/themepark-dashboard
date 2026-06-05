@@ -592,18 +592,19 @@ const PARK_PRICES = {
         }
       },
       "11st": {
-        "weekday": 35770,
-        "weekend": 40150,
-        "active": false,
+        "weekday": 30900,
+        "weekend": 34900,
+        "active": true,
         "note": "11번가",
-        "alwaysShow": false,
+        "alwaysShow": true,
         "isSale": false,
         "ticketPrices": {
           "afternoon": {
             "weekday": 0,
-            "weekend": 0
+            "weekend": 30900
           }
-        }
+        },
+        "endDate": "2026-06-30"
       },
       "auction": {
         "weekday": 37240,
