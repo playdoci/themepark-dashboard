@@ -1151,16 +1151,16 @@ const PARK_PRICES = {
     "name": "인스파이어 스플래시 베이",
     "homepageUrl": "https://www.inspireresorts.com/ko/splash-bay",
     "pricePageUrl": "https://www.inspireresorts.com/ko/splash-bay/facilities/splash-bay-dome",
-    "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
-    "notice": "인천 영종도 / 인스파이어 엔터테인먼트 리조트 내",
+    "currentSeason": "정규시즌(2026.03.03.~06.30.)  / 피크시즌(2026.07.01.~08.31.)",
+    "updatedAt": "2026-06-05",
+    "notice": "4시간 이용 기준 금액",
     "tickets": [
       {
         "id": "day",
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 60000,
+          "adult": 33000,
           "child": 45000
         },
         "priceLabels": {
@@ -1171,41 +1171,66 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 60000,
-        "weekend": 70000,
+        "weekday": 33000,
+        "weekend": 44000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "alwaysShow": true,
+        "isSale": false,
+        "startDate": "2026-03-03",
+        "endDate": "2026-06-30",
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 42000,
         "weekend": 49000,
         "active": false,
-        "note": "놀이의발견"
+        "note": "놀이의발견",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "naver": {
-        "weekday": 42000,
-        "weekend": 49000,
+        "weekday": 29700,
+        "weekend": 29700,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "alwaysShow": true,
+        "isSale": false,
+        "endDate": "2026-06-30",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 42000,
         "weekend": 49000,
         "active": false,
-        "note": "야놀자"
+        "note": "야놀자",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 43500,
         "weekend": 50500,
         "active": false,
-        "note": "여기어때"
+        "note": "여기어때",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 45000,
         "weekend": 52000,
         "active": false,
-        "note": "마이리얼트립"
+        "note": "마이리얼트립",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "11:00~20:00",
+      "weekend": ""
     }
   },
   "aquafield": {
