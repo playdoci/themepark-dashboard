@@ -646,6 +646,21 @@ const PARK_PRICES = {
             "weekend": 0
           }
         }
+      },
+      "custom_1780625771677": {
+        "weekday": 22000,
+        "weekend": 22000,
+        "active": true,
+        "alwaysShow": false,
+        "note": "롯데ON",
+        "ticketPrices": {
+          "afternoon": {
+            "weekday": 0,
+            "weekend": 0
+          }
+        },
+        "isSale": false,
+        "endDate": "2026-06-30"
       }
     },
     "operatingHours": {
