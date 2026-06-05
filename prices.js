@@ -1066,17 +1066,17 @@ const PARK_PRICES = {
     "name": "파라다이스시티 씨메르",
     "homepageUrl": "https://www.p-city.com/front/cimer/overview",
     "pricePageUrl": "https://www.p-city.com/front/cimer/operation",
-    "currentSeason": "상시",
-    "updatedAt": "2026-04-14",
-    "notice": "인천 영종도 / 파라다이스시티 호텔 내",
+    "currentSeason": "하이시즌 (2026.05.01.~06.30.)  / 성수기(2026.07.01.~08.31.)",
+    "updatedAt": "2026-06-05",
+    "notice": "통합권 / 6시간 이용",
     "tickets": [
       {
         "id": "day",
         "label": "종일권",
         "time": "오픈~마감",
         "prices": {
-          "adult": 55000,
-          "child": 40000
+          "adult": 60000,
+          "child": 50000
         },
         "priceLabels": {
           "adult": "대인",
@@ -1086,41 +1086,65 @@ const PARK_PRICES = {
     ],
     "channelDiscounts": {
       "home": {
-        "weekday": 55000,
-        "weekend": 65000,
+        "weekday": 60000,
+        "weekend": 50000,
         "active": true,
-        "note": "공홈 정가"
+        "note": "공홈 정가",
+        "alwaysShow": true,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "nori": {
         "weekday": 38500,
         "weekend": 45500,
         "active": false,
-        "note": "놀이의발견"
+        "note": "놀이의발견",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "naver": {
-        "weekday": 38500,
-        "weekend": 45500,
+        "weekday": 54000,
+        "weekend": 54000,
         "active": true,
-        "note": "네이버 예약"
+        "note": "네이버 예약",
+        "alwaysShow": true,
+        "isSale": false,
+        "startDate": "2026-05-01",
+        "endDate": "2026-06-30",
+        "ticketPrices": {}
       },
       "yanolja": {
         "weekday": 38500,
         "weekend": 45500,
         "active": false,
-        "note": "야놀자"
+        "note": "야놀자",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "yeogi": {
         "weekday": 40000,
         "weekend": 47000,
         "active": false,
-        "note": "여기어때"
+        "note": "여기어때",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       },
       "mrt": {
         "weekday": 41000,
         "weekend": 48000,
         "active": false,
-        "note": "마이리얼트립"
+        "note": "마이리얼트립",
+        "alwaysShow": false,
+        "isSale": false,
+        "ticketPrices": {}
       }
+    },
+    "operatingHours": {
+      "weekday": "10:00~19:00",
+      "weekend": "10:00~21:00"
     }
   },
   "inspire": {
