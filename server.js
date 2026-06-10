@@ -187,48 +187,61 @@ app.delete('/api/admin/manual-news/:id', adminAuth, (req, res) => {
 
 // ── 네이버 데이터랩 트렌드 API ───────────────────────────────
 app.get('/api/trend', async (req, res) => {
-  const cacheKey = 'trend_data';
+  const parksParam = req.query.parks;
+  const keywords = parksParam ? parksParam.split(',').filter(Boolean) : [];
+
+  if (keywords.length === 0)
+    return res.json({ results: [], source: 'no_params' });
+  if (keywords.length > 5)
+    return res.status(400).json({ error: '최대 5개까지 조회 가능합니다' });
+
+  const cacheKey = 'trend_' + keywords.sort().join('_');
   const cached = priceCache.get(cacheKey);
   if (cached) return res.json({ ...cached, cached: true });
+
   if (!process.env.NAVER_CLIENT_ID || !process.env.NAVER_CLIENT_SECRET)
     return res.json({ results: [], source: 'no_api_key' });
+
   try {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 30);
     const fmt = d => d.toISOString().slice(0,10);
-    const groups = [
-      ['웅진플레이도시','캐리비안베이','오션월드','에버랜드','롯데월드'],
-      ['아쿠아필드','테르메덴','레고랜드','서울랜드','경주월드'],
-      ['원마운트','아일랜드캐슬','아산스파비스','스플라스','파라다이스도고'],
-    ];
-    const allResults = [];
-    for (const group of groups) {
-      const body = {
-        startDate: fmt(startDate), endDate: fmt(endDate), timeUnit: 'week',
-        keywordGroups: group.map(name => ({ groupName: name, keywords: [name] }))
-      };
-      const resp = await axios.post('https://openapi.naver.com/v1/datalab/search', body, {
-        headers: {
-          'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
-          'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET,
-          'Content-Type': 'application/json'
-        }
-      });
-      for (const r of (resp.data.results || [])) {
-        const data = r.data || [];
-        const recent = data.slice(-2);
-        const prev = data.slice(-4,-2);
-        const avg = recent.length ? Math.round(recent.reduce((s,d)=>s+d.ratio,0)/recent.length*10)/10 : 0;
-        const prevAvg = prev.length ? prev.reduce((s,d)=>s+d.ratio,0)/prev.length : avg;
-        const change = prevAvg > 0 ? Math.round((avg-prevAvg)/prevAvg*100) : 0;
-        allResults.push({ name:r.title, ratio:avg, change, trend:data.map(d=>({date:d.period,ratio:d.ratio})) });
+
+    const body = {
+      startDate: fmt(startDate), endDate: fmt(endDate), timeUnit: 'week',
+      keywordGroups: keywords.map(name => ({ groupName: name, keywords: [name] }))
+    };
+
+    const resp = await axios.post('https://openapi.naver.com/v1/datalab/search', body, {
+      headers: {
+        'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
+        'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET,
+        'Content-Type': 'application/json'
       }
+    });
+
+    const allResults = [];
+    for (const r of (resp.data.results || [])) {
+      const data = r.data || [];
+      const recent = data.slice(-2);
+      const prev = data.slice(-4,-2);
+      const avg = recent.length ? Math.round(recent.reduce((s,d)=>s+d.ratio,0)/recent.length*10)/10 : 0;
+      const prevAvg = prev.length ? prev.reduce((s,d)=>s+d.ratio,0)/prev.length : avg;
+      const change = prevAvg > 0 ? Math.round((avg-prevAvg)/prevAvg*100) : 0;
+      allResults.push({ name:r.title, ratio:avg, change, trend:data.map(d=>({date:d.period,ratio:d.ratio})) });
     }
+
     allResults.sort((a,b) => b.ratio - a.ratio);
-    const result = { results:allResults, fetchedAt:new Date().toISOString(), period:`${fmt(startDate)} ~ ${fmt(endDate)}`, source:'naver_datalab' };
+    const result = {
+      results: allResults,
+      fetchedAt: new Date().toISOString(),
+      period: `${fmt(startDate)} ~ ${fmt(endDate)}`,
+      source: 'naver_datalab'
+    };
     priceCache.set(cacheKey, result, 3600);
     res.json(result);
+
   } catch (err) {
     console.error('데이터랩 오류:', err.response?.data || err.message);
     res.json({ results:[], source:'error', error:err.message });
@@ -377,4 +390,3 @@ function guessTag(text) {
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중 - 포트 ${PORT}`);
 });
-
