@@ -152,6 +152,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
         저장 시 GitHub 자동 업데이트 → <b>2~3분 후</b> 앱 반영<br>
         <b>판매없음</b> 체크 시 앱에서 해당 채널이 숨겨집니다.
       </div>
+      <!-- 가격비교 탭 공개 토글 -->
+      <div style="background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--txt);">가격비교 탭 공개</div>
+          <div style="font-size:11px;color:var(--txt2);">앱에서 가격비교 탭 표시 여부</div>
+        </div>
+        <button id="priceTabToggleBtn" onclick="togglePriceTab()"
+          style="padding:6px 14px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg2);font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;">
+          로딩 중...
+        </button>
+      </div>
       <div class="sec-label">파크 선택</div>
       <select class="park-select" id="parkSelect" onchange="loadParkData()">
         <option value="">파크를 선택하세요</option>
@@ -177,10 +188,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
             <input class="field-input" id="noticeText" placeholder="예: 매주 월·화 휴장">
           </div>
         </div>
-        <!-- 티켓 가격 -->
+        <!-- 일반 요금 -->
         <div class="card">
           <div class="card-hd">
-            티켓 가격
+            일반 요금
             <span class="card-hd-note" id="ticketNoteLabel"></span>
           </div>
           <div id="ticketRows"></div>
@@ -311,7 +322,32 @@ const CH_INFO = {
   mrt:      { name:'마이리얼트립',  color:'#0369A1' },
 };
 
-// ── 로그인 ──────────────────────────────────────────────────
+// ── 가격비교 탭 공개 토글 ────────────────────────────────────
+function updatePriceTabToggleBtn() {
+  const isVisible = localStorage.getItem('priceTabVisible') !== 'false';
+  const btn = document.getElementById('priceTabToggleBtn');
+  if (!btn) return;
+  btn.textContent = isVisible ? '공개 중 (숨기기)' : '비공개 (공개하기)';
+  btn.style.background = isVisible ? 'var(--green-bg)' : 'var(--red-bg)';
+  btn.style.color = isVisible ? 'var(--green)' : 'var(--red)';
+  btn.style.borderColor = isVisible ? '#C0DD97' : '#F0997B';
+}
+
+function togglePriceTab() {
+  const isVisible = localStorage.getItem('priceTabVisible') !== 'false';
+  const newVal = !isVisible;
+  localStorage.setItem('priceTabVisible', newVal ? 'true' : 'false');
+  // 앱 화면에도 즉시 반영 (같은 브라우저인 경우)
+  const priceTabBtn = window.opener
+    ? window.opener.document.getElementById('price-tab-btn')
+    : null;
+  updatePriceTabToggleBtn();
+  // localStorage 변경을 다른 탭에 알림
+  window.dispatchEvent(new StorageEvent('storage', {
+    key: 'priceTabVisible', newValue: newVal ? 'true' : 'false'
+  }));
+  alert(newVal ? '✅ 가격비교 탭이 공개됩니다!' : '🔒 가격비교 탭이 숨겨집니다!');
+}
 async function doLogin() {
   const pw = document.getElementById('pwInput').value;
   if (!pw) return;
@@ -357,6 +393,7 @@ async function initAdmin() {
   const sel = document.getElementById('parkSelect');
   sel.innerHTML = '<option value="">파크를 선택하세요</option>' +
     parkList.map(p => `<option value="${p.key}">${p.name}</option>`).join('');
+  updatePriceTabToggleBtn();
 }
 
 // ── 파크 데이터 로드 ────────────────────────────────────────
@@ -384,7 +421,7 @@ function renderEditor() {
   const ticketLabels = tickets.map(t => t.label).join(' / ');
   document.getElementById('chCardNote').textContent = `대인 기준 (${ticketLabels})`;
 
-  // 티켓 가격
+  // 일반 요금
   document.getElementById('ticketRows').innerHTML = tickets.map((t, ti) => `
     <div class="ticket-block">
       <div class="ticket-hd">
@@ -510,7 +547,7 @@ async function saveAll() {
     const d = currentParkData;
     const tickets = d.tickets || [];
 
-    // 티켓 가격 수집
+    // 일반 요금 수집
     const updatedTickets = tickets.map((t, ti) => {
       const newPrices = {};
       Object.keys(t.prices).forEach(pk => {
@@ -530,7 +567,7 @@ async function saveAll() {
       const enEl = document.getElementById(`ch_${key}_end`);
       const info = CH_INFO[key] || {};
 
-      // 서브 티켓 가격 수집
+      // 서브 일반 요금 수집
       const ticketPrices = {};
       tickets.slice(1).forEach((t, si) => {
         const swEl = document.getElementById(`ch_${key}_sub${si}_weekday`);
