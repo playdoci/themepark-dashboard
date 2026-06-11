@@ -238,27 +238,33 @@ html{background:#F2F0F8;}
 <a id="portal-daum-news" class="portal-btn" target="_blank">
   <svg class="portal-icon" viewBox="0 0 24 24">
     <defs>
-    <!-- 원형(피자조각) 그라데이션은 아래 ②에서 설명 -->
-    <radialGradient id="daumRadial"
-      cx="50%" cy="50%" r="70%"
-      gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#3B82F6"/>
-      <stop offset="18%"  stop-color="#60A5FA"/>
-      <stop offset="35%"  stop-color="#34D399"/>
-      <stop offset="52%"  stop-color="#FACC15"/>
-      <stop offset="68%"  stop-color="#FB923C"/>
-      <stop offset="85%"  stop-color="#EF4444"/>
-      <stop offset="100%" stop-color="#A855F7"/>
-    </radialGradient>
+      <radialGradient id="daumRadial"
+        cx="50%" cy="50%" r="70%"
+        gradientUnits="userSpaceOnUse">
+        <stop offset="0%"   stop-color="#3B82F6"/>
+        <stop offset="18%"  stop-color="#60A5FA"/>
+        <stop offset="35%"  stop-color="#34D399"/>
+        <stop offset="52%"  stop-color="#FACC15"/>
+        <stop offset="68%"  stop-color="#FB923C"/>
+        <stop offset="85%"  stop-color="#EF4444"/>
+        <stop offset="100%" stop-color="#A855F7"/>
+      </radialGradient>
     </defs>
 
-    <path fill="url(#daumGrad)"
+    <path
+      fill="url(#daumRadial)"
       d="M5 4
          h7.5
-         a6.5 6.5 0 0 1 0 13H5V4zm3.2 3v7h4.1a3.5 3.5 0 0 0 0-7H8.2z"/>
+         a6.5 6.5 0 0 1 0 13H5V4
+         zm3.2 3
+         v7
+         h4.1
+         a3.5 3.5 0 0 0 0-7H8.2z"
+    />
   </svg>
   <span>다음뉴스</span>
 </a>
+
 
 <!-- 카테고리 -->
 <div class="news-block category-block">
