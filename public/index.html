@@ -61,11 +61,11 @@ html{background:#eff3f5;}
 .tag-협회{background:#F3E8FF;color:#7C3AED;}
 
 /* 뉴스 블럭 카드 */
-.news-block{background:#fcf3f9;border:1.5px solid #d6008a;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 10px rgba(214,0,138,0.12);}
+.news-block-wrap{display:flex; flex-direction:column; gap:10px; /* 블럭 간격 */ margin-bottom:10px;}
+.news-block{background:#fcf3f9; border:1.5px solid #d6008a; border-radius:var(--radius); overflow:hidden; box-shadow:0 2px 10px rgba(214,0,138,0.12); margin-bottom:10px;}
 .news-block-section{padding:10px 14px;}
-.news-block-divider{height:0.5px;background:#d6008a;}
-.news-block-label{font-size:12px;font-weight:600;color:var(--txt);}
-.news-block-sub{font-size:10px;font-weight:400;color:var(--txt2);margin-left:5px;}
+.news-block-label{font-size: 12px; font-weight: 600; color: var(--txt);}
+.news-block-sub{font-size:10px; font-weight: 400; color: var(--txt2); margin-left:5px;}
 
 /* 포털 직접검색 버튼 */
 .portal-btn{flex:1;text-align:center;padding:7px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg2);font-size:11px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
@@ -183,35 +183,41 @@ html{background:#eff3f5;}
 <!-- 뉴스 -->
 <div id="tab-news" class="section active">
 
-  <!-- 블럭 1 : 바로가기 / 카테고리 / 테마파크 -->
+     <!-- 바로가기 -->
   <div class="news-block">
-
-    <!-- 바로가기 -->
     <div class="news-block-section">
-      <div class="news-block-label">바로가기 <span class="news-block-sub">카테고리·테마파크 선택 후 더보기</span></div>
+      <div class="news-block-label">
+        바로가기
+<span class="news-block-sub">카테고리·테마파크 선택 후 더보기</span>
+</div>
+
       <div style="display:flex;gap:6px;margin-top:7px;">
         <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
         <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
         <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
       </div>
     </div>
-
-    <div class="news-block-divider"></div>
+  </div>
 
     <!-- 카테고리 -->
+  <div class="news-block">
     <div class="news-block-section">
-      <div class="news-block-label">카테고리 <span class="news-block-sub">중복선택가능</span></div>
+      <div class="news-block-label">
+        카테고리
+        <span class="news-block-sub">중복선택가능</span>
+      </div>
+
       <div class="chips-wrap" id="newsChips" style="margin-top:7px;"></div>
     </div>
-
-    <div class="news-block-divider"></div>
+  </div>
 
     <!-- 테마파크 -->
+  <div class="news-block">
     <div class="news-block-section">
       <div class="news-block-label">테마파크</div>
+
       <div class="chips-wrap" id="parkChips" style="margin-top:7px;"></div>
     </div>
-
   </div>
 
   <!-- 블럭 2 : 기간 / 소스 / 감성 -->
