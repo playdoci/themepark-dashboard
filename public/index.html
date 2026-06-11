@@ -14,7 +14,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#fff;--bg2:#f7f7f5;--bg3:#f0ede8;
+  --bg:#fff;--bg2:#eff3f5;--bg3:#f0ede8;
   --txt:#1a1a1a;--txt2:#666;--txt3:#aaa;
   --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.2);
   --radius:12px;--radius-sm:8px;
@@ -59,9 +59,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .tag-뉴스,.tag-안내{background:var(--bg2);color:var(--txt2);}
 .tag-협회{background:#F3E8FF;color:#7C3AED;}
 
+/* 뉴스 블럭 카드 */
+.news-block{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.news-block-section{padding:10px 14px;}
+.news-block-divider{height:0.5px;background:var(--border);}
+.news-block-label{font-size:12px;font-weight:600;color:var(--txt);}
+.news-block-sub{font-size:10px;font-weight:400;color:var(--txt2);margin-left:5px;}
+
 /* 포털 직접검색 버튼 */
-.portal-btn{flex:1;text-align:center;padding:6px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg);font-size:10px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
-.portal-btn:active{background:var(--bg2);}
+.portal-btn{flex:1;text-align:center;padding:7px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg2);font-size:11px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
+.portal-btn:active{background:var(--bg3);}
 
 /* 카테고리/필터 칩 */
 .filter-section-label{font-size:10px;font-weight:500;color:var(--txt2);margin-bottom:5px;margin-top:6px;letter-spacing:.3px;}
@@ -175,53 +182,83 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <!-- 뉴스 -->
 <div id="tab-news" class="section active">
 
-  <!-- 포털 직접검색 -->
-  <div style="display:flex;gap:5px;margin-bottom:10px;">
-    <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
-    <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
-    <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
-    <a id="portal-daum-news"   class="portal-btn" target="_blank">다음뉴스</a>
+  <!-- 블럭 1 : 바로가기 / 카테고리 / 테마파크 -->
+  <div class="news-block">
+
+    <!-- 바로가기 -->
+    <div class="news-block-section">
+      <div class="news-block-label">바로가기 <span class="news-block-sub">카테고리·테마파크 선택 후 더보기</span></div>
+      <div style="display:flex;gap:6px;margin-top:7px;">
+        <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
+        <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
+        <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
+      </div>
+    </div>
+
+    <div class="news-block-divider"></div>
+
+    <!-- 카테고리 -->
+    <div class="news-block-section">
+      <div class="news-block-label">카테고리 <span class="news-block-sub">중복선택가능</span></div>
+      <div class="chips-wrap" id="newsChips" style="margin-top:7px;"></div>
+    </div>
+
+    <div class="news-block-divider"></div>
+
+    <!-- 테마파크 -->
+    <div class="news-block-section">
+      <div class="news-block-label">테마파크</div>
+      <div class="chips-wrap" id="parkChips" style="margin-top:7px;"></div>
+    </div>
+
   </div>
 
-  <!-- 카테고리 칩 (줄바꿈, 중복선택) -->
-  <div class="filter-section-label">카테고리</div>
-  <div class="chips-wrap" id="newsChips"></div>
+  <!-- 블럭 2 : 기간 / 소스 / 감성 -->
+  <div class="news-block" style="margin-top:5px;">
 
-  <!-- 파크 칩 -->
-  <div class="filter-section-label">테마파크</div>
-  <div class="chips-wrap" id="parkChips"></div>
+    <!-- 기간 -->
+    <div class="news-block-section">
+      <div class="news-block-label">기간</div>
+      <div class="chips-wrap" id="periodChips" style="margin-top:7px;">
+        <div class="chip active" onclick="setPeriod('all',this)">전체</div>
+        <div class="chip" onclick="setPeriod('1',this)">오늘</div>
+        <div class="chip" onclick="setPeriod('7',this)">7일</div>
+        <div class="chip" onclick="setPeriod('10',this)">10일</div>
+        <div class="chip" onclick="setPeriod('20',this)">20일</div>
+        <div class="chip" onclick="setPeriod('30',this)">30일</div>
+        <div class="chip" onclick="setPeriod('60',this)">60일</div>
+      </div>
+    </div>
 
-  <!-- 기간 필터 칩 -->
-  <div class="filter-section-label">기간</div>
-  <div class="chips-wrap" id="periodChips">
-    <div class="chip active" onclick="setPeriod('all',this)">전체</div>
-    <div class="chip" onclick="setPeriod('1',this)">오늘</div>
-    <div class="chip" onclick="setPeriod('7',this)">7일</div>
-    <div class="chip" onclick="setPeriod('10',this)">10일</div>
-    <div class="chip" onclick="setPeriod('20',this)">20일</div>
-    <div class="chip" onclick="setPeriod('30',this)">30일</div>
-    <div class="chip" onclick="setPeriod('60',this)">60일</div>
+    <div class="news-block-divider"></div>
+
+    <!-- 소스 -->
+    <div class="news-block-section">
+      <div class="news-block-label">소스</div>
+      <div class="chips-wrap" id="sourceChips" style="margin-top:7px;">
+        <div class="chip active" onclick="setSource('all',this)">전체</div>
+        <div class="chip" onclick="setSource('naver',this)">네이버뉴스</div>
+        <div class="chip" onclick="setSource('google',this)">구글뉴스</div>
+        <div class="chip" onclick="setSource('manual',this)">직접등록</div>
+      </div>
+    </div>
+
+    <div class="news-block-divider"></div>
+
+    <!-- 감성 -->
+    <div class="news-block-section">
+      <div class="news-block-label">감성</div>
+      <div class="chips-wrap" style="margin-top:7px;">
+        <div class="chip active" onclick="setSentiment('all',this)">전체</div>
+        <div class="chip" onclick="setSentiment('positive',this)">😊 긍정</div>
+        <div class="chip" onclick="setSentiment('neutral',this)">중립</div>
+        <div class="chip" onclick="setSentiment('negative',this)">😟 부정</div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- 소스 필터 칩 -->
-  <div class="filter-section-label">소스</div>
-  <div class="chips-wrap" id="sourceChips">
-    <div class="chip active" onclick="setSource('all',this)">전체</div>
-    <div class="chip" onclick="setSource('naver',this)">네이버뉴스</div>
-    <div class="chip" onclick="setSource('google',this)">구글뉴스</div>
-    <div class="chip" onclick="setSource('manual',this)">직접등록</div>
-  </div>
-
-  <!-- 감성 필터 칩 -->
-  <div class="filter-section-label">감성</div>
-  <div class="chips-wrap" style="margin-bottom:10px;">
-    <div class="chip active" onclick="setSentiment('all',this)">전체</div>
-    <div class="chip" onclick="setSentiment('positive',this)">😊 긍정</div>
-    <div class="chip" onclick="setSentiment('neutral',this)">중립</div>
-    <div class="chip" onclick="setSentiment('negative',this)">😟 부정</div>
-  </div>
-
-  <div class="news-status">
+  <div class="news-status" style="margin-top:10px;">
     <div class="dot-live"></div>
     <div class="status-t" id="news-status-text">뉴스 로딩 중...</div>
   </div>
