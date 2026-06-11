@@ -238,17 +238,22 @@ html{background:#F2F0F8;}
 <a id="portal-daum-news" class="portal-btn" target="_blank">
   <svg class="portal-icon" viewBox="0 0 24 24">
     <defs>
-      <linearGradient id="daumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#4385F5"/>
-        <stop offset="35%" stop-color="#8A3FFC"/>
-        <stop offset="65%" stop-color="#FF4D4F"/>
-        <stop offset="100%" stop-color="#FFC400"/>
-      </linearGradient>
+      <radialGradient id="daumGrad"  cx="50%" cy="50%" r="85%"  spreadMethod="pad"   gradientUnits="userSpaceOnUse">
+        <stop offset="0%"   stop-color="#3B82F6"/>
+        <stop offset="12%"  stop-color="#5EA2FA"/>
+        <stop offset="25%"  stop-color="#34D399"/>
+        <stop offset="38%"  stop-color="#A3E635"/>
+        <stop offset="50%"  stop-color="#FACC15"/>
+        <stop offset="62%"  stop-color="#FB923C"/>
+        <stop offset="75%"  stop-color="#F87171"/>
+        <stop offset="88%"  stop-color="#C084FC"/>
+        <stop offset="100%" stop-color="#8B5CF6"/>
+      </radialGradient>
     </defs>
 
     <path fill="url(#daumGrad)"
       d="M5 4
-           h5.5
+           h7.5
           a6.5 6.5 0 0 1 0 13H5V4zm3.2 3v7h4.1a3.5 3.5 0 0 0 0-7H8.2z"/>
   </svg>
   <span>다음뉴스</span>
