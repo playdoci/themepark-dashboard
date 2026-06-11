@@ -572,7 +572,7 @@ function updatePortalLinks() {
   }
   const enc = encodeURIComponent(keyword);
   document.getElementById('portal-naver-news').href  = `https://search.naver.com/search.naver?where=news&query=${enc}`;
-  document.getElementById('portal-naver-blog').href  = `https://search.naver.com/search.naver?where=blog&query=${enc}`;
+  /*document.getElementById('portal-naver-blog').href  = `https://search.naver.com/search.naver?where=blog&query=${enc}`;*/
   document.getElementById('portal-google-news').href = `https://news.google.com/search?q=${enc}&hl=ko`;
   document.getElementById('portal-daum-news').href   = `https://search.daum.net/search?w=news&q=${enc}`;
   // 하단 '네이버에서 더보기'도 동기화
