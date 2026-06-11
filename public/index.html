@@ -237,7 +237,7 @@ html{background:#F2F0F8;}
 
 <a id="portal-daum-news" class="portal-btn" target="_blank">
   <svg class="portal-icon" viewBox="0 0 24 24">
-  <defs>
+    <defs>
     <!-- 원형(피자조각) 그라데이션은 아래 ②에서 설명 -->
     <radialGradient id="daumRadial"
       cx="50%" cy="50%" r="70%"
@@ -250,32 +250,15 @@ html{background:#F2F0F8;}
       <stop offset="85%"  stop-color="#EF4444"/>
       <stop offset="100%" stop-color="#A855F7"/>
     </radialGradient>
-  </defs>
+    </defs>
 
-  <!-- 바깥 D -->
-  <path
-    fill="url(#daumRadial)"
-    fill-rule="evenodd"
-    d="
-      M4 3.5    h8.8
-      c4.8 0 7.7 3.1 7.7 8
-      s-2.9 8-7.7 8H4V3.5
-      Z
-
-      <!-- 안쪽 구멍 (확실히 작게) -->
-      M9 7.3
-      h4.8
-      c3 0 4.6 1.8 4.6 4.2
-      s-1.6 4.2-4.6 4.2
-      H9
-      V7.3
-      Z
-    "
-  />
-</svg>
+    <path fill="url(#daumGrad)"
+      d="M5 4
+         h7.5
+         a6.5 6.5 0 0 1 0 13H5V4zm3.2 3v7h4.1a3.5 3.5 0 0 0 0-7H8.2z"/>
+  </svg>
   <span>다음뉴스</span>
 </a>
-
 
 <!-- 카테고리 -->
 <div class="news-block category-block">
