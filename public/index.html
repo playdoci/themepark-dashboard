@@ -77,8 +77,8 @@ html{background:#ECEAF5;}
 .park-block{margin-bottom:10px;}  
 
 /* 포털 직접검색 버튼 */
-.portal-btn{flex:1;text-align:center;padding:7px 4px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg2);font-size:11px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;}
-.portal-btn:active{background:var(--bg3);}
+.portal-btn{   flex:1;  display:flex;  align-items:center;  justify-content:center;  gap:6px;  padding:10px 8px;  border:none;  border-radius:18px;  background:#F5F4FA font-size:12px;  font-weight:600;  color:var(--txt2);  text-decoration:none;  white-space:nowrap;}
+.portal-icon{   width:16px;  height:16px;  flex-shrink:0;}
 
 /* 카테고리/필터 칩 */
 .filter-section-label{font-size: 10px; font-weight: 500; color: var(--txt2); margin-bottom: 10px; margin-top: 10px; letter-spacing: .3px;}
@@ -200,11 +200,23 @@ html{background:#ECEAF5;}
 <span class="news-block-sub">카테고리·테마파크 선택 후 더보기</span>
 </div>
 
-      <div style="display:flex;gap:6px;margin-top:7px;">
-        <a id="portal-naver-news"  class="portal-btn" target="_blank">네이버뉴스</a>
-        <a id="portal-naver-blog"  class="portal-btn" target="_blank">네이버블로그</a>
-        <a id="portal-google-news" class="portal-btn" target="_blank">구글뉴스</a>
-      </div>
+<div style="display:flex;gap:6px;margin-top:7px;">
+
+  <a id="portal-naver-news" class="portal-btn" target="_blank">
+    <img src="naver.svg" class="portal-icon" alt="">
+    <span>네이버뉴스</span>
+  </a>
+
+  <a id="portal-naver-blog" class="portal-btn" target="_blank">
+    <img src="naver-blog.svg" class="portal-icon" alt="">
+    <span>네이버블로그</span>
+  </a>
+
+  <a id="portal-google-news" class="portal-btn" target="_blank">
+    <img src="google-news.svg" class="portal-icon" alt="">
+    <span>구글뉴스</span>
+  </a>
+</div>
     </div>
   </div>
 
