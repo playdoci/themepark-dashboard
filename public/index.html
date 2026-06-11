@@ -35,7 +35,13 @@ html{background:#F2F0F8;}
 .topbar-title{font-size:26px; font-weight:700;letter-spacing:-1px;}
 .topbar-sub{font-size:12px; margin-top:6px;}
 /*  상단 새로고침 버튼 */
-.refresh-btn{width:40px; height:40px; padding:0;  border:none;  border-radius:50%;   background:#fff;   box-shadow: 0  1px 3px rgba(0,0,0,.03), 0 8px 20px rgba(0,0,0,.04);}
+.refresh-btn{width:40px; height:40px; padding:0;  border:none;  border-radius:50%;   background:#fff;   box-shadow: 0  1px 3px rgba(0,0,0,.03), 0 8px 20px rgba(0,0,0,.04);
+  font-size: 22px;   /* ↻ 크기 */  line-height: 1;  font-weight: 600;
+  display: flex;  align-items: center;  justify-content: center;
+   transition: transform 0.4s ease; /* ⭐ 기본에 transition */
+}
+.refresh-btn.is-rotating {  transform: rotate(720deg);}
+
 
 /*  탭 영역(뉴스 가격비교 트렌드)  */
 .nav-tabs{background:transparent;  border:none;  margin:0 14px 12px;  padding:4px;  border-radius:18px;  background:rgba(255,255,255,.8);   backdrop-filter:blur(12px);}  
