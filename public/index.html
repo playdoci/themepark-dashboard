@@ -77,7 +77,7 @@ html{background:#ECEAF5;}
 .park-block{margin-bottom:10px;}  
 
 /* 포털 직접검색 버튼 */
-.portal-btn{   flex:1;  display:flex;  align-items:center;  justify-content:center;  gap:6px;  padding:10px 8px;  border:none;  border-radius:18px;  background:#F5F4FA font-size:12px;  font-weight:600;  color:var(--txt2);  text-decoration:none;  white-space:nowrap;}
+.portal-btn{   flex:1;  display:flex;  align-items:center;  justify-content:center;  gap:6px;  padding:10px 8px;  border:none;  border-radius:18px;  background:#F5F4FA; font-size:12px;  font-weight:600;  color:var(--txt2);  text-decoration:none;  white-space:nowrap;}
 .portal-icon{   width:16px;  height:16px;  flex-shrink:0;}
 
 /* 카테고리/필터 칩 */
@@ -202,10 +202,13 @@ html{background:#ECEAF5;}
 
 <div style="display:flex;gap:6px;margin-top:7px;">
 
-  <a id="portal-naver-news" class="portal-btn" target="_blank">
-    <img src="naver.svg" class="portal-icon" alt="">
-    <span>네이버뉴스</span>
-  </a>
+<a id="portal-naver-news" class="portal-btn" target="_blank">
+  <svg class="portal-icon" viewBox="0 0 24 24">
+    <rect width="24" height="24" rx="5" fill="#03C75A"/>
+    <path d="M7 5h3.2l6.1 8.8V5H19v14h-3.2L9 9.9V19H7z" fill="#fff"/>
+  </svg>
+  <span>네이버뉴스</span>
+</a>
 
   <a id="portal-naver-blog" class="portal-btn" target="_blank">
     <img src="naver-blog.svg" class="portal-icon" alt="">
