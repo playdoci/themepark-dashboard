@@ -185,14 +185,31 @@ html{background:#F2F0F8;}
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-row">
-    <div>
+/*기존 디자인 타이틀*/  
+/*<div class="topbar">*/
+  /*<div class="topbar-row">*/
+    /*<div>*/
+
+<div class="topbar-card">
+
+  <!-- 오늘 + 날짜 -->
+  <div class="topbar-top">
+    <div class="today-badge">today</div>
+    <div class="today-date" id="today-date"></div>
+  </div>
+
+  <!-- 타이틀 + 버튼 -->
+  <div class="topbar-main">   
       <div class="topbar-title">테마파크 인사이트</div>
-      <div class="topbar-sub" id="today-date"></div>
-    </div>
+      /*<div class="topbar-sub" id="today-date"></div>*/
     <button class="refresh-btn" onclick="refreshNews()">↻</button>
   </div>
+
+    <!-- 설명 -->
+  <div class="topbar-sub">
+    실시간 업계 뉴스와 동향을 한눈에 확인하세요.
+  </div>
+
 </div>
 
 <div class="nav-tabs">
