@@ -32,7 +32,7 @@ html{background:#F2F0F8;}
 /* 제목타이틀 */
 /* 기존사용 */ /*.topbar{background:transparent; border: none;  border-bottom:0.5px solid var(--border);padding:20px 18px 12px; position:sticky;top:0;z-index:100;}*/
 /* 기존사용 */ /*.topbar-row{display:flex;justify-content:space-between;align-items:center;}*/
-.topbar-title{font-size:24px; font-weight:800;letter-spacing:-0.8px;}
+.topbar-title{font-size:28px; font-weight:800;letter-spacing:-1px;}
 .topbar-sub{font-size:12px; margin-top:6px;}
 /*  상단 새로고침 버튼 */
 .refresh-btn{width:40px; height:40px; padding:0;  border:none;  border-radius:50%;   background:#fff;   box-shadow: 0  1px 3px rgba(0,0,0,.03), 0 8px 20px rgba(0,0,0,.04);
@@ -41,12 +41,16 @@ html{background:#F2F0F8;}
    transition: transform 0.4s ease; /* ⭐ 기본에 transition */}
 .refresh-btn.is-rotating {  transform: rotate(720deg);}
 /* 카드형 헤더 -메인타이틀 */		
-.topbar-card{		background:#fff;		margin:16px 18px 10px;		padding:16px;		border-radius:24px;		box-shadow:0 6px 20px rgba(0,0,0,.05);}		
+.topbar-card{  position:relative;  overflow:hidden;  background:#fff;  margin:16px 18px 10px;  padding:16px;  border-radius:24px;  box-shadow:0 6px 20px rgba(0,0,0,.05);}
 .topbar-top{		display:flex;		justify-content:space-between;		align-items:center;		margin-bottom:10px;}				
 .today-badge{		font-size:11px;		padding:3px 10px;		border-radius:999px;		background:#F0EEFF;		color:#6E5BFF;		font-weight:600;}		
 .today-date{		font-size:12px;		color:var(--txt2);}		
 .topbar-main{		display:flex;		justify-content:space-between;		align-items:center;		  margin-bottom:6px;}		
+.topbar-title-wrap{  display:flex;  align-items:center;  gap:12px;}
+.topbar-icon{  width:44px;  height:44px;  display:flex;  align-items:center;  justify-content:center;  border-radius:14px;  background:#F0EEFF;  font-size:22px;  flex-shrink:0;}  
 .topbar-sub{		font-size:12px;		color:var(--txt2);}		
+/* 놀이공원 배경 추가 */		  
+.topbar-theme-bg{  position:absolute;  right:16px;  bottom:-6px;  font-size:52px;  opacity:.08;  user-select:none;  pointer-events:none;}  
   
 
 /*  탭 영역(뉴스 가격비교 트렌드)  */
@@ -205,8 +209,13 @@ html{background:#F2F0F8;}
   </div>
 
   <!-- 타이틀 + 버튼 -->
-  <div class="topbar-main">   
+  <div class="topbar-main"> 
+   <div class="topbar-title-wrap">
+    <div class="topbar-icon">
+      🏰
+    </div>
       <div class="topbar-title">테마파크 인사이트</div>
+   </div>
       <!-- <div class="topbar-sub" id="today-date"></div> -->
     <button class="refresh-btn" onclick="refreshNews()">↻</button>
   </div>
@@ -214,6 +223,10 @@ html{background:#F2F0F8;}
     <!-- 설명 -->
   <div class="topbar-sub">
     실시간 업계 뉴스와 동향을 한눈에 확인하세요.
+  </div>
+
+  <div class="topbar-theme-bg">
+    🎢 🎡
   </div>
 
 </div>
