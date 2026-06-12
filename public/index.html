@@ -47,10 +47,19 @@ html{background:#F2F0F8;}
 .today-date{		font-size:12px;		color:var(--txt2);}		
 .topbar-main{		display:flex;		justify-content:space-between;		align-items:center;		  margin-bottom:6px;}		
 .topbar-title-wrap{  display:flex;  align-items:center;  gap:12px;}
-.topbar-icon{  width:44px;  height:44px;  display:flex;  align-items:center;  justify-content:center;  border-radius:14px;  background:#F0EEFF;  font-size:22px;  flex-shrink:0;}  
+.topbar-icon{  width:56px;  height:56px;  display:flex;  align-items:center;  justify-content:center;  border-radius:16px;  background:#F5F3FF;  flex-shrink:0;}
+.topbar-icon svg{  width:42px;  height:42px;}
 .topbar-sub{		font-size:12px;		color:var(--txt2);}		
 /* 놀이공원 배경 추가 */		  
-.topbar-theme-bg{  position:absolute;  right:16px;  bottom:-6px;  font-size:52px;  opacity:.08;  user-select:none;  pointer-events:none;}  
+.topbar-bg-illust{  position:absolute;  right:10px;  bottom:0;  width:220px;  height:90px;  opacity:.12;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 90'%3E%3Cg fill='none' stroke='%236E5BFF' stroke-width='2'%3E%3Ccircle cx='170' cy='40' r='20'/%3E%3Cline x1='170' y1='20' x2='170' y2='60'/%3E%3Cline x1='150' y1='40' x2='190' y2='40'/%3E%3Cpath d='M20 70 C60 70 70 15 110 15 C150 15 150 70 210 70'/%3E%3C/g%3E%3C/svg%3E");
+
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:right bottom;
+
+  pointer-events:none;
+}
   
 
 /*  탭 영역(뉴스 가격비교 트렌드)  */
@@ -211,9 +220,18 @@ html{background:#F2F0F8;}
   <!-- 타이틀 + 버튼 -->
   <div class="topbar-main"> 
    <div class="topbar-title-wrap">
-    <div class="topbar-icon">
-      🏰
-    </div>
+<div class="topbar-icon">
+  <svg viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="12" fill="#F0EEFF"/>
+    <path d="M7 17V10L9.5 8.5V5L12 7L14.5 5V8.5L17 10V17"
+      stroke="#6E5BFF"
+      stroke-width="1.6"
+      stroke-linejoin="round"/>
+    <path d="M10.5 17V13.5C10.5 12.7 11.2 12 12 12C12.8 12 13.5 12.7 13.5 13.5V17"
+      stroke="#6E5BFF"
+      stroke-width="1.6"/>
+  </svg>
+</div>
       <div class="topbar-title">테마파크 인사이트</div>
    </div>
       <!-- <div class="topbar-sub" id="today-date"></div> -->
@@ -224,10 +242,7 @@ html{background:#F2F0F8;}
   <div class="topbar-sub">
     실시간 업계 뉴스와 동향을 한눈에 확인하세요.
   </div>
-
-  <div class="topbar-theme-bg">
-    🎢 🎡
-  </div>
+<div class="topbar-bg-illust"></div>
 
 </div>
 
