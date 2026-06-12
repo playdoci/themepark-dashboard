@@ -853,8 +853,12 @@ async function fetchNaverLivePrice(parkKey, el) {
   }
 }
 
-function refreshNews(){loadNews();}
+/*function refreshNews(){loadNews();}*/
+function refreshNews() {const btn = document.querySelector('.refresh-btn');  tn.classList.add('is-rotating');
+  setTimeout(() => { btn.classList.remove('is-rotating');}, 400);
 
+  // 기존 새로고침 로직
+}
 
 // ── 가격비교 ─────────────────────────────────────────────────
 async function loadPriceData(parkKey) {
