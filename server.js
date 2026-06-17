@@ -130,6 +130,27 @@ function generatePricesJs(PARK_PRICES) {
 // ── 카테고리 API ──────────────────────────────────────────────
 app.get('/api/categories', (req, res) => res.json(categories));
 
+// 일반 사용자용 카테고리 추가 (인증 불필요) - 항상 isDefault:false로 생성됨
+app.post('/api/categories/add', (req, res) => {
+  const { name } = req.body;
+  if (!name) return res.status(400).json({ error: '카테고리명 필요' });
+  if (categories.find(c => c.name === name))
+    return res.status(400).json({ error: '이미 존재하는 카테고리입니다' });
+  const item = { id: 'cat_' + Date.now(), name, isDefault: false };
+  categories.push(item);
+  res.json({ success: true, item });
+});
+
+// 일반 사용자용 카테고리 삭제 (인증 불필요) - 기본 카테고리는 삭제 불가
+app.delete('/api/categories/:id', (req, res) => {
+  const { id } = req.params;
+  const cat = categories.find(c => c.id === id);
+  if (!cat) return res.status(404).json({ error: '카테고리를 찾을 수 없습니다' });
+  if (cat.isDefault) return res.status(403).json({ error: '기본 카테고리는 삭제할 수 없습니다' });
+  categories = categories.filter(c => c.id !== id);
+  res.json({ success: true });
+});
+
 app.post('/api/admin/categories', adminAuth, (req, res) => {
   const { name } = req.body;
   if (!name) return res.status(400).json({ error: '카테고리명 필요' });
@@ -140,11 +161,11 @@ app.post('/api/admin/categories', adminAuth, (req, res) => {
   res.json({ success: true, item });
 });
 
+// 관리자용 카테고리 삭제 - 기본 카테고리도 삭제 가능
 app.delete('/api/admin/categories/:id', adminAuth, (req, res) => {
   const { id } = req.params;
   const cat = categories.find(c => c.id === id);
   if (!cat) return res.status(404).json({ error: '카테고리를 찾을 수 없습니다' });
-  if (cat.isDefault) return res.status(400).json({ error: '기본 카테고리는 삭제할 수 없습니다' });
   categories = categories.filter(c => c.id !== id);
   res.json({ success: true });
 });
