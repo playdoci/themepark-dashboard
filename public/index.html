@@ -120,6 +120,33 @@ html{background:#F2F0F8;}
 .chips-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
 .chip{padding:4px 11px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);font-size:11px;font-weight:500;color:var(--txt2);cursor:pointer;white-space:nowrap;}
 .chip.active{background:#8B7CFF; color: #fff;}
+
+/* 카테고리 관리(+) 버튼 */
+.cat-manage-btn{width:18px;height:18px;border:none;border-radius:50%;background:#F0EEFF;color:#8B7CFF;font-size:13px;font-weight:700;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-left:6px;vertical-align:middle;padding:0;}
+.cat-manage-btn:active{background:#E3DEFF;}
+
+/* 카테고리 관리 모달 */
+.cat-modal-overlay{position:fixed;inset:0;background:rgba(20,16,40,.35);backdrop-filter:blur(2px);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.cat-modal-overlay.show{opacity:1;pointer-events:auto;}
+.cat-modal-sheet{width:100%;max-width:430px;background:#fff;border-radius:26px 26px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.12);transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.9,.3,1);max-height:75vh;display:flex;flex-direction:column;}
+.cat-modal-overlay.show .cat-modal-sheet{transform:translateY(0);}
+.cat-modal-handle{width:36px;height:4px;border-radius:4px;background:var(--border2);margin:0 auto 14px;}
+.cat-modal-title{font-size:16px;font-weight:800;color:var(--txt);margin-bottom:4px;}
+.cat-modal-sub{font-size:11.5px;color:var(--txt2);margin-bottom:14px;}
+.cat-modal-row{display:flex;gap:8px;margin-bottom:14px;}
+.cat-modal-input{flex:1;padding:11px 14px;border-radius:14px;border:0.5px solid var(--border2);background:var(--bg2);font-size:13px;color:var(--txt);outline:none;}
+.cat-modal-input:focus{border-color:#8B7CFF;background:#fff;}
+.cat-modal-add{padding:0 18px;border:none;border-radius:14px;background:#8B7CFF;color:#fff;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.cat-modal-add:active{background:#7A6AE8;}
+.cat-modal-msg{font-size:11.5px;color:var(--red);margin:-6px 0 10px;min-height:1px;}
+.cat-modal-list{overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:6px;}
+.cat-modal-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:14px;background:var(--bg2);font-size:13px;color:var(--txt);}
+.cat-modal-item.is-default{color:var(--txt2);}
+.cat-modal-item-name{font-weight:500;}
+.cat-modal-badge{font-size:9.5px;color:var(--txt3);background:var(--bg3);padding:2px 7px;border-radius:8px;margin-left:6px;font-weight:600;}
+.cat-modal-del{width:24px;height:24px;border:none;border-radius:50%;background:var(--red-bg);color:var(--red);font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;padding:0;}
+.cat-modal-del:active{opacity:.7;}
+.cat-modal-close{display:block;width:100%;text-align:center;padding:13px;margin-top:14px;border-radius:14px;border:none;background:var(--bg2);color:var(--txt2);font-size:13px;font-weight:600;cursor:pointer;}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
 .nmeta{font-size:11px;color:var(--txt2);}
 .nsrc{font-weight:500;}
@@ -312,6 +339,7 @@ html{background:#F2F0F8;}
     <div class="news-block-label">
       카테고리
       <span class="news-block-sub">중복선택가능</span>
+      <button class="cat-manage-btn" onclick="openCatModal()" aria-label="카테고리 추가/삭제">+</button>
     </div>
 
     <div class="chips-wrap" id="newsChips" style="margin-top:7px;"></div>
@@ -611,6 +639,64 @@ function renderChips() {
   wrap.innerHTML = allCategories.map(cat => `
     <div class="chip${selectedCategories.has(cat.name)?' active':''}"
       onclick="toggleCategory('${cat.name}',this)">${cat.name}</div>`).join('');
+}
+
+// ── 카테고리 관리 모달 ───────────────────────────────────────
+function openCatModal() {
+  document.getElementById('catModalMsg').textContent = '';
+  document.getElementById('catModalInput').value = '';
+  renderCatModalList();
+  document.getElementById('catModalOverlay').classList.add('show');
+}
+function closeCatModal() {
+  document.getElementById('catModalOverlay').classList.remove('show');
+}
+function renderCatModalList() {
+  const list = document.getElementById('catModalList');
+  list.innerHTML = allCategories.map(cat => `
+    <div class="cat-modal-item${cat.isDefault?' is-default':''}">
+      <span class="cat-modal-item-name">${cat.name}${cat.isDefault?'<span class="cat-modal-badge">기본</span>':''}</span>
+      ${cat.isDefault ? '' : `<button class="cat-modal-del" onclick="deleteCategoryByUser('${cat.id}')">✕</button>`}
+    </div>`).join('');
+}
+async function submitNewCategory() {
+  const input = document.getElementById('catModalInput');
+  const msg = document.getElementById('catModalMsg');
+  const name = input.value.trim();
+  msg.textContent = '';
+  if (!name) { msg.textContent = '카테고리명을 입력해주세요'; return; }
+  try {
+    const res = await fetch(`${API}/categories/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    const data = await res.json();
+    if (!res.ok) { msg.textContent = data.error || '추가에 실패했어요'; return; }
+    allCategories.push(data.item);
+    input.value = '';
+    renderCatModalList();
+    renderChips();
+  } catch(e) {
+    msg.textContent = '네트워크 오류가 발생했어요';
+  }
+}
+async function deleteCategoryByUser(id) {
+  const msg = document.getElementById('catModalMsg');
+  msg.textContent = '';
+  try {
+    const res = await fetch(`${API}/categories/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (!res.ok) { msg.textContent = data.error || '삭제에 실패했어요'; return; }
+    const removed = allCategories.find(c => c.id === id);
+    allCategories = allCategories.filter(c => c.id !== id);
+    if (removed) { selectedCategories.delete(removed.name); if (selectedCategories.size===0) selectedCategories.add('전체'); }
+    renderCatModalList();
+    renderChips();
+    applyAllFilters();
+  } catch(e) {
+    msg.textContent = '네트워크 오류가 발생했어요';
+  }
 }
 
 function toggleCategory(name, el) {
@@ -1219,5 +1305,21 @@ window.addEventListener('storage', e => {
   loadNews();
 })();
 </script>
+<!-- 카테고리 관리 모달 -->
+<div class="cat-modal-overlay" id="catModalOverlay" onclick="if(event.target===this)closeCatModal()">
+  <div class="cat-modal-sheet">
+    <div class="cat-modal-handle"></div>
+    <div class="cat-modal-title">카테고리 관리</div>
+    <div class="cat-modal-sub">새 카테고리를 추가하거나 삭제할 수 있어요</div>
+    <div class="cat-modal-row">
+      <input class="cat-modal-input" id="catModalInput" placeholder="카테고리명 (예: 축제)" maxlength="10" onkeydown="if(event.key==='Enter')submitNewCategory()">
+      <button class="cat-modal-add" onclick="submitNewCategory()">추가</button>
+    </div>
+    <div class="cat-modal-msg" id="catModalMsg"></div>
+    <div class="cat-modal-list" id="catModalList"></div>
+    <button class="cat-modal-close" onclick="closeCatModal()">닫기</button>
+  </div>
+</div>
+
 </body>
 </html>
