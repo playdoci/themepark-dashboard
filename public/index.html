@@ -86,8 +86,11 @@ html{background:#F2F0F8;}
 .news-status{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
 .dot-live{width:6px;height:6px;border-radius:50%;background:#3B6D11;flex-shrink:0;}
 .status-t{font-size:11px;color:var(--txt2);}
-.ncard{ display:block; background:rgba(255,255,255,.75);  border:none;  border-radius:22px;  padding:18px;  margin-bottom:8px;  box-shadow:  0 6px 24px rgba(0,0,0,.04);  
+.ncard{ display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.75);  border:none;  border-radius:22px;  padding:15px;  margin-bottom:4px;  box-shadow:  0 6px 24px rgba(0,0,0,.04);  
        /*뉴스 밑줄 제거*/ text-decoration:none; }
+.ncard-body{flex:1;min-width:0;}
+.ncard-arrow{width:26px;height:26px;border-radius:50%;background:#F0EEFF;color:#8B7CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ncard-arrow svg{width:8px;height:8px;}
 .ntag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-bottom:6px;font-weight:500;}
 .tag-워터파크{background:var(--teal-bg);color:var(--teal);}
 .tag-이벤트{background:var(--blue-bg);color:var(--blue);}
@@ -97,10 +100,13 @@ html{background:#F2F0F8;}
 .tag-스파{background:var(--purple-bg);color:var(--purple);}
 .tag-뉴스,.tag-안내{background:var(--bg2);color:var(--txt2);}
 .tag-협회{background:#F3E8FF;color:#7C3AED;}
+.src-naver{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-bottom:6px;font-weight:500;background:var(--green-bg);color:var(--green);margin-left:4px;}
+.src-google{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-bottom:6px;font-weight:500;background:var(--red-bg);color:var(--red);margin-left:4px;}
+.src-manual{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-bottom:6px;font-weight:500;background:#F3E8FF;color:#7C3AED;margin-left:4px;}
 
 /* 뉴스 블럭 카드 */
 .news-block{background:rgba(255,255,255,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.6);border-radius:24px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.02),0 10px 24px rgba(0,0,0,.04);margin-bottom:10px;}
-.news-block-section{padding:10px 18px;}
+.news-block-section{padding:7px 18px;}
 .news-block-divider{height:0.5px;background:rgba(0,0,0,0.07);}
 .news-block-label{font-size:13px;font-weight:700;color:var(--txt);}
 .news-block-sub{font-size:11px;font-weight:400;color:var(--txt2);margin-left:6px;}
@@ -117,9 +123,8 @@ html{background:#F2F0F8;}
 .filter-body.open{max-height:600px;}
 
 /* 구글 뉴스 추가 로딩 바 */
-.news-loadbar{height:3px;border-radius:3px;background:var(--bg2);overflow:hidden;margin:10px 2px 0;position:relative;}
-.news-loadbar-fill{position:absolute;top:0;left:0;height:100%;width:40%;border-radius:3px;background:#8B7CFF;animation:loadbar-slide 1.1s ease-in-out infinite;}
-@keyframes loadbar-slide{0%{left:-40%;}100%{left:100%;}}
+.news-loadbar{height:4px;border-radius:4px;background:var(--bg2);overflow:hidden;margin:10px 2px 0;position:relative;}
+.news-loadbar-fill{position:absolute;top:0;left:0;height:100%;width:0%;border-radius:4px;background:#8B7CFF;transition:width .25s ease;}
 
 
 /* 블록별 간격 */
@@ -166,7 +171,7 @@ html{background:#F2F0F8;}
 .ntitle{font-size:14px;font-weight:500;color:var(--txt);line-height:1.4;margin-bottom:5px;}
 .nmeta{font-size:11px;color:var(--txt2);}
 .nsrc{font-weight:500;}
-.npark-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:10px;background:var(--bg2);color:var(--txt2);margin-left:4px;}
+.npark-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;background:var(--bg2);color:var(--txt2);margin-left:4px;}
 .spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-box{text-align:center;padding:30px;color:var(--txt2);font-size:14px;}
@@ -431,14 +436,14 @@ html{background:#F2F0F8;}
     </div>
   </div>
 
-  <div class="news-loadbar" id="newsLoadbar" style="display:none;">
-    <div class="news-loadbar-fill"></div>
-  </div>
   <div class="news-status" style="margin-top:10px;">
     <div class="dot-live"></div>
     <div class="status-t" id="news-status-text">뉴스 로딩 중...</div>
   </div>
-  <div id="news-list"><div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div></div>
+  <div class="news-loadbar" id="newsLoadbar" style="display:none; margin-top:7px;">
+    <div class="news-loadbar-fill"></div>
+  </div>
+  <div id="news-list" style="margin-top:15px;"><div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div></div>
   <a class="naver-more" id="naver-more-link" href="https://search.naver.com/search.naver?where=news&query=테마파크+워터파크" target="_blank">네이버에서 더 보기 →</a>
 </div>
 <div id="tab-price" class="section">
@@ -789,7 +794,10 @@ function updatePortalLinks() {
 async function loadNews() {
   document.getElementById('news-status-text').textContent='검색 중...';
   document.getElementById('news-list').innerHTML='<div class="loading-box"><div class="spinner"></div>뉴스 검색 중...</div>';
-  document.getElementById('newsLoadbar').style.display='none';
+  const loadbarEl = document.getElementById('newsLoadbar');
+  const loadbarFill = loadbarEl.querySelector('.news-loadbar-fill');
+  loadbarEl.style.display='none';
+  loadbarFill.style.width='0%';
 
   try {
     // ① 네이버 뉴스 먼저 — 빠르게 표시
@@ -813,23 +821,27 @@ async function loadNews() {
 
     document.getElementById('news-status-text').textContent =
       `네이버 ${naverArticles.length}건 · 구글 추가 로딩 중...`;
-    document.getElementById('newsLoadbar').style.display='block';
+    loadbarEl.style.display='block';
     updatePortalLinks();
     applyAllFilters(); // ← 네이버 뉴스 즉시 화면에 표시
 
-    // ② 구글 뉴스 — 완전히 분리해서 백그라운드 실행 (await 없이)
+    // ② 구글 뉴스 — 완전히 분리해서 백그라운드 실행 (await 없이), 파크별 완료마다 진행률 갱신
     const seen = new Set(allArticles.map(a=>a.title));
+    const totalParks = PARK_LIST.length;
+    let doneParks = 0;
     Promise.allSettled(
       PARK_LIST.map(p =>
-        fetchGoogleNews(p.keyword).then(items =>
-          items
+        fetchGoogleNews(p.keyword).then(items => {
+          doneParks++;
+          loadbarFill.style.width = Math.round(doneParks/totalParks*100) + '%';
+          return items
             .filter(a => p.keyword.split(' ').some(kw => a.title.includes(kw)))
             .filter(a => { if(seen.has(a.title)) return false; seen.add(a.title); return true; })
-            .map(a=>({...a, parkName:p.name, sourceType:'google', sentiment:getSentiment(a.title)}))
-        ).catch(() => [])
+            .map(a=>({...a, parkName:p.name, sourceType:'google', sentiment:getSentiment(a.title)}));
+        }).catch(() => { doneParks++; loadbarFill.style.width = Math.round(doneParks/totalParks*100) + '%'; return []; })
       )
     ).then(results => {
-      document.getElementById('newsLoadbar').style.display='none';
+      loadbarFill.style.width='100%';
       const googleArticles = results
         .filter(r=>r.status==='fulfilled')
         .flatMap(r=>r.value);
@@ -847,7 +859,7 @@ async function loadNews() {
   } catch(e) {
     document.getElementById('news-list').innerHTML='<div class="loading-box">뉴스를 불러올 수 없습니다.<br>잠시 후 다시 시도해주세요.</div>';
     document.getElementById('news-status-text').textContent='연결 오류';
-    document.getElementById('newsLoadbar').style.display='none';
+    loadbarEl.style.display='none';
   }
 }
 
@@ -924,13 +936,19 @@ function renderNewsArticles(arts) {
   const sentimentIcon = { positive:'😊', negative:'😟', neutral:'' };
   list.innerHTML = arts.map(a => `
     <a class="ncard" href="${a.url||'#'}" target="_blank" rel="noopener">
-      <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
-      ${a.isManual?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#F3E8FF;color:#7C3AED;margin-left:4px;">직접등록</span>`:''}
-      ${a.sourceType==='google'?`<span style="font-size:10px;padding:1px 6px;border-radius:10px;background:#E8F5E3;color:#3B6D11;margin-left:4px;">구글</span>`:''}
-      ${a.parkName&&!a.isManual?`<span class="npark-badge">${a.parkName}</span>`:''}
-      ${sentimentIcon[a.sentiment]?`<span style="font-size:11px;margin-left:3px;">${sentimentIcon[a.sentiment]}</span>`:''}
-      <div class="ntitle">${a.title}</div>
-      <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
+      <div class="ncard-body">
+        <span class="ntag tag-${a.tag||'뉴스'}">${a.tag||'뉴스'}</span>
+        ${a.sourceType==='naver'?`<span class="src-naver">네이버</span>`:''}
+        ${a.sourceType==='google'?`<span class="src-google">구글</span>`:''}
+        ${a.isManual?`<span class="src-manual">직접등록</span>`:''}
+        ${a.parkName&&!a.isManual?`<span class="npark-badge">${a.parkName}</span>`:''}
+        ${sentimentIcon[a.sentiment]?`<span style="font-size:11px;margin-left:3px;">${sentimentIcon[a.sentiment]}</span>`:''}
+        <div class="ntitle">${a.title}</div>
+        <div class="nmeta"><span class="nsrc">${a.source||''}</span>${a.date?' · '+a.date:''}</div>
+      </div>
+      <div class="ncard-arrow">
+        <svg viewBox="0 0 8 12" fill="none"><path d="M1 1L7 6L1 11" stroke="#8B7CFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
     </a>`).join('');
 }
 
