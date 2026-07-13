@@ -503,24 +503,25 @@ html{background:#F2F0F8;}
 <script>
 const API = '/api';
 const PARK_LIST = [
-  { key:'woojin',       name:'웅진플레이도시',         keyword:'웅진플레이도시' },
-  { key:'caribbean',    name:'캐리비안베이',            keyword:'캐리비안베이' },
-  { key:'oceanworld',   name:'오션월드',                keyword:'비발디파크 오션월드' },
-  { key:'onmount',      name:'원마운트',                keyword:'원마운트 워터파크' },
-  { key:'islandcastle', name:'아일랜드캐슬',            keyword:'아일랜드캐슬' },
-  { key:'termeden',     name:'테르메덴',                keyword:'테르메덴' },
-  { key:'paradise_city',name:'파라다이스시티 씨메르',   keyword:'파라다이스시티 씨메르' },
-  { key:'inspire',      name:'인스파이어 스플래시 베이',keyword:'인스파이어 스플래시베이' },
-  { key:'aquafield',    name:'아쿠아필드 하남',         keyword:'아쿠아필드 하남' },
-  { key:'asanspa',      name:'아산스파비스',            keyword:'아산스파비스' },
-  { key:'splash',       name:'스플라스리솜',            keyword:'스플라스 리솜' },
-  { key:'ocean_ca',     name:'오션어드벤처 천안',       keyword:'오션어드벤처 천안' },
-  { key:'paradise',     name:'파라다이스 도고',         keyword:'파라다이스 도고' },
-  { key:'everland',     name:'에버랜드',                keyword:'에버랜드' },
-  { key:'lotte',        name:'롯데월드',                keyword:'롯데월드' },
-  { key:'lego',         name:'레고랜드',                keyword:'레고랜드 코리아' },
-  { key:'seoul',        name:'서울랜드',                keyword:'서울랜드' },
-  { key:'gyeongju',     name:'경주월드',                keyword:'경주월드' },
+  { key:'woojin',       name:'웅진플레이도시',          keyword:'웅진플레이도시',          parkType:'waterpark' },
+  { key:'caribbean',    name:'캐리비안베이',             keyword:'캐리비안베이',             parkType:'waterpark' },
+  { key:'oceanworld',   name:'오션월드',                 keyword:'비발디파크 오션월드',      parkType:'waterpark' },
+  { key:'onmount',      name:'원마운트',                 keyword:'원마운트 워터파크',        parkType:'waterpark' },
+  { key:'islandcastle', name:'아일랜드캐슬',             keyword:'아일랜드캐슬',             parkType:'waterpark' },
+  { key:'termeden',     name:'테르메덴',                 keyword:'테르메덴',                 parkType:'spa' },
+  { key:'paradise_city',name:'파라다이스시티 씨메르',    keyword:'파라다이스시티 씨메르',    parkType:'spa' },
+  { key:'inspire',      name:'인스파이어 스플래시 베이', keyword:'인스파이어 스플래시베이',  parkType:'waterpark' },
+  { key:'aquafield',    name:'아쿠아필드 하남',          keyword:'아쿠아필드 하남',          parkType:'waterpark' },
+  { key:'asanspa',      name:'아산스파비스',             keyword:'아산스파비스',             parkType:'spa' },
+  { key:'splash',       name:'스플라스리솜',             keyword:'스플라스 리솜',            parkType:'waterpark' },
+  { key:'ocean_ca',     name:'오션어드벤처 천안',        keyword:'오션어드벤처 천안',        parkType:'waterpark' },
+  { key:'paradise',     name:'파라다이스 도고',          keyword:'파라다이스 도고',          parkType:'spa' },
+  { key:'everland',     name:'에버랜드',                 keyword:'에버랜드',                 parkType:'themepark' },
+  { key:'lotte',        name:'롯데월드',                 keyword:'롯데월드',                 parkType:'themepark' },
+  { key:'lego',         name:'레고랜드',                 keyword:'레고랜드 코리아',          parkType:'themepark' },
+  { key:'seoul',        name:'서울랜드',                 keyword:'서울랜드',                 parkType:'themepark' },
+  { key:'gyeongju',     name:'경주월드',                 keyword:'경주월드',                 parkType:'themepark' },
+  { key:'waterpark_kw', name:'워터파크',                 keyword:'워터파크',                 parkType:'waterpark', isKeyword:true },
 ];
 const PARKS = [
   {key:'woojin',       name:'웅진플레이도시',         icon:'🌊', cat:'워터파크', loc:'경기 부천'},
@@ -837,7 +838,17 @@ async function loadNews() {
           return items
             .filter(a => p.keyword.split(' ').some(kw => a.title.includes(kw)))
             .filter(a => { if(seen.has(a.title)) return false; seen.add(a.title); return true; })
-            .map(a=>({...a, parkName:p.name, sourceType:'google', sentiment:getSentiment(a.title)}));
+            .map(a => {
+              const fullText = a.title + ' ' + (a.summary||'');
+              const subTag = p.parkType==='waterpark' ? '워터파크' : p.parkType==='spa' ? '스파' : null;
+              return {
+                ...a,
+                parkName: p.isKeyword ? null : p.name,
+                sourceType: 'google',
+                sentiment: getSentiment(a.title),
+                subTag,
+              };
+            });
         }).catch(() => { doneParks++; loadbarFill.style.width = Math.round(doneParks/totalParks*100) + '%'; return []; })
       )
     ).then(results => {
@@ -873,14 +884,14 @@ function applyAllFilters() {
     arts = arts.filter(a => {
       return [...selectedCategories].some(cat => {
         const t = a.title.toLowerCase();
-        if (cat==='워터파크')  return a.tag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
-        if (cat==='스파/온천') return a.tag==='스파'||t.includes('스파')||t.includes('온천');
+        if (cat==='워터파크')  return a.tag==='워터파크'||a.subTag==='워터파크'||t.includes('워터파크')||t.includes('물놀이');
+        if (cat==='스파/온천') return a.tag==='스파'||a.subTag==='스파'||t.includes('스파')||t.includes('온천');
         if (cat==='이벤트')   return a.tag==='이벤트'||t.includes('이벤트')||t.includes('행사');
         if (cat==='가격/할인') return a.tag==='가격'||t.includes('할인')||t.includes('입장료');
         if (cat==='신규시설') return a.tag==='신규시설'||t.includes('신규')||t.includes('리뉴얼');
         if (cat==='개장/폐장') return a.tag==='개장'||t.includes('개장')||t.includes('폐장');
         if (cat==='협회')     return a.tag==='협회'||a.isManual;
-        return a.tag===cat||a.title.includes(cat);
+        return a.tag===cat||a.subTag===cat||a.title.includes(cat);
       });
     });
   }
