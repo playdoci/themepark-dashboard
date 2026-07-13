@@ -34,27 +34,29 @@ function loadPrices() {
 }
 
 const PARK_LIST = [
-  { key:'woojin',       name:'웅진플레이도시',         keyword:'웅진플레이도시' },
-  { key:'caribbean',    name:'캐리비안베이',            keyword:'캐리비안베이' },
-  { key:'oceanworld',   name:'오션월드',                keyword:'비발디파크 오션월드' },
-  { key:'onmount',      name:'원마운트',                keyword:'원마운트 워터파크' },
-  { key:'islandcastle', name:'아일랜드캐슬',            keyword:'아일랜드캐슬' },
-  { key:'termeden',     name:'테르메덴',                keyword:'테르메덴' },
-  { key:'paradise_city',name:'파라다이스시티 씨메르',   keyword:'파라다이스시티 씨메르' },
-  { key:'inspire',      name:'인스파이어 스플래시 베이',keyword:'인스파이어 스플래시베이' },
-  { key:'aquafield',    name:'아쿠아필드 하남',         keyword:'아쿠아필드 하남' },
-  { key:'asanspa',      name:'아산스파비스',            keyword:'아산스파비스' },
-  { key:'splash',       name:'스플라스리솜',            keyword:'스플라스 리솜' },
-  { key:'ocean_ca',     name:'오션어드벤처 천안',       keyword:'오션어드벤처 천안' },
-  { key:'paradise',     name:'파라다이스 도고',         keyword:'파라다이스 도고' },
-  { key:'everland',     name:'에버랜드',                keyword:'에버랜드' },
-  { key:'lotte',        name:'롯데월드',                keyword:'롯데월드' },
-  { key:'lego',         name:'레고랜드',                keyword:'레고랜드 코리아' },
-  { key:'seoul',        name:'서울랜드',                keyword:'서울랜드' },
-  { key:'gyeongju',     name:'경주월드',                keyword:'경주월드' },
+  { key:'woojin',       name:'웅진플레이도시',          keyword:'웅진플레이도시',          parkType:'waterpark' },
+  { key:'caribbean',    name:'캐리비안베이',             keyword:'캐리비안베이',             parkType:'waterpark' },
+  { key:'oceanworld',   name:'오션월드',                 keyword:'비발디파크 오션월드',      parkType:'waterpark' },
+  { key:'onmount',      name:'원마운트',                 keyword:'원마운트 워터파크',        parkType:'waterpark' },
+  { key:'islandcastle', name:'아일랜드캐슬',             keyword:'아일랜드캐슬',             parkType:'waterpark' },
+  { key:'termeden',     name:'테르메덴',                 keyword:'테르메덴',                 parkType:'spa' },
+  { key:'paradise_city',name:'파라다이스시티 씨메르',    keyword:'파라다이스시티 씨메르',    parkType:'spa' },
+  { key:'inspire',      name:'인스파이어 스플래시 베이', keyword:'인스파이어 스플래시베이',  parkType:'waterpark' },
+  { key:'aquafield',    name:'아쿠아필드 하남',          keyword:'아쿠아필드 하남',          parkType:'waterpark' },
+  { key:'asanspa',      name:'아산스파비스',             keyword:'아산스파비스',             parkType:'spa' },
+  { key:'splash',       name:'스플라스리솜',             keyword:'스플라스 리솜',            parkType:'waterpark' },
+  { key:'ocean_ca',     name:'오션어드벤처 천안',        keyword:'오션어드벤처 천안',        parkType:'waterpark' },
+  { key:'paradise',     name:'파라다이스 도고',          keyword:'파라다이스 도고',          parkType:'spa' },
+  { key:'everland',     name:'에버랜드',                 keyword:'에버랜드',                 parkType:'themepark' },
+  { key:'lotte',        name:'롯데월드',                 keyword:'롯데월드',                 parkType:'themepark' },
+  { key:'lego',         name:'레고랜드',                 keyword:'레고랜드 코리아',          parkType:'themepark' },
+  { key:'seoul',        name:'서울랜드',                 keyword:'서울랜드',                 parkType:'themepark' },
+  { key:'gyeongju',     name:'경주월드',                 keyword:'경주월드',                 parkType:'themepark' },
+  // 장르 키워드 — 특정 파크가 아닌 워터파크 전체 기사 수집용
+  { key:'waterpark_kw', name:'워터파크',                 keyword:'워터파크',                 parkType:'waterpark', isKeyword: true },
 ];
 
-app.get('/api/parks', (req, res) => res.json(PARK_LIST));
+app.get('/api/parks', (req, res) => res.json(PARK_LIST.filter(p => !p.isKeyword)));
 
 // ── 가격 API ──────────────────────────────────────────────────
 app.get('/api/prices', (req, res) => {
@@ -342,6 +344,7 @@ app.get('/api/news', async (req, res) => {
             const title = item.title.replace(/<[^>]*>/g, '');
             if (seen.has(title)) continue;
             seen.add(title);
+            const fullText = title + ' ' + (item.description||'').replace(/<[^>]*>/g,'');
             naverArticles.push({
               title,
               summary: item.description.replace(/<[^>]*>/g, ''),
@@ -349,13 +352,15 @@ app.get('/api/news', async (req, res) => {
               date: formatDate(item.pubDate),
               pubDate: new Date(item.pubDate).getTime(),
               url: item.originallink || item.link,
-              tag: guessTag(title),
-              parkName: park.name
+              tag: guessTag(fullText),
+              subTag: guessSubTag(fullText) || (park.parkType === 'waterpark' ? '워터파크' : park.parkType === 'spa' ? '스파' : null),
+              parkName: park.isKeyword ? null : park.name,
+              isKeyword: park.isKeyword || false,
             });
           }
         }
         naverArticles.sort((a,b) => b.pubDate - a.pubDate);
-        naverArticles = naverArticles.map(({pubDate,...r})=>r).slice(0, 30);
+        naverArticles = naverArticles.map(({pubDate,...r})=>r).slice(0, 50);
       } else {
         const park = PARK_LIST.find(p => p.key === parkKey);
         if (park) {
@@ -397,15 +402,38 @@ function formatDate(pubDate) {
   const d = new Date(pubDate);
   return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
 }
-function guessTag(text) {
-  if (/개장|오픈|재개|폐장/.test(text)) return '개장';
-  if (/할인|특가|쿠폰|프로모션/.test(text)) return '가격';
-  if (/입장료|요금|가격|인상|인하/.test(text)) return '가격';
-  if (/이벤트|행사|축제|공연/.test(text)) return '이벤트';
-  if (/신규|새로|리뉴얼|신설/.test(text)) return '신규시설';
-  if (/워터파크|물놀이|슬라이드/.test(text)) return '워터파크';
+// 파크명 → 파크타입 매핑
+const WATERPARK_NAMES = ['웅진플레이도시','캐리비안베이','오션월드','원마운트','아일랜드캐슬','인스파이어','아쿠아필드','스플라스','오션어드벤처'];
+const SPA_NAMES = ['테르메덴','씨메르','아산스파비스','파라다이스 도고'];
+
+function getParkTypeTag(text) {
+  if (WATERPARK_NAMES.some(n => text.includes(n))) return '워터파크';
+  if (SPA_NAMES.some(n => text.includes(n))) return '스파';
+  if (/워터파크|물놀이|슬라이드|워터슬라이드/.test(text)) return '워터파크';
   if (/스파|온천|사우나|찜질/.test(text)) return '스파';
-  return '뉴스';
+  return null;
+}
+
+function guessTag(text) {
+  // 콘텐츠 성격 태그 (우선)
+  let contentTag = '뉴스';
+  if (/개장|오픈|재개|폐장/.test(text)) contentTag = '개장';
+  else if (/할인|특가|쿠폰|프로모션/.test(text)) contentTag = '가격';
+  else if (/입장료|요금|가격|인상|인하/.test(text)) contentTag = '가격';
+  else if (/이벤트|행사|축제|공연/.test(text)) contentTag = '이벤트';
+  else if (/신규|새로|리뉴얼|신설/.test(text)) contentTag = '신규시설';
+
+  // 파크타입 태그 (파크명 or 장르 키워드 기반)
+  const parkTypeTag = getParkTypeTag(text);
+
+  // 콘텐츠 태그가 뉴스(기본값)면 파크타입으로 대체, 아니면 콘텐츠 태그 유지 + 파크타입 서브태그
+  if (contentTag === '뉴스' && parkTypeTag) return parkTypeTag;
+  return contentTag;
+}
+
+// 서브태그 — 카테고리 필터용 (워터파크/스파 파크 기사에 항상 추가)
+function guessSubTag(text) {
+  return getParkTypeTag(text);
 }
 
 app.listen(PORT, () => {
