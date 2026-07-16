@@ -331,7 +331,7 @@ app.get('/api/news', async (req, res) => {
         const results = await Promise.allSettled(
           PARK_LIST.map(park =>
             axios.get('https://openapi.naver.com/v1/search/news.json', {
-              params: { query: park.keyword, display: park.key === 'woojin' ? 10 : 5, sort: 'date' },
+              params: { query: park.keyword, display: park.key === 'woojin' ? 20 : 5, sort: 'date' },
               headers: { 'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET }
             }).then(r => ({ items: r.data.items || [], park }))
           )
