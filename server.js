@@ -331,19 +331,26 @@ app.get('/api/news', async (req, res) => {
         const results = await Promise.allSettled(
           PARK_LIST.map(park =>
             axios.get('https://openapi.naver.com/v1/search/news.json', {
-              params: { query: park.keyword, display: 3, sort: 'date' },
+              params: { query: park.keyword, display: park.key === 'woojin' ? 10 : 5, sort: 'date' },
               headers: { 'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET }
             }).then(r => ({ items: r.data.items || [], park }))
           )
         );
         const seen = new Set();
+        const dupCount = {}; // 제목별 중복 횟수 추적
         for (const result of results) {
           if (result.status !== 'fulfilled') continue;
           const { items, park } = result.value;
           for (const item of items) {
             const title = item.title.replace(/<[^>]*>/g, '');
-            if (seen.has(title)) continue;
-            seen.add(title);
+            // 웅진플레이도시는 중복제거 안 함
+            if (park.key !== 'woojin') {
+              if (seen.has(title)) {
+                dupCount[title] = (dupCount[title] || 1) + 1;
+                continue;
+              }
+              seen.add(title);
+            }
             const fullText = title + ' ' + (item.description||'').replace(/<[^>]*>/g,'');
             naverArticles.push({
               title,
@@ -359,8 +366,13 @@ app.get('/api/news', async (req, res) => {
             });
           }
         }
+        // 중복 횟수를 해당 기사에 붙여줌
+        naverArticles = naverArticles.map(a => ({
+          ...a,
+          dupCount: dupCount[a.title] || 0,
+        }));
         naverArticles.sort((a,b) => b.pubDate - a.pubDate);
-        naverArticles = naverArticles.map(({pubDate,...r})=>r).slice(0, 50);
+        naverArticles = naverArticles.map(({pubDate,...r})=>r).slice(0, 80);
       } else {
         const park = PARK_LIST.find(p => p.key === parkKey);
         if (park) {
@@ -392,6 +404,11 @@ app.get('/api/news', async (req, res) => {
   };
   newsCache.set(cacheKey, result);
   res.json(result);
+});
+
+app.post('/api/cache/clear', (req, res) => {
+  newsCache.flushAll();
+  res.json({ success: true });
 });
 
 app.get('/api/health', (req, res) => res.json({ status:'ok', time:new Date().toISOString() }));
