@@ -647,6 +647,40 @@ function setParkFilter(name, el) {
   el.classList.add('active');
   updatePortalLinks();
   applyAllFilters();
+
+  // 특정 파크 선택 시 구글 RSS 추가 검색
+  if (name !== '전체') {
+    const park = PARK_LIST.find(p => p.name === name);
+    if (park) fetchGoogleNewsByPark(park);
+  }
+}
+
+async function fetchGoogleNewsByPark(park) {
+  try {
+    const googleItems = await fetchGoogleNews(park.keyword);
+    if (!googleItems.length) return;
+    const existingTitles = new Set(allArticles.map(a => a.title));
+    const newItems = googleItems
+      .filter(a => !existingTitles.has(a.title))
+      .map(a => ({
+        ...a,
+        parkName: park.isKeyword ? null : park.name,
+        sourceType: 'google',
+        sentiment: getSentiment(a.title),
+        subTag: park.parkType === 'waterpark' ? '워터파크' : park.parkType === 'spa' ? '스파' : null,
+      }));
+    if (!newItems.length) return;
+    allArticles = [...allArticles, ...newItems];
+    // 상태 텍스트 업데이트
+    const statusEl = document.getElementById('news-status-text');
+    const current = statusEl.textContent;
+    if (!current.includes('추가')) {
+      statusEl.textContent = current + ` · 구글 ${newItems.length}건 추가`;
+    }
+    applyAllFilters();
+  } catch(e) {
+    console.warn('파크별 구글 뉴스 추가 검색 실패:', e.message);
+  }
 }
 
 // 기간/소스/감성 단일선택
